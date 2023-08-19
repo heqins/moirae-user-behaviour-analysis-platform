@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化flink模块">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/ReportLogPv.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/constants/ConfigConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/function/ReportDataLoadFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/sink/KafkaSink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/source/KafkaSource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlMainTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/RedisUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/ReportPvWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flink-job/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-etl/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/model/dto/ReportLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/ReportLog.java" afterDir="false" />
-    </list>
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化flink的读取任务" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +127,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692443282937</updated>
-      <workItem from="1692443284190" duration="12435000" />
+      <workItem from="1692443284190" duration="12745000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -208,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692448885234</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: 初始化flink的读取任务">
+      <created>1692456126938</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1692456126938</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,6 +216,7 @@
     <MESSAGE value="feat: 更新report-server" />
     <MESSAGE value="feat: 更新依赖" />
     <MESSAGE value="feat: 初始化flink模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化flink模块" />
+    <MESSAGE value="feat: 初始化flink的读取任务" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化flink的读取任务" />
   </component>
 </project>
