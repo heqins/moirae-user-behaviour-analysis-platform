@@ -4,6 +4,7 @@
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/report-server/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/api-common/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
@@ -11,7 +12,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="report-server" />
+        <module name="flink-etl" />
+        <module name="api-common" />
+        <module name="sink-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,7 +23,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="report-server" options="-parameters" />
+      <module name="api-common" options="" />
+      <module name="flink-etl" options="-parameters" />
+      <module name="sink-server" options="-parameters" />
       <module name="user-behaviour-analysis-platform" options="" />
     </option>
   </component>

@@ -1,7 +1,4 @@
 spring:
-  server:
-    port: 8188
-
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
@@ -13,5 +10,14 @@ spring:
           password: 5323105
           driver-class-name: com.mysql.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
 
+  application:
+    name: report-server
+
+  profiles:
+    active: dev
+
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+
+server:
+  port: 8188

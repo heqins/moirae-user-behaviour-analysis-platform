@@ -11,10 +11,10 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @Slf4j
-public class ReportMain {
+public class SinkMain {
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext application = SpringApplication.run(ReportMain.class, args);
+        ConfigurableApplicationContext application = SpringApplication.run(SinkMain.class, args);
         Environment env = application.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
