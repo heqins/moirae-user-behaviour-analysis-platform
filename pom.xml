@@ -11,7 +11,7 @@
     <modules>
         <module>sink-server</module>
         <module>api-common</module>
-        <module>flink-etl</module>
+        <module>flink-job</module>
     </modules>
 
     <parent>
@@ -123,12 +123,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>${dynamic-ds.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.18</version>
         </dependency>
     </dependencies>
 

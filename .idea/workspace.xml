@@ -4,19 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新依赖">
-      <change afterPath="$PROJECT_DIR$/api-common/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report-server/src/main/java/com/report/server/config/OpenAPIConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report-server/src/main/java/com/report/server/listener/ReportListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report-server/src/main/java/com/report/server/model/dto/ReportLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report-server/src/main/resources/application-dev.yml" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化flink模块">
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/ReportLogPv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/constants/ConfigConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/function/ReportDataLoadFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/sink/KafkaSink.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/source/KafkaSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlMainTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/RedisUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/ReportPvWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-job/src/main/resources/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-etl/pom.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/report-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/model/dto/ReportLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/ReportLog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +39,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -39,6 +50,9 @@
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../repo/cn/hutool/hutool-all/5.8.18/hutool-all-5.8.18-sources.jar!/cn/hutool/json/JSONUtil.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -80,24 +94,41 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "temurin-11",
+    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/flink-job/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.12227076",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.customizations",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/flink-job/src/main/resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/report-server/src/main/resources" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.ReportDataLoadTask">
+    <configuration name="ReportDataLoadTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.ReportDataLoadTask" />
+      <module name="flink-job" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.flink.job.task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SinkMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="sink-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.report.server.SinkMain" />
@@ -105,6 +136,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ReportDataLoadTask" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -114,7 +150,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692443282937</updated>
-      <workItem from="1692443284190" duration="5254000" />
+      <workItem from="1692443284190" duration="12435000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -165,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692445497927</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: 初始化flink模块">
+      <created>1692448885234</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1692448885234</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +231,7 @@
     <MESSAGE value="feat: 更新readme" />
     <MESSAGE value="feat: 更新report-server" />
     <MESSAGE value="feat: 更新依赖" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新依赖" />
+    <MESSAGE value="feat: 初始化flink模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化flink模块" />
   </component>
 </project>
