@@ -1,6 +1,6 @@
 package com.flink.job.task;
 
-import com.api.common.constants.ConfigConstant;
+import com.api.common.constant.ConfigConstant;
 import com.flink.job.function.ReportDataLoadFunction;
 import com.flink.job.sink.KafkaSink;
 import com.flink.job.source.KafkaSource;

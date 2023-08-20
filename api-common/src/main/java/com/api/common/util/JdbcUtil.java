@@ -1,6 +1,5 @@
-package com.init.datasource.task;
+package com.api.common.util;
 
-import com.api.common.util.MyProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
@@ -9,21 +8,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
+/**
+ * @author heqin
+ */
 @Slf4j
-public class MysqlTask {
+public class JdbcUtil {
 
-    public static void main(String[] args) {
+    public static void executeSqlFile(Properties jdbcProperties) {
         Connection connection = null;
         Statement statement = null;
 
         try {
             // Load the JDBC driver
-            String driverName = MyProperties.getStrValue("mysql.driver");
-            String url = MyProperties.getStrValue("mysql.url");
-            String username = MyProperties.getStrValue("mysql.username");
-            String password = MyProperties.getStrValue("mysql.password");
-            String filePath = MyProperties.getStrValue("mysql.sql-file");
+            String driverName = jdbcProperties.getProperty("driver");
+            String url = jdbcProperties.getProperty("url");
+            String username = jdbcProperties.getProperty("username");
+            String password = jdbcProperties.getProperty("password");
+            String filePath = jdbcProperties.getProperty("sql-file");
 
             Class.forName(driverName);
 

@@ -1,6 +1,6 @@
 package com.flink.job.util;
 
-import com.api.common.constants.ConfigConstant;
+import com.api.common.constant.ConfigConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class PropertyUtils {
         try {
             myProperties.load(in);
         }catch (IOException ioe) {
-            log.error("load kafka properties error", ioe);
+            log.error("load properties error", ioe);
             ioe.printStackTrace();
         }
     }

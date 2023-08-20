@@ -4,32 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化pv数据sink到mysql，任务启动类">
-      <change afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/util/MyProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化sink和admin服务">
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/config/Param.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/config/Param.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/config/Parameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/config/Parameters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/constants/ConfigConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constants/ConfigConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constants/ConfigConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ConfigConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/RedisUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/RedisUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/util/MyProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +120,7 @@
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SinkMain">
+  <component name="RunManager" selected="Application.MysqlTask">
     <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.flink.job.task.EtlTaskRunner" />
       <module name="flink-job" />
@@ -150,6 +140,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.flink.job.task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MysqlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.MysqlTask" />
+      <module name="init-datasource" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.init.datasource.task.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -186,6 +189,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MysqlTask" />
         <item itemvalue="Application.EtlTaskRunner" />
         <item itemvalue="Application.ReportDataLoadTask" />
         <item itemvalue="Application.LogEtlTask" />
@@ -202,7 +206,7 @@
       <updated>1692443282937</updated>
       <workItem from="1692443284190" duration="21370000" />
       <workItem from="1692508912295" duration="5167000" />
-      <workItem from="1692515637945" duration="1680000" />
+      <workItem from="1692515637945" duration="7508000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -288,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692512565087</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: 初始化sink和admin服务">
+      <created>1692517549220</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1692517549220</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,6 +327,7 @@
     <MESSAGE value="feat: 更改标题" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql，任务启动类" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化pv数据sink到mysql，任务启动类" />
+    <MESSAGE value="feat: 初始化sink和admin服务" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化sink和admin服务" />
   </component>
 </project>

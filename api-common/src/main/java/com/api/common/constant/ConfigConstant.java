@@ -1,4 +1,4 @@
-package com.api.common.constants;
+package com.api.common.constant;
 
 public interface ConfigConstant {
     public static final String CONFIG_FILE_PATH = "config.properties";

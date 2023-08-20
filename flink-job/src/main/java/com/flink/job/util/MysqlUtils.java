@@ -22,7 +22,6 @@ public class MysqlUtils {
                 .build();
     }
 
-
     public static JdbcConnectionOptions getJdbcConnectionOptions() {
         return jdbcConnectionOptions;
     }

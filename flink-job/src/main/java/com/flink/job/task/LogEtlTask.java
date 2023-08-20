@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.api.common.entity.ReportLog;
 import com.api.common.entity.ReportLogPv;
 import com.flink.job.config.Config;
-import com.api.common.constants.ConfigConstant;
+import com.api.common.constant.ConfigConstant;
 import com.flink.job.sink.KafkaSink;
 import com.flink.job.sink.LogPvMysqlSink;
 import com.flink.job.source.KafkaSource;
