@@ -13,6 +13,8 @@
         <module>sink-server</module>
         <module>api-common</module>
         <module>flink-job</module>
+        <module>admin-server</module>
+        <module>init-datasource</module>
     </modules>
 
     <parent>
@@ -99,13 +101,6 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <version>1.0.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>compile</scope>
-            <version>1.18.28</version>
         </dependency>
 
         <dependency>

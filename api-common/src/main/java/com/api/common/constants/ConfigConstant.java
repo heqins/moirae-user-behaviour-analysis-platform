@@ -1,10 +1,12 @@
-package com.flink.job.constants;
+package com.api.common.constants;
 
 public interface ConfigConstant {
     public static final String CONFIG_FILE_PATH = "config.properties";
 
     public interface Topics {
         public static final String LOG_ETL_MAIN_TOPIC = "log-etl-main";
+
+        public static final String LOG_SINK_TOPIC = "log-sink";
 
         public static final String REPORT_LOG_DATA_TOPIC = "report-log-data";
 

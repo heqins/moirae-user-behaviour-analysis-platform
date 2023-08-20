@@ -1,5 +1,6 @@
 package com.flink.job.config;
 
+import com.api.common.config.Param;
 import org.apache.flink.api.java.utils.ParameterTool;
 
 import java.util.Arrays;

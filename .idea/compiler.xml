@@ -5,6 +5,8 @@
       <directory url="file://$PROJECT_DIR$/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/report-server/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/api-common/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/admin-server/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/init-datasource/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
@@ -14,6 +16,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="flink-job" />
         <module name="api-common" />
+        <module name="admin-server" />
+        <module name="init-datasource" />
         <module name="sink-server" />
       </profile>
     </annotationProcessing>
@@ -23,8 +27,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="admin-server" options="-parameters" />
       <module name="api-common" options="" />
       <module name="flink-job" options="-parameters" />
+      <module name="init-datasource" options="-parameters" />
       <module name="sink-server" options="-parameters" />
       <module name="user-behaviour-analysis-platform" options="" />
     </option>

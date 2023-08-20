@@ -1,5 +1,7 @@
 package com.flink.job.config;
 
+import com.api.common.config.Param;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

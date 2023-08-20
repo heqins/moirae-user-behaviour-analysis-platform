@@ -1,4 +1,4 @@
-package com.flink.job.config;
+package com.api.common.config;
 
 import lombok.Getter;
 

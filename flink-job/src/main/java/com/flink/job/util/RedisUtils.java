@@ -1,6 +1,5 @@
 package com.flink.job.util;
 
-import com.flink.job.config.Config;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;

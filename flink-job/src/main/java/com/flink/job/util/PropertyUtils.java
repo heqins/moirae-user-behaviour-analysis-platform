@@ -1,6 +1,6 @@
 package com.flink.job.util;
 
-import com.flink.job.constants.ConfigConstant;
+import com.api.common.constants.ConfigConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
