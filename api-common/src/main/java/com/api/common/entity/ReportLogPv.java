@@ -8,6 +8,25 @@ public class ReportLogPv {
 
     private Long count;
 
+    public String getAppName() {
+        return appName;
+    }
+
+    private String appName;
+
+    public ReportLogPv(Long windowStart, Long windowEnd, Long count, String appName) {
+        this.windowStart = windowStart;
+        this.windowEnd = windowEnd;
+        this.count = count;
+        this.appName = appName;
+    }
+
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+
     public Long getWindowStart() {
         return windowStart;
     }
@@ -32,12 +51,6 @@ public class ReportLogPv {
         this.count = count;
     }
 
-    public ReportLogPv(Long windowStart, Long windowEnd, Long count) {
-        this.windowStart = windowStart;
-        this.windowEnd = windowEnd;
-        this.count = count;
-    }
-
     public ReportLogPv() {
     }
 
@@ -47,6 +60,7 @@ public class ReportLogPv {
                 "windowStart=" + windowStart +
                 ", windowEnd=" + windowEnd +
                 ", count=" + count +
+                ", appName='" + appName + '\'' +
                 '}';
     }
 }

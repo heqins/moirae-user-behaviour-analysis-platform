@@ -35,6 +35,14 @@ public class PropertyUtils {
         return "";
     }
 
+    public static int getIntValue(String key) {
+        if (myProperties.containsKey(key)) {
+            return Integer.parseInt(myProperties.getProperty(key));
+        }
+
+        return -1;
+    }
+
     public static Properties getKafkaProperty() {
         Properties properties = new Properties();
 

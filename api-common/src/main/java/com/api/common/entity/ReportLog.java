@@ -11,11 +11,21 @@ public class ReportLog {
 
     private String eventName;
 
+    private Long eventTime;
 
-    public ReportLog(String appName, String appVersion, String eventName) {
+    public Long getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Long eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public ReportLog(String appName, String appVersion, String eventName, Long eventTime) {
         this.appName = appName;
         this.appVersion = appVersion;
         this.eventName = eventName;
+        this.eventTime = eventTime;
     }
 
     public ReportLog() {
@@ -51,6 +61,7 @@ public class ReportLog {
                 "appName='" + appName + '\'' +
                 ", appVersion='" + appVersion + '\'' +
                 ", eventName='" + eventName + '\'' +
+                ", eventTime=" + eventTime +
                 '}';
     }
 }

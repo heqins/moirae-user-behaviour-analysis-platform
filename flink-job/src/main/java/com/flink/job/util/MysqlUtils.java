@@ -15,7 +15,7 @@ public class MysqlUtils {
 
     static {
          jdbcConnectionOptions= new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
-                .withUrl(url) // 根据实际情况修改
+                .withUrl(url)
                 .withDriverName("com.mysql.cj.jdbc.Driver")
                 .withUsername(username)
                 .withPassword(password)

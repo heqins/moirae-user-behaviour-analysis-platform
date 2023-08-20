@@ -1,17 +1,22 @@
 package com.flink.job.util;
 
+import com.flink.job.config.Config;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
+/**
+ * @author heqin
+ */
 public class RedisUtils {
 
     public static Jedis jedis;
 
-    //静态代码块初始化 redis
     static {
-        jedis = new Jedis(PropertyUtils.getStrValue("redis.host"), PropertyUtils.getIntegerValue("redis.port"));
-        jedis.select(PropertyUtils.getIntegerValue("redis.db"));
+        //静态代码块初始化 redis
+        jedis = new Jedis(PropertyUtils.getStrValue("redis.host"),
+                PropertyUtils.getIntValue("redis.port"));
+        jedis.select(PropertyUtils.getIntValue("redis.db"));
     }
 
     public static String getData(String s) {
@@ -23,9 +28,10 @@ public class RedisUtils {
     }
 
     public static boolean rpush(String key, List<String> value) {
-        for(int i = 0; i < value.size(); i++) {
-            jedis.rpush(key, value.get(i));
+        for (String s : value) {
+            jedis.rpush(key, s);
         }
+
         return true;
     }
 

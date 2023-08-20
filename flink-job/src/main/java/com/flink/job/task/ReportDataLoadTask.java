@@ -25,8 +25,6 @@ public class ReportDataLoadTask {
         SingleOutputStreamOperator<String> jsonMapOutputStream = sourceStream
                 .process(new ReportDataLoadFunction(invalidReportDataTag));
 
-        jsonMapOutputStream.print();
-
         DataStream<String> sideOutput = jsonMapOutputStream.getSideOutput(invalidReportDataTag);
 
         jsonMapOutputStream.addSink(KafkaSink.createSink(ConfigConstant.Topics.LOG_ETL_MAIN_TOPIC));
