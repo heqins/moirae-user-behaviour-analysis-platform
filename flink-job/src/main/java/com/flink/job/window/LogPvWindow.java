@@ -4,16 +4,13 @@ import com.api.common.entity.ReportLog;
 import com.api.common.entity.ReportLogPv;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
-import org.apache.flink.api.java.tuple.Tuple;
-import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.streaming.api.functions.windowing.ProcessAllWindowFunction;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 import java.util.Iterator;
 
-public class ReportPvWindow extends ProcessWindowFunction<ReportLog, ReportLogPv, String, TimeWindow> {
+public class LogPvWindow extends ProcessWindowFunction<ReportLog, ReportLogPv, String, TimeWindow> {
 
     private ValueState<Long> countState;
 
