@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS `user_behaviour_analysis`;
 CREATE DATABASE IF NOT EXISTS `user_behaviour_analysis`;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`real_time_event_log`;
@@ -22,7 +21,7 @@ PROPERTIES(
 );
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`fail_event_log`;
-CREATE TABLE user_behaviour_analysis.fail_event_log (
+CREATE TABLE `user_behaviour_analysis`.`fail_event_log` (
                                      app_id VARCHAR(255),
                                      event_time DATETIME,
                                      event_date DATE,

@@ -1,7 +1,5 @@
 package com.api.common.util;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -13,7 +11,6 @@ import java.util.Properties;
 /**
  * @author heqin
  */
-@Slf4j
 public class JdbcUtil {
 
     public static void executeSqlFile(Properties jdbcProperties) {
@@ -38,8 +35,16 @@ public class JdbcUtil {
             StringBuilder sqlContent = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    continue;
+                }
+
                 sqlContent.append(line);
+                if (!line.endsWith(";")) {
+                    sqlContent.append("\n");
+                }
             }
+
             reader.close();
 
             // Split SQL commands
@@ -48,17 +53,20 @@ public class JdbcUtil {
             // Execute SQL commands
             statement = connection.createStatement();
             for (String sqlCommand : sqlCommands) {
-                boolean execute = statement.execute(sqlCommand);
+                statement.execute(sqlCommand);
             }
+
             // Close the resources
             statement.close();
             connection.close();
+
+            System.out.println("执行sql语句成功！");
         }catch (Exception e) {
             if (statement != null) {
                 try {
                     statement.close();
                 }catch (SQLException se) {
-                    log.error("close statement error", se);
+                    se.printStackTrace();
                 }
             }
 
@@ -66,9 +74,27 @@ public class JdbcUtil {
                 try {
                     connection.close();
                 }catch (SQLException se) {
-                    log.error("close connection error", se);
+                    se.printStackTrace();
                 }
             }
+
+            System.out.println("执行sql语句失败！");
+            e.printStackTrace();
         }
+    }
+
+    public static Properties generateJdbcConnectionProperties(String url,
+                                                     String username,
+                                                     String password,
+                                                     String filePath,
+                                                     String driverName) {
+        Properties properties = new Properties();
+        properties.setProperty("url", url);
+        properties.setProperty("password", password);
+        properties.setProperty("driver", driverName);
+        properties.setProperty("username", username);
+        properties.setProperty("sql-file", filePath);
+
+        return properties;
     }
 }

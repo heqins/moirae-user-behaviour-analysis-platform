@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-@Slf4j
 public class MyProperties {
     private static final Properties PROPERTIES;
 
@@ -19,7 +18,6 @@ public class MyProperties {
         try {
             PROPERTIES.load(in);
         }catch (IOException ioe) {
-            log.error("load properties error", ioe);
             ioe.printStackTrace();
         }
     }

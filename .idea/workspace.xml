@@ -4,22 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化sink和admin服务">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 数据初始化处理">
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/helper/RedisHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/server/RedisTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constants/ConfigConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ConfigConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/ReportDataLoadTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/MysqlUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/util/PropertyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/util/MyProperties.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,31 +80,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-11&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/heqin/workspace/java/user-behaviour-analysis/flink-job/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.12227076&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;1d92f6445a0e9a3b921da011f8b81c48&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "jdk.selected.JAVA_MODULE": "temurin-11",
+    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/flink-job/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.12227076",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.customizations",
+    "spring.configuration.checksum": "3f6706cba2f40de4fb653e0d285aa3b7",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flink-job/src/main/resources" />
@@ -120,13 +120,13 @@
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MysqlTask">
-    <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.EtlTaskRunner" />
-      <module name="flink-job" />
+  <component name="RunManager" selected="JUnit.RedisTest.testGet">
+    <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
+      <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flink.job.task.*" />
+          <option name="PATTERN" value="com.init.datasource.task.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,8 +134,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogEtlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.LogEtlTask" />
+    <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.EtlTaskRunner" />
       <module name="flink-job" />
       <extension name="coverage">
         <pattern>
@@ -173,6 +173,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RedisTest.testGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sink-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.report.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.report.server" />
+      <option name="MAIN_CLASS_NAME" value="com.report.server.RedisTest" />
+      <option name="METHOD_NAME" value="testGet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AdminMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="admin-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.admin.server.AdminMain" />
@@ -189,10 +205,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RedisTest.testGet" />
+        <item itemvalue="Application.DorisTask" />
         <item itemvalue="Application.MysqlTask" />
         <item itemvalue="Application.EtlTaskRunner" />
         <item itemvalue="Application.ReportDataLoadTask" />
-        <item itemvalue="Application.LogEtlTask" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +223,8 @@
       <updated>1692443282937</updated>
       <workItem from="1692443284190" duration="21370000" />
       <workItem from="1692508912295" duration="5167000" />
-      <workItem from="1692515637945" duration="7508000" />
+      <workItem from="1692515637945" duration="7652000" />
+      <workItem from="1692530065736" duration="4448000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -299,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692517549220</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: 数据初始化处理">
+      <created>1692529969162</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1692529969162</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,6 +353,18 @@
     <MESSAGE value="feat: 初始化pv数据sink到mysql" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql，任务启动类" />
     <MESSAGE value="feat: 初始化sink和admin服务" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化sink和admin服务" />
+    <MESSAGE value="feat: 数据初始化处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 数据初始化处理" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/test/java/com/report/server/RedisTest.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
