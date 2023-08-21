@@ -19,22 +19,19 @@ public class DorisEventHandlerTest {
 
     @Test
     public void flushTest() {
-        addEvents();
+        addEvent();
 
         handler.flush();
     }
 
     @Test
-    public void addEvents() {
-        List<ReportLog> logList = new ArrayList<>();
+    public void addEvent() {
         ReportLog log = new ReportLog();
         log.setEventName("test");
         log.setEventTime(System.currentTimeMillis());
         log.setAppName("popo");
         log.setAppVersion("3.44");
 
-        logList.add(log);
-
-        handler.addEvent(logList);
+        handler.addEvent(log);
     }
 }

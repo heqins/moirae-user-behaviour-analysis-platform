@@ -25,7 +25,7 @@ CREATE TABLE `user_behaviour_analysis`.`fail_event_log` (
                                      app_id VARCHAR(255),
                                      event_time DATETIME,
                                      event_date DATE,
-                                     data_name VARCHAR(64),
+                                     table_name VARCHAR(64),
                                      error_reason VARCHAR(64),
                                      error_handling VARCHAR(64),
                                      event_type VARCHAR(32),

@@ -58,27 +58,23 @@ public class EventLogHandler {
 
     public void run() {
         if (this.flushIntervalMillSeconds > 0) {
-            scheduledExecutorService.scheduleAtFixedRate(this::flush, 200, flushIntervalMillSeconds, TimeUnit.MILLISECONDS);
+            scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, flushIntervalMillSeconds, TimeUnit.MILLISECONDS);
         }
     }
 
-    public void addEvent(List<ReportLog> reportLogs) {
-        if (!CollectionUtils.isEmpty(reportLogs)) {
-            reportLogs.forEach(report -> {
-                if (report != null) {
-                    EventLog eventLog = new EventLog();
-                    eventLog.setAppId(report.getAppName());
-                    eventLog.setEventName(report.getEventName());
-                    eventLog.setEventTime(report.getEventTime());
-                    eventLog.setDataJson(JSONUtil.toJsonStr(report));
+    public void addEvent(ReportLog reportLog) {
+        if (reportLog != null) {
+            EventLog eventLog = new EventLog();
+            eventLog.setAppId(reportLog.getAppName());
+            eventLog.setEventName(reportLog.getEventName());
+            eventLog.setEventTime(reportLog.getEventTime());
+            eventLog.setDataJson(JSONUtil.toJsonStr(reportLog));
 
-                    this.buffers.add(eventLog);
+            this.buffers.add(eventLog);
 
-                    if (this.buffers.size() == this.bufferSize) {
-                        this.flush();
-                    }
-                }
-            });
+            if (this.buffers.size() == this.bufferSize) {
+                this.flush();
+            }
         }
     }
 

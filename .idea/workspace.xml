@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化banner图片">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/GeoIpDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/AppEventsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/FailEventLogHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/resources/Geo-IP/Country.mmdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/resources/banner.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化geoIp2查询国家接口">
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisEventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkMainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +118,7 @@
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GeoIpTest.queryIp">
+  <component name="RunManager" selected="Spring Boot.SinkMain">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
@@ -235,7 +228,7 @@
       <workItem from="1692443284190" duration="21370000" />
       <workItem from="1692508912295" duration="5167000" />
       <workItem from="1692515637945" duration="7652000" />
-      <workItem from="1692530065736" duration="15479000" />
+      <workItem from="1692530065736" duration="17081000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -356,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692630412604</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat: 初始化geoIp2查询国家接口">
+      <created>1692632668700</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692632668700</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,6 +389,7 @@
     <MESSAGE value="feat: 初始化sink服务redis工具类" />
     <MESSAGE value="feat: 初始化doris的数据日志处理类" />
     <MESSAGE value="feat: 初始化banner图片" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化banner图片" />
+    <MESSAGE value="feat: 初始化geoIp2查询国家接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化geoIp2查询国家接口" />
   </component>
 </project>
