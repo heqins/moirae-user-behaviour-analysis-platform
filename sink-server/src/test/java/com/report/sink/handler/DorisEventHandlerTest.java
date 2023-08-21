@@ -1,5 +1,6 @@
 package com.report.sink.handler;
 
+import cn.hutool.json.JSONObject;
 import com.api.common.entity.ReportLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,11 +27,11 @@ public class DorisEventHandlerTest {
 
     @Test
     public void addEvent() {
-        ReportLog log = new ReportLog();
-        log.setEventName("test");
-        log.setEventTime(System.currentTimeMillis());
-        log.setAppName("popo");
-        log.setAppVersion("3.44");
+        JSONObject log = new JSONObject();
+        log.set("event_name", "test");
+        log.set("event_time", System.currentTimeMillis());
+        log.set("app_id", "popo");
+        log.set("app_version", "3.44");
 
         handler.addEvent(log);
     }

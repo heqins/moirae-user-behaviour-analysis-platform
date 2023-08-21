@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.entity.ReportLog;
 import com.report.sink.helper.RedisHelper;
+import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,8 @@ import java.util.List;
 @Component
 @Slf4j
 public class SinkHandler {
-
-    @Resource
-    private RedisHelper redisHelper;
+    @Resource(name = "redisCacheServiceImpl")
+    private ICacheService redisCacheService;
 
     @Resource
     private EventLogHandler eventLogHandler;
@@ -43,14 +43,16 @@ public class SinkHandler {
                 continue;
             }
 
-            ReportLog reportLog = new ReportLog();
-            reportLog.setEventName(jsonObject.getStr("event_name"));
-            reportLog.setEventTime(jsonObject.getLong("event_time"));
-
-            eventLogHandler.addEvent(reportLog);
+            eventLogHandler.addEvent(jsonObject);
 
             // todo: 生成表名
             String tableName = "";
+            boolean isFieldValid = checkEventFields(jsonObject);
+
+            if (!isFieldValid) {
+                failEventLogHandler.addEvent(jsonObject);
+            }
+
 
         }
     }
@@ -64,5 +66,14 @@ public class SinkHandler {
         }
 
         return jsonObject;
+    }
+
+    private boolean checkEventFields(JSONObject jsonObject) {
+        List<String> fields = redisCacheService.getDimCache(jsonObject.getStr("app_id"));
+        for (String field: fields) {
+
+        }
+
+        return true;
     }
 }

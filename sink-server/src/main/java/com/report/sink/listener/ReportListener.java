@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author heqin
+ */
 @Slf4j
 @Component
 public class ReportListener {

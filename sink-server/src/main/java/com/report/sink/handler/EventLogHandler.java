@@ -1,6 +1,7 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.entity.EventLog;
 import com.api.common.entity.ReportLog;
@@ -62,13 +63,13 @@ public class EventLogHandler {
         }
     }
 
-    public void addEvent(ReportLog reportLog) {
-        if (reportLog != null) {
+    public void addEvent(JSONObject jsonObject) {
+        if (jsonObject != null) {
             EventLog eventLog = new EventLog();
-            eventLog.setAppId(reportLog.getAppName());
-            eventLog.setEventName(reportLog.getEventName());
-            eventLog.setEventTime(reportLog.getEventTime());
-            eventLog.setDataJson(JSONUtil.toJsonStr(reportLog));
+            eventLog.setAppId(jsonObject.getStr("app_name"));
+            eventLog.setEventName(jsonObject.getStr("event_name"));
+            eventLog.setEventTime(jsonObject.getLong("event_time"));
+            eventLog.setDataJson(JSONUtil.toJsonStr(jsonObject));
 
             this.buffers.add(eventLog);
 
