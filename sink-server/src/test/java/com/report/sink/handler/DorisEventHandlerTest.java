@@ -3,7 +3,6 @@ package com.report.sink.handler;
 import com.api.common.entity.ReportLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class DorisEventHandlerTest {
 
     @Resource
-    private DorisEventLogHandler handler;
+    private EventLogHandler handler;
 
     @Test
     public void flushTest() {

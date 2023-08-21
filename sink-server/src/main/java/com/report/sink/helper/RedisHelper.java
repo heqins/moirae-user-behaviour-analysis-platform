@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -16,8 +17,16 @@ public class RedisHelper {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
+    public void setIfAbsent(String key, String value) {
+        redisTemplate.opsForValue().setIfAbsent(key, value);
+    }
+
     public void setValue(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
+    }
+
+    public void setValueWithExpire(String key, String value, Long nums, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, nums, timeUnit);
     }
 
     public String getValue(String key) {
