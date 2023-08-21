@@ -1,6 +1,6 @@
-package com.report.server.handler;
+package com.report.sink.handler;
 
-import com.report.server.helper.RedisHelper;
+import com.report.sink.helper.RedisHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,6 +13,7 @@ public class SinkMainHandler {
 
     @Resource
     private RedisHelper redisHelper;
+
 
     public void main() {
 

@@ -1,4 +1,4 @@
-package com.report.server.config;
+package com.report.sink.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

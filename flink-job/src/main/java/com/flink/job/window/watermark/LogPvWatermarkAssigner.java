@@ -1,4 +1,4 @@
-package com.flink.job.window;
+package com.flink.job.window.watermark;
 
 import com.api.common.entity.ReportLog;
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;

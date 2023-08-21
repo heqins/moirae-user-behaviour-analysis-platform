@@ -1,6 +1,6 @@
-package com.report.server;
+package com.report.sink;
 
-import com.report.server.helper.RedisHelper;
+import com.report.sink.helper.RedisHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

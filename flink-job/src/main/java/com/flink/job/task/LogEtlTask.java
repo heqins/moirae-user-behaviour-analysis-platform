@@ -8,7 +8,7 @@ import com.api.common.constant.ConfigConstant;
 import com.flink.job.sink.KafkaSink;
 import com.flink.job.sink.LogPvMysqlSink;
 import com.flink.job.source.KafkaSource;
-import com.flink.job.window.LogPvWatermarkAssigner;
+import com.flink.job.window.watermark.LogPvWatermarkAssigner;
 import com.flink.job.window.LogPvWindow;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;

@@ -4,21 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 数据初始化处理">
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/helper/RedisHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/server/RedisTest.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化sink服务redis工具类">
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/EventLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisEventLogHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/DataSourceProperty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/MyProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/DorisTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/java/com/init/datasource/task/MysqlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/config/OpenAPIConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/OpenAPIConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/RealTimeWarehousingHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/handler/SinkMainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkMainHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/helper/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/server/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/server/RedisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/RedisTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +109,9 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flink-job/src/main/resources" />
@@ -120,7 +126,7 @@
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RedisTest.testGet">
+  <component name="RunManager" selected="JUnit.DorisEventHandlerTest.flushTest">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
@@ -160,15 +166,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportDataLoadTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.ReportDataLoadTask" />
-      <module name="flink-job" />
+    <configuration name="DorisEventHandlerTest.flushTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sink-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flink.job.task.*" />
+          <option name="PATTERN" value="com.report.sink.handler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.report.sink.handler" />
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.DorisEventHandlerTest" />
+      <option name="METHOD_NAME" value="flushTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -177,12 +186,12 @@
       <module name="sink-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.server.*" />
+          <option name="PATTERN" value="com.report.sink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.report.server" />
-      <option name="MAIN_CLASS_NAME" value="com.report.server.RedisTest" />
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.RedisTest" />
       <option name="METHOD_NAME" value="testGet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -198,18 +207,18 @@
     </configuration>
     <configuration name="SinkMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="sink-server" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.report.server.SinkMain" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.report.sink.SinkMain" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DorisEventHandlerTest.flushTest" />
         <item itemvalue="JUnit.RedisTest.testGet" />
         <item itemvalue="Application.DorisTask" />
         <item itemvalue="Application.MysqlTask" />
         <item itemvalue="Application.EtlTaskRunner" />
-        <item itemvalue="Application.ReportDataLoadTask" />
       </list>
     </recent_temporary>
   </component>
@@ -224,7 +233,7 @@
       <workItem from="1692443284190" duration="21370000" />
       <workItem from="1692508912295" duration="5167000" />
       <workItem from="1692515637945" duration="7652000" />
-      <workItem from="1692530065736" duration="4448000" />
+      <workItem from="1692530065736" duration="13282000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -324,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692529969162</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: 初始化sink服务redis工具类">
+      <created>1692534817533</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1692534817533</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,15 +370,16 @@
     <MESSAGE value="feat: 初始化pv数据sink到mysql，任务启动类" />
     <MESSAGE value="feat: 初始化sink和admin服务" />
     <MESSAGE value="feat: 数据初始化处理" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 数据初始化处理" />
+    <MESSAGE value="feat: 初始化sink服务redis工具类" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化sink服务redis工具类" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/test/java/com/report/server/RedisTest.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisEventLogHandler.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

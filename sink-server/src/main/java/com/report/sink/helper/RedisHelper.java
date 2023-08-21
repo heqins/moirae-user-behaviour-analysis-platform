@@ -1,4 +1,4 @@
-package com.report.server.helper;
+package com.report.sink.helper;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
