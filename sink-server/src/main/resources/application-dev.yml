@@ -1,5 +1,13 @@
 spring:
   datasource:
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      max-lifetime: 540000
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
@@ -39,6 +47,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       properties:
         linger.ms: 1
+
     # 消费者
     consumer:
       enable-auto-commit: false

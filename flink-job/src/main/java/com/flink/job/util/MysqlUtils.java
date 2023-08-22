@@ -1,11 +1,6 @@
 package com.flink.job.util;
 
-import com.api.common.entity.ReportLogPv;
 import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 public class MysqlUtils {
     private static String url = PropertyUtils.getStrValue("mysql.url");

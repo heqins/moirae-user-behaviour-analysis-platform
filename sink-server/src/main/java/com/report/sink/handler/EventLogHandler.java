@@ -1,23 +1,24 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.api.common.entity.EventLog;
-import com.api.common.entity.ReportLog;
-import com.report.sink.properties.DataSourceProperty;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
-import java.sql.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author heqin
@@ -27,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class EventLogHandler {
 
+    private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name, event_data) VALUES (?, ?, ?, ?, ?)";
+
     private List<EventLog> buffers;
 
     private ScheduledExecutorService scheduledExecutorService;
@@ -35,12 +38,12 @@ public class EventLogHandler {
 
     private Long flushIntervalMillSeconds = 1000L;
 
-    private DataSourceProperty dataSourceProperty;
+    private DataSource dataSource;
 
-    private final Object lock = new Object();
+    private final ReentrantLock lock = new ReentrantLock();
 
-    public EventLogHandler(DataSourceProperty dataSourceProperty) {
-        this.dataSourceProperty = dataSourceProperty;
+    public EventLogHandler(@Qualifier(value = "doris")DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @PostConstruct
@@ -63,14 +66,8 @@ public class EventLogHandler {
         }
     }
 
-    public void addEvent(JSONObject jsonObject) {
-        if (jsonObject != null) {
-            EventLog eventLog = new EventLog();
-            eventLog.setAppId(jsonObject.getStr("app_name"));
-            eventLog.setEventName(jsonObject.getStr("event_name"));
-            eventLog.setEventTime(jsonObject.getLong("event_time"));
-            eventLog.setDataJson(JSONUtil.toJsonStr(jsonObject));
-
+    public void addEvent(EventLog eventLog) {
+        if (eventLog != null) {
             this.buffers.add(eventLog);
 
             if (this.buffers.size() == this.bufferSize) {
@@ -80,25 +77,21 @@ public class EventLogHandler {
     }
 
     public void flush() {
-        synchronized (lock) {
-            if (buffers.size() > 0) {
-                long currentSystemTime = System.currentTimeMillis();
+        if (this.buffers.isEmpty()) {
+            return;
+        }
 
-                Connection connection = null;
-                PreparedStatement preparedStatement = null;
-                try {
-                    DataSourceProperty.DorisConfig dorisConfig = dataSourceProperty.getDoris();
-                    Class.forName(dorisConfig.getDriver());
+        if (lock.isLocked()) {
+            return;
+        }
 
-                    // Create a connection to the database
-                    connection = DriverManager.getConnection(dorisConfig.getUrl(), dorisConfig.getUsername(), dorisConfig.getPassword());
-                    // 关闭自动提交
-                    connection.setAutoCommit(false);
+        lock.lock();
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                connection.setAutoCommit(false);
 
-                    String insertSql = "INSERT INTO real_time_event_log (app_id, event_time, event_date, event_name, event_data) VALUES (?, ?, ?, ?, ?)";
-                    preparedStatement = connection.prepareStatement(insertSql);
-
-                    for (EventLog eventLog : buffers) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
+                    for (EventLog eventLog : this.buffers) {
                         preparedStatement.setString(1, eventLog.getAppId());
                         preparedStatement.setLong(2, eventLog.getEventTime());
                         preparedStatement.setDate(3, new Date(eventLog.getEventTime()));
@@ -107,47 +100,24 @@ public class EventLogHandler {
                             String json = eventLog.getDataJson().substring(0, Math.min(eventLog.getDataJson().length(), 1000));
                             preparedStatement.setString(5, json);
                         }
-                        // 添加到批处理
                         preparedStatement.addBatch();
                     }
 
-                    // 执行批处理
-                    int[] batchResults = preparedStatement.executeBatch();
-
-                    log.info("insert {} rows into real_time_event_log sql{} costTime:{} ms",
-                            batchResults.length, System.currentTimeMillis() - currentSystemTime);
-
-                    // 提交事务
+                    preparedStatement.executeBatch();
                     connection.commit();
-                }catch (Exception e) {
-                    try {
-                        if (connection != null) {
-                            connection.rollback();
-                        }
-                    }catch (SQLException sqlException) {
-                        log.error("DorisEventLogHandler connection rollback error", sqlException);
-                    }
-
+                } catch (SQLException e) {
+                    connection.rollback();
                     log.error("DorisEventLogHandler insertSql execute error", e);
-                }finally {
-                    this.buffers.clear();
-
-                    if (preparedStatement != null) {
-                        try {
-                            preparedStatement.close();
-                        }catch (SQLException sqlException) {
-                            log.error("DorisEventLogHandler statement close error", sqlException);
-                        }
-                    }
-                    if (connection != null) {
-                        try {
-                            connection.close();
-                        }catch (SQLException sqlException) {
-                            log.error("DorisEventLogHandler connection close error", sqlException);
-                        }
-                    }
                 }
+            } catch (SQLException e) {
+                log.error("DorisEventLogHandler connection error", e);
+            } finally {
+                this.buffers.clear();
             }
+        } catch (Exception e) {
+            log.error("DorisEventLogHandler lock error", e);
+        } finally {
+            lock.unlock();
         }
     }
 }

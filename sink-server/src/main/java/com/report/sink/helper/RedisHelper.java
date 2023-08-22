@@ -37,4 +37,12 @@ public class RedisHelper {
         List<Object> values = redisTemplate.opsForHash().values(key);
         return values.stream().map(String::valueOf).collect(Collectors.toList());
     }
+
+    public void putIfAbsentHashValue(String key, String hashKey, String hashValue) {
+        if (key == null || hashKey == null) {
+            throw new IllegalArgumentException("key or hashKey is null");
+        }
+
+        redisTemplate.opsForHash().putIfAbsent(key, hashValue, hashValue);
+    }
 }

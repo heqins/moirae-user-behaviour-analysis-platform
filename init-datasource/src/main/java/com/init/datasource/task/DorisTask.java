@@ -1,7 +1,7 @@
 package com.init.datasource.task;
 
 import com.api.common.util.JdbcUtil;
-import com.api.common.util.MyProperties;
+import com.api.common.util.PropertyUtil;
 
 import java.util.Properties;
 
@@ -15,11 +15,11 @@ public class DorisTask {
     }
 
     private static void insert() {
-        String driverName = MyProperties.getStrValue("doris.driver");
-        String url = MyProperties.getStrValue("doris.url");
-        String username = MyProperties.getStrValue("doris.username");
-        String password = MyProperties.getStrValue("doris.password");
-        String filePath = MyProperties.getStrValue("doris.sql-file");
+        String driverName = PropertyUtil.getStrValue("doris.driver");
+        String url = PropertyUtil.getStrValue("doris.url");
+        String username = PropertyUtil.getStrValue("doris.username");
+        String password = PropertyUtil.getStrValue("doris.password");
+        String filePath = PropertyUtil.getStrValue("doris.sql-file");
 
         Properties properties = JdbcUtil.generateJdbcConnectionProperties(url, username, password, filePath, driverName);
         JdbcUtil.executeSqlFile(properties);

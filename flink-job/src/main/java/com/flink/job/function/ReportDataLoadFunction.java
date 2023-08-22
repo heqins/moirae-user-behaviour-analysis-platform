@@ -1,10 +1,6 @@
 package com.flink.job.function;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.entity.ReportLog;
-import com.ibm.icu.util.Output;
-import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.streaming.api.functions.ProcessFunction;
 import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;

@@ -1,8 +1,8 @@
 package com.flink.job.window;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.entity.ReportLog;
-import com.api.common.entity.ReportLogPv;
+import com.api.common.entity.EventLog;
+import com.api.common.entity.EventLogPv;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.configuration.Configuration;
@@ -13,7 +13,7 @@ import org.apache.flink.util.OutputTag;
 
 import java.util.Iterator;
 
-public class LogPvWindow extends ProcessWindowFunction<ReportLog, ReportLogPv, String, TimeWindow> {
+public class LogPvWindow extends ProcessWindowFunction<EventLog, EventLogPv, String, TimeWindow> {
 
     private ValueState<Long> countState;
 
@@ -30,26 +30,26 @@ public class LogPvWindow extends ProcessWindowFunction<ReportLog, ReportLogPv, S
     }
 
     @Override
-    public void process(String s, Context context, Iterable<ReportLog> elements, Collector<ReportLogPv> out) throws Exception {
+    public void process(String s, Context context, Iterable<EventLog> elements, Collector<EventLogPv> out) throws Exception {
         Long count = countState.value();
         if (count == null) {
             count = 0L;
         }
 
-        Iterator<ReportLog> iterator = elements.iterator();
-        ReportLogPv pv = new ReportLogPv();
-        String appName = null;
+        Iterator<EventLog> iterator = elements.iterator();
+        EventLogPv pv = new EventLogPv();
+        String appId = null;
         while (iterator.hasNext()) {
             count++;
-            ReportLog next = iterator.next();
-            if (appName == null) {
-                appName = next.getAppName();
+            EventLog next = iterator.next();
+            if (appId == null) {
+                appId = next.getAppId();
             }
 
             context.output(etlOutputTag, JSONUtil.toJsonStr(next));
         }
 
-        pv.setAppName(appName);
+        pv.setAppName(appId);
         pv.setWindowStart(context.window().getStart());
         pv.setWindowEnd(context.window().getEnd());
         pv.setCount(count);

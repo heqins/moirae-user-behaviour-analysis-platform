@@ -1,12 +1,10 @@
 package com.api.common.util;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class MyProperties {
+public class PropertyUtil {
     private static final Properties PROPERTIES;
 
     private static final String CONFIG_FILE_PATH = "config.properties";

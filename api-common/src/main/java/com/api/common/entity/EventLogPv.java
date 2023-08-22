@@ -1,6 +1,6 @@
 package com.api.common.entity;
 
-public class ReportLogPv {
+public class EventLogPv {
 
     private Long windowStart;
 
@@ -14,7 +14,7 @@ public class ReportLogPv {
 
     private String appName;
 
-    public ReportLogPv(Long windowStart, Long windowEnd, Long count, String appName) {
+    public EventLogPv(Long windowStart, Long windowEnd, Long count, String appName) {
         this.windowStart = windowStart;
         this.windowEnd = windowEnd;
         this.count = count;
@@ -51,7 +51,7 @@ public class ReportLogPv {
         this.count = count;
     }
 
-    public ReportLogPv() {
+    public EventLogPv() {
     }
 
     @Override

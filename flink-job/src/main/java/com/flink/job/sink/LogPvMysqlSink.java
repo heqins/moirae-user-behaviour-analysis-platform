@@ -1,6 +1,6 @@
 package com.flink.job.sink;
 
-import com.api.common.entity.ReportLogPv;
+import com.api.common.entity.EventLogPv;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 
@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class LogPvMysqlSink extends RichSinkFunction<ReportLogPv> {
+public class LogPvMysqlSink extends RichSinkFunction<EventLogPv> {
     // 声明连接和预编译语句
     Connection connection = null;
     PreparedStatement insertStmt = null;
@@ -29,7 +29,7 @@ public class LogPvMysqlSink extends RichSinkFunction<ReportLogPv> {
     }
 
     @Override
-    public void invoke(ReportLogPv value, Context context) throws Exception {
+    public void invoke(EventLogPv value, Context context) throws Exception {
         super.invoke(value, context);
         insertStmt.setLong(1, value.getWindowStart());
         insertStmt.setLong(2, value.getWindowEnd());
