@@ -1,4 +1,4 @@
-package com.api.common.entity;
+package com.flink.job.model.entity;
 
 public class EventLogPv {
 

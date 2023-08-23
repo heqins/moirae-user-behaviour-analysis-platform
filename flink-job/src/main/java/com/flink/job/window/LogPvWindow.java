@@ -2,7 +2,7 @@ package com.flink.job.window;
 
 import cn.hutool.json.JSONUtil;
 import com.api.common.entity.EventLog;
-import com.api.common.entity.EventLogPv;
+import com.flink.job.model.entity.EventLogPv;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.configuration.Configuration;

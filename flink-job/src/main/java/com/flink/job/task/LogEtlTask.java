@@ -2,7 +2,7 @@ package com.flink.job.task;
 
 import cn.hutool.json.JSONUtil;
 import com.api.common.entity.EventLog;
-import com.api.common.entity.EventLogPv;
+import com.flink.job.model.entity.EventLogPv;
 import com.flink.job.config.Config;
 import com.api.common.constant.ConfigConstant;
 import com.flink.job.sink.KafkaSink;

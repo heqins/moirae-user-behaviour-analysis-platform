@@ -23,5 +23,7 @@ public class DataSourceProperty {
         private String password;
 
         private String driver;
+
+        private String dbName;
     }
 }

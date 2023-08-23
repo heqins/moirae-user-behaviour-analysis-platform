@@ -2,7 +2,6 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.TableFieldDTO;
 import com.api.common.entity.EventLog;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
@@ -12,13 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ReflectionUtils;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author heqin
@@ -29,14 +24,11 @@ public class SinkHandler {
 
     private static final String EVENT_TABLE_PREFIX = "event_log_detail_";
 
-    @Resource(name = "redisCacheServiceImpl")
-    private ICacheService redisCacheService;
-
     @Resource
     private EventLogHandler eventLogHandler;
 
     @Resource
-    private AppEventsHandler appEventsHandler;
+    private ReportEventsToDorisHandler reportEventsToDorisHandler;
 
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
@@ -50,30 +42,22 @@ public class SinkHandler {
                 continue;
             }
 
-            EventLog isFieldValid = checkEventFieldValidity(jsonObject);
-            if (isFieldValid != null) {
-                eventLogHandler.addEvent(isFieldValid);
-                continue;
-            }
-
             String tableName = generateTableName(jsonObject);
             if (tableName == null) {
-                EventLog eventLog = transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
-                        EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.TABLE_NAME_ERROR.gerReason(), "保留数据");
-
+                EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.TABLE_NAME_ERROR.gerReason(), "保留数据");
                 eventLogHandler.addEvent(eventLog);
                 continue;
             }
 
-            EventLog eventLog = transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
+            EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
 
-            appEventsHandler.addEvent(eventLog);
+            reportEventsToDorisHandler.addEvent(jsonObject, tableName);
         }
     }
 
     private String generateTableName(JSONObject jsonObject) {
-        if (jsonObject == null || !jsonObject.containsKey("app_Id")) {
+        if (jsonObject == null || !jsonObject.containsKey("app_Id") || StringUtils.isBlank(jsonObject.getStr("app_id"))) {
             return null;
         }
 
@@ -89,91 +73,6 @@ public class SinkHandler {
         }
 
         return jsonObject;
-    }
-
-    private EventLog checkEventFieldValidity(JSONObject jsonObject) {
-        String appId = jsonObject.getStr("app_id");
-        if (StringUtils.isBlank(appId)) {
-            EventLog failLog = new EventLog();
-            failLog.setStatus(EventStatusEnum.FAIL.getStatus());
-            failLog.setDataJson(JSONUtil.toJsonStr(jsonObject));
-            failLog.setErrorHandling("保留数据");
-            failLog.setErrorReason(EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason());
-
-            return failLog;
-        }
-
-        Map<String, String> fields = redisCacheService.getAppFieldsCache(appId);
-        if (fields != null) {
-            for (Map.Entry<String, String> entry: fields.entrySet()) {
-                if (!jsonObject.containsKey(entry.getKey())) {
-                    continue;
-                }
-
-                String fieldName = entry.getKey();
-                TableFieldDTO tableFieldDTO = null;
-                try {
-                    tableFieldDTO = JSONUtil.toBean(entry.getValue(), TableFieldDTO.class);
-                }catch (Exception e) {
-                    log.error("SinkHandler checkEventFieldValidity tableFieldDto parse error", e);
-                    continue;
-                }
-
-                Object fieldValue = jsonObject.get(fieldName);
-                if (!fieldValue.getClass().equals(tableFieldDTO.getFieldType())) {
-                    EventLog failLog = new EventLog();
-                    failLog.setErrorReason(EventFailReasonEnum.DATA_ERROR.gerReason());
-                    failLog.setEventName(jsonObject.getStr("event_name"));
-                    failLog.setEventTime(jsonObject.getLong("event_time"));
-                    failLog.setStatus(EventStatusEnum.FAIL.getStatus());
-                    failLog.setAppId(jsonObject.getStr("app_id"));
-                    failLog.setErrorHandling("保留数据");
-                    failLog.setDataJson(JSONUtil.toJsonStr(jsonObject));
-
-                    return failLog;
-                }
-            }
-        }
-
-        Set<String> dataFields = jsonObject.keySet();
-        Set<String> cacheFields = fields.keySet();
-        dataFields.removeAll(cacheFields);
-
-        for (String field: dataFields) {
-            TableFieldDTO tableFieldDTO = new TableFieldDTO();
-            Object obj = jsonObject.get(tableFieldDTO);
-            tableFieldDTO.setFieldName(field);
-            tableFieldDTO.setFieldType(obj.getClass());
-            tableFieldDTO.setStatus(1);
-
-            redisCacheService.setAppFieldCache(appId, tableFieldDTO);
-        }
-
-        return null;
-    }
-
-    private EventLog transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
-        if (jsonObject == null) {
-            log.error("");
-            return null;
-        }
-
-        if (status == null || !EventStatusEnum.isStatusValid(status)) {
-            log.error("");
-            return null;
-        }
-
-        EventLog eventLog = new EventLog();
-        eventLog.setEventType(jsonObject.getStr("event_type"));
-        eventLog.setStatus(status);
-        eventLog.setDataJson(dataJson);
-        eventLog.setAppId(jsonObject.getStr("app_id"));
-        eventLog.setEventTime(jsonObject.getLong("event_time"));
-        eventLog.setEventName(jsonObject.getStr("event_name"));
-        eventLog.setErrorHandling(errorHandling);
-        eventLog.setErrorReason(errorReason);
-
-        return eventLog;
     }
 
     public static void main(String[] args) {

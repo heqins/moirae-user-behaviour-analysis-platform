@@ -68,5 +68,6 @@ data-source:
     username: root
     password:
     driver: com.mysql.cj.jdbc.Driver
+    db-name: user_behaviour_analysis
 
   mysql:

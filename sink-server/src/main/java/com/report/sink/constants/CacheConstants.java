@@ -2,9 +2,9 @@ package com.report.sink.constants;
 
 public class CacheConstants {
 
-    public static final String APP_FIELD_CACHE_KEY = "field:app";
+    public static final String TABLE_COLUMN_CACHE_KEY = "table:column";
 
-    public static String getAppFieldCacheKey(String appId) {
-        return APP_FIELD_CACHE_KEY + ":" + appId;
+    public static String getColumnLocalCacheKey(String dbName, String tableName) {
+        return "local:" + CacheConstants.TABLE_COLUMN_CACHE_KEY + ":" + dbName + ":" + tableName;
     }
 }

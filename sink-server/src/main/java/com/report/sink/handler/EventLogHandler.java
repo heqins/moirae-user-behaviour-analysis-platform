@@ -1,7 +1,9 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import cn.hutool.json.JSONObject;
 import com.api.common.entity.EventLog;
+import com.report.sink.enums.EventStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,8 @@ public class EventLogHandler {
 
     private final Integer bufferSize = 1000;
 
+    private final Integer jsonLengthLimit = 1024;
+
     private Long flushIntervalMillSeconds = 1000L;
 
     private DataSource dataSource;
@@ -60,6 +64,32 @@ public class EventLogHandler {
         this.run();
     }
 
+    public EventLog transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
+        if (jsonObject == null) {
+            log.error("EventLogHandler");
+            return null;
+        }
+
+        if (status == null || !EventStatusEnum.isStatusValid(status)) {
+            log.error("EventLogHandler");
+            return null;
+        }
+
+        EventLog eventLog = new EventLog();
+        eventLog.setEventType(jsonObject.getStr("event_type"));
+        eventLog.setStatus(status);
+        if (dataJson != null) {
+            eventLog.setDataJson(dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit)));
+        }
+        eventLog.setAppId(jsonObject.getStr("app_id"));
+        eventLog.setEventTime(jsonObject.getLong("event_time"));
+        eventLog.setEventName(jsonObject.getStr("event_name"));
+        eventLog.setErrorHandling(errorHandling);
+        eventLog.setErrorReason(errorReason);
+
+        return eventLog;
+    }
+
     public void run() {
         if (this.flushIntervalMillSeconds > 0) {
             scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, flushIntervalMillSeconds, TimeUnit.MILLISECONDS);
@@ -67,12 +97,17 @@ public class EventLogHandler {
     }
 
     public void addEvent(EventLog eventLog) {
-        if (eventLog != null) {
-            this.buffers.add(eventLog);
-
-            if (this.buffers.size() == this.bufferSize) {
-                this.flush();
+        lock.lock();
+        try {
+            if (eventLog != null) {
+                this.buffers.add(eventLog);
             }
+        }finally {
+            lock.unlock();
+        }
+
+        if (this.buffers.size() == this.bufferSize) {
+            this.flush();
         }
     }
 

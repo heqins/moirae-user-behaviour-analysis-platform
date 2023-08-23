@@ -1,6 +1,6 @@
 package com.flink.job.sink;
 
-import com.api.common.entity.EventLogPv;
+import com.flink.job.model.entity.EventLogPv;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 
