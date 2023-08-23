@@ -15,6 +15,7 @@ public enum EventFailReasonEnum {
 
     RULE_CONTROL_ERROR("后台规则管控禁止"),
 
+    KEY_FIELDS_MISSING("关键字段缺失"),
 
     ;
 

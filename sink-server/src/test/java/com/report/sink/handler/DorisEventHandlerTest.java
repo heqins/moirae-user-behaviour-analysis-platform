@@ -1,6 +1,7 @@
 package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
+import com.api.common.entity.EventLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,11 +25,11 @@ public class DorisEventHandlerTest {
 
     @Test
     public void addEvent() {
-        JSONObject log = new JSONObject();
-        log.set("event_name", "test");
-        log.set("event_time", System.currentTimeMillis());
-        log.set("app_id", "popo");
-        log.set("app_version", "3.44");
+        EventLog log = new EventLog();
+//        log.set("event_name", "test");
+//        log.set("event_time", System.currentTimeMillis());
+//        log.set("app_id", "popo");
+//        log.set("app_version", "3.44");
 
         handler.addEvent(log);
     }
