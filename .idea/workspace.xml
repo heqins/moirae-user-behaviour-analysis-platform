@@ -4,29 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新字段检查">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/TableColumnDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新字段检查顺序">
+      <change afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_test_create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/TableFieldDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/EventLogPv.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/model/entity/EventLogPv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/TableFieldUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/TableFieldUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/sink/LogPvMysqlSink.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/sink/LogPvMysqlSink.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/constants/CacheConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/AppEventsHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/DataSourceProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/DataSourceProperty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,13 +121,26 @@
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SinkMain">
+  <component name="RunManager" selected="JUnit.SinkListenerTest.testListener">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.init.datasource.task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
+      <module name="sink-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.report.sink.handler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -161,22 +161,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DorisEventHandlerTest.flushTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sink-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.report.sink.handler" />
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.DorisEventHandlerTest" />
-      <option name="METHOD_NAME" value="flushTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GeoIpTest.queryIp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sink-server" />
       <extension name="coverage">
@@ -193,17 +177,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RedisTest.testGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SinkListenerTest.testListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sink-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.sink.*" />
+          <option name="PATTERN" value="com.report.sink.listener.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.report.server" />
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.RedisTest" />
-      <option name="METHOD_NAME" value="testGet" />
+      <option name="PACKAGE_NAME" value="com.report.sink.listener" />
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.listener.SinkListenerTest" />
+      <option name="METHOD_NAME" value="testListener" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -225,11 +209,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SinkListenerTest.testListener" />
+        <item itemvalue="Application.DorisTask" />
+        <item itemvalue="Application.ReportEventsToDorisHandler" />
         <item itemvalue="Application.SinkHandler" />
         <item itemvalue="JUnit.GeoIpTest.queryIp" />
-        <item itemvalue="JUnit.DorisEventHandlerTest.flushTest" />
-        <item itemvalue="JUnit.RedisTest.testGet" />
-        <item itemvalue="Application.DorisTask" />
       </list>
     </recent_temporary>
   </component>
@@ -244,7 +228,7 @@
       <workItem from="1692443284190" duration="21370000" />
       <workItem from="1692508912295" duration="5167000" />
       <workItem from="1692515637945" duration="7652000" />
-      <workItem from="1692530065736" duration="41204000" />
+      <workItem from="1692530065736" duration="48325000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -400,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692804818148</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat: 更新字段检查顺序">
+      <created>1692813629571</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1692813629571</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,6 +429,18 @@
     <MESSAGE value="feat: 初始化redis缓存处理" />
     <MESSAGE value="feat: 更新数据库连接池" />
     <MESSAGE value="feat: 更新字段检查" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新字段检查" />
+    <MESSAGE value="feat: 更新字段检查顺序" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新字段检查顺序" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java</url>
+          <line>136</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

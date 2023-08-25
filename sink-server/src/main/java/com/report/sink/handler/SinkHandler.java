@@ -57,7 +57,7 @@ public class SinkHandler {
     }
 
     private String generateTableName(JSONObject jsonObject) {
-        if (jsonObject == null || !jsonObject.containsKey("app_Id") || StringUtils.isBlank(jsonObject.getStr("app_id"))) {
+        if (jsonObject == null || !jsonObject.containsKey("app_id") || StringUtils.isBlank(jsonObject.getStr("app_id"))) {
             return null;
         }
 

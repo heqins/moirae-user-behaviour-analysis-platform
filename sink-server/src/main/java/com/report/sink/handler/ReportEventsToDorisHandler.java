@@ -12,13 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.thymeleaf.expression.Sets;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 /**
  * @author heqin
@@ -66,6 +66,9 @@ public class ReportEventsToDorisHandler {
 
         List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(dorisConfig.getDbName(), tableName);
 
+        Set<String> jsonFields = jsonObject.keySet();
+        Set<String> existFields = new HashSet<>();
+
         if (!CollectionUtils.isEmpty(columns)) {
             for (TableColumnDTO columnDTO: columns) {
                 if (columnDTO == null) {
@@ -77,38 +80,37 @@ public class ReportEventsToDorisHandler {
                 }
 
                 String columnName = columnDTO.getColumnName();
+                Object objField = jsonObject.get(columnName);
+                String objFieldType = objField.getClass().getTypeName();
 
                 // 比较表字段类型是否一致
-
-                if (!fieldValue.getClass().equals(tableColumnDTO.getFieldType())) {
-                    EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.DATA_ERROR.gerReason(), "保留数据"));
+                if (!objFieldType.equals(columnDTO.getColumnType())) {
+                    EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
+                            EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
                     eventLogHandler.addEvent(failLog);
-                    return;
                 }
             }
+
+            existFields = columns.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toSet());
         }
 
-        Set<String> dataFields = jsonObject.keySet();
-        Set<String> cacheFields = fields.keySet();
-        dataFields.removeAll(cacheFields);
+        // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
+        Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
+        if (!CollectionUtils.isEmpty(newFieldKeys)) {
+            dorisHelper.changeTableSchema(dorisConfig.getDbName(), tableName, jsonObject, newFieldKeys);
+        }
+    }
 
-        if (!CollectionUtils.isEmpty(dataFields)) {
-            for (String field: dataFields) {
-                TableColumnDTO tableColumnDTO = new TableColumnDTO();
-                Object obj = jsonObject.get(tableColumnDTO);
-                tableColumnDTO.setFieldName(field);
-                tableColumnDTO.setFieldType(obj.getClass());
-                tableColumnDTO.setStatus(1);
-
-                redisCacheService.setAppFieldCache(appId, tableColumnDTO);
+    private Set<String> getNewFieldKey(Set<String> jsonFields, Set<String> existFields) {
+        Set<String> res = new HashSet<>();
+        for (String jsonField: jsonFields) {
+            if (!existFields.contains(jsonField)) {
+                res.add(jsonField);
             }
         }
+
+        return res;
     }
-
-    private void changeTableSchema() {
-
-    }
-
     public void addEvent(JSONObject jsonObject, String tableName) {
         if (jsonObject == null) {
             return;
@@ -135,6 +137,25 @@ public class ReportEventsToDorisHandler {
     }
 
     private void flush() {
+        if (this.buffers.isEmpty()) {
+            return;
+        }
 
+        if (lock.isLocked()) {
+            return;
+        }
+
+        lock.lock();
+        try {
+
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    public static void main(String[] args) {
+        String test = "test";
+        String typeName = test.getClass().getTypeName();
+        System.out.println(typeName);
     }
 }

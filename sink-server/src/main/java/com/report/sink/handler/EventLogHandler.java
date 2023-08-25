@@ -30,7 +30,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class EventLogHandler {
 
-    private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name, event_data) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name," +
+            " event_data, event_type, error_reason, error_handling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private List<EventLog> buffers;
 
@@ -131,6 +132,11 @@ public class EventLogHandler {
                         preparedStatement.setLong(2, eventLog.getEventTime());
                         preparedStatement.setDate(3, new Date(eventLog.getEventTime()));
                         preparedStatement.setString(4, eventLog.getEventName());
+                        preparedStatement.setString(6, eventLog.getEventType());
+                        preparedStatement.setString(7, eventLog.getErrorReason());
+                        preparedStatement.setString(8, eventLog.getErrorHandling());
+                        preparedStatement.setInt(9, eventLog.getStatus());
+
                         if (eventLog.getDataJson() != null) {
                             String json = eventLog.getDataJson().substring(0, Math.min(eventLog.getDataJson().length(), 1000));
                             preparedStatement.setString(5, json);

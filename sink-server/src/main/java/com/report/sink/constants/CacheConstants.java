@@ -5,6 +5,6 @@ public class CacheConstants {
     public static final String TABLE_COLUMN_CACHE_KEY = "table:column";
 
     public static String getColumnLocalCacheKey(String dbName, String tableName) {
-        return "local:" + CacheConstants.TABLE_COLUMN_CACHE_KEY + ":" + dbName + ":" + tableName;
+        return "local:" + TABLE_COLUMN_CACHE_KEY + ":" + dbName + ":" + tableName;
     }
 }
