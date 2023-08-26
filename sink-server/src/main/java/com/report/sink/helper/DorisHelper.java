@@ -138,6 +138,9 @@ public class DorisHelper {
             }catch (SQLException e) {
                 log.error("", e);
             }
+
+            localCacheService.removeColumnCache(dbName, tableName);
+            redisCacheService.removeColumnCache(dbName, tableName);
         }
     }
 }

@@ -28,4 +28,9 @@ public class RedisCacheServiceImpl implements ICacheService{
     public void setColumnCache(String dbName, String tableName, List<TableColumnDTO> columns) {
 
     }
+
+    @Override
+    public void removeColumnCache(String dbName, String tableName) {
+
+    }
 }

@@ -13,4 +13,7 @@ public interface ICacheService {
 
     void setColumnCache(String dbName, String tableName, List<TableColumnDTO> columns);
 
+    void removeColumnCache(String dbName, String tableName);
+
+
 }
