@@ -2,12 +2,12 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.api.common.dto.AppDTO;
 import com.api.common.entity.EventLog;
-import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
+import com.report.sink.service.IAppService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -33,6 +33,9 @@ public class SinkHandler {
     @Resource
     private DataSourceProperty dataSourceProperty;
 
+    @Resource
+    private IAppService appService;
+
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
             return;
@@ -43,16 +46,23 @@ public class SinkHandler {
         for (ConsumerRecord<String, String> record: logRecords) {
             JSONObject jsonObject = parseJson(record.value());
             if (jsonObject == null) {
-                log.error("SinkHandler jsonObject null");
+                log.warn("SinkHandler jsonObject null");
                 continue;
             }
 
-            String tableName = generateTableName(jsonObject);
-            if (tableName == null) {
-                EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.TABLE_NAME_ERROR.gerReason(), "保留数据");
-                eventLogHandler.addEvent(eventLog);
+            if (!jsonObject.containsKey("app_id")) {
+                log.warn("SinkHandler jsonObject not found appId:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
+
+            String appId = jsonObject.getStr("app_id");
+            AppDTO appDTO = appService.getAppInfo(appId);
+            if (appDTO == null || appDTO.isClose()) {
+                log.warn("SinkHandler appId not found:{}", JSONUtil.toJsonStr(jsonObject));
+                continue;
+            }
+
+            String tableName = generateTableName(jsonObject, appId);
 
             EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
@@ -61,12 +71,12 @@ public class SinkHandler {
         }
     }
 
-    private String generateTableName(JSONObject jsonObject) {
-        if (jsonObject == null || !jsonObject.containsKey("app_id") || StringUtils.isBlank(jsonObject.getStr("app_id"))) {
+    private String generateTableName(JSONObject jsonObject, String appId) {
+        if (jsonObject == null) {
             return null;
         }
 
-        return EVENT_TABLE_PREFIX + jsonObject.getStr("app_id");
+        return EVENT_TABLE_PREFIX + appId;
     }
 
     private JSONObject parseJson(String json) {
@@ -78,11 +88,5 @@ public class SinkHandler {
         }
 
         return jsonObject;
-    }
-
-    public static void main(String[] args) {
-        Object test = 0;
-        System.out.println(test.getClass().getCanonicalName());
-
     }
 }
