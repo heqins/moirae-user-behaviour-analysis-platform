@@ -98,7 +98,7 @@ public class ReportEventsToDorisHandler {
 
                 String columnName = columnDTO.getColumnName();
                 Object objField = jsonObject.get(columnName);
-                String objFieldType = objField.getClass().getTypeName();
+                String objFieldType = objField.getClass().getCanonicalName();
 
                 // 比较表字段类型是否一致
                 if (!objFieldType.equals(columnDTO.getColumnType())) {
@@ -214,11 +214,5 @@ public class ReportEventsToDorisHandler {
         }finally {
             lock.unlock();
         }
-    }
-
-    public static void main(String[] args) {
-        String test = "test";
-        String typeName = test.getClass().getTypeName();
-        System.out.println(typeName);
     }
 }

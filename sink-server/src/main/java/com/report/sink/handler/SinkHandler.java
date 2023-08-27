@@ -6,7 +6,6 @@ import com.api.common.entity.EventLog;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
-import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

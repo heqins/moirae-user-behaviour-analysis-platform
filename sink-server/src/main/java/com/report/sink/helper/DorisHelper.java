@@ -118,6 +118,18 @@ public class DorisHelper {
             return "java.util.Date";
         }
 
+        if (columnType.startsWith("tinyint")) {
+            return "java.lang.Byte";
+        }
+
+        if (columnType.startsWith("smallint")) {
+            return "java.lang.Short";
+        }
+
+        if (columnType.startsWith("tinyint(0)") || columnType.startsWith("tinyint(1)")) {
+            return "java.lang.Boolean";
+        }
+
         return "";
     }
 
@@ -128,6 +140,7 @@ public class DorisHelper {
                 log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
                 continue;
             }
+
             String className = jsonObject.get(jsonField).getClass().getCanonicalName();
             String type = "";
             switch (className) {
@@ -137,12 +150,24 @@ public class DorisHelper {
                 case "java.lang.Integer":
                     type = "INT";
                     break;
+                case "java.lang.Long":
+                    type = "LARGEINT";
+                    break;
+                case "java.lang.Byte":
+                    type = "TINYINT";
+                    break;
+                case "java.util.Date":
+                    type = "DATE";
+                    break;
+                case "java.math.BigDecimal":
+                    type = "DECIMAL(10,2)";
+                    break;
                 default:
                     break;
             }
 
             if (StringUtils.isBlank(type)) {
-                log.error("");
+                log.error("DorisHelper type not found className:{}", className);
                 continue;
             }
 
@@ -159,18 +184,18 @@ public class DorisHelper {
                         statement.execute();
                     } catch (SQLException e) {
                         connection.rollback();
-                        log.error("DorisEventLogHandler changeTableSchema execute error", e);
+                        log.error("DorisHelper changeTableSchema execute error", e);
                     }
                 }
 
                 connection.commit();
             }catch (SQLException e) {
-                log.error("", e);
+                log.error("DorisHelper changeTableSchema alter column commit error", e);
             }
-
-            localCacheService.removeColumnCache(dbName, tableName);
-            redisCacheService.removeColumnCache(dbName, tableName);
         }
+
+        localCacheService.removeColumnCache(dbName, tableName);
+        redisCacheService.removeColumnCache(dbName, tableName);
     }
 
     public void tableInsertData(String sql, List<TableColumnDTO> columnDTOList, List<JSONObject> jsonDataList) {
@@ -229,16 +254,18 @@ public class DorisHelper {
 
             }catch (SQLException e) {
                 insertConnection.rollback();
-                log.error("tt", e);
+                log.error("DorisHelper tableInsertData insert execute error", e);
             }
 
             insertConnection.commit();
         }catch (SQLException e) {
-            log.error("", e);
+            log.error("DorisHelper tableInsertData insert commit error", e);
         }
     }
 
     public static void main(String[] args) {
+        byte t = 127;
+        System.out.println(t == 1);
         System.out.println(Date.class.getCanonicalName());
     }
 }

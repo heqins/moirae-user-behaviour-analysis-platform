@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新表字段接口优化">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/LogEventDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/KafkaConsumerConfig.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 实现doris监听插入数据库">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,8 +201,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.DorisHelper" />
+        <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.DorisTask" />
         <item itemvalue="Application.ReportEventsToDorisHandler" />
         <item itemvalue="Application.SinkHandler" />
@@ -225,7 +222,7 @@
       <workItem from="1692515637945" duration="7652000" />
       <workItem from="1692530065736" duration="50409000" />
       <workItem from="1693060868495" duration="23000" />
-      <workItem from="1693061002234" duration="13252000" />
+      <workItem from="1693061002234" duration="14827000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -402,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693061600847</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: 实现doris监听插入数据库">
+      <created>1693148097370</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1693148097370</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,17 +447,7 @@
     <MESSAGE value="feat: 更新字段检查顺序" />
     <MESSAGE value="feat: 更新表字段添加" />
     <MESSAGE value="feat: 更新表字段接口优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新表字段接口优化" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java</url>
-          <line>236</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="feat: 实现doris监听插入数据库" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现doris监听插入数据库" />
   </component>
 </project>
