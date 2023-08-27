@@ -21,14 +21,14 @@ public class ReportListener {
     @Resource
     private SinkHandler sinkHandler;
 
-    @KafkaListener(topics = "report-data-main")
-    public void onMainReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+    @KafkaListener(topics = "report-data-main", containerFactory = "batchManualFactory")
+    public void onReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
         try {
             sinkHandler.run(records);
-
-            acknowledgment.acknowledge();
         }catch (Exception e) {
             log.error("report-main error", e);
         }
+
+        acknowledgment.acknowledge();
     }
 }

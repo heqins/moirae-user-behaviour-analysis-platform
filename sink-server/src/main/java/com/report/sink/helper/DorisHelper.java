@@ -2,7 +2,6 @@ package com.report.sink.helper;
 
 import cn.hutool.json.JSONObject;
 import com.api.common.dto.TableColumnDTO;
-import com.api.common.entity.EventLog;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,8 +56,6 @@ public class DorisHelper {
 
         columns = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            connection.setAutoCommit(false);
-
             try (PreparedStatement statement = connection.prepareStatement(COLUMN_QUERY_SQL)) {
                 statement.setString(1, dbName);
                 statement.setString(2, tableName);
@@ -70,17 +66,21 @@ public class DorisHelper {
                     String columnType = resultSet.getString("column_type");
                     String isNullable = resultSet.getString("is_nullable");
 
+                    String columnJavaType = transferColumnTypeFromDorisToJava(columnType.toLowerCase(Locale.ROOT));
+                    if (StringUtils.isBlank(columnJavaType)) {
+                        throw new IllegalStateException("column java type not found");
+                    }
+
                     TableColumnDTO columnDTO = new TableColumnDTO();
                     columnDTO.setColumnName(columnName);
                     columnDTO.setStatus(1);
                     columnDTO.setNullable(Objects.equals(isNullable.toLowerCase(Locale.ROOT), "yes"));
                     columnDTO.setTableName(tableName);
-                    columnDTO.setColumnType(columnType);
+                    columnDTO.setColumnType(columnJavaType);
 
                     columns.add(columnDTO);
                 }
             } catch (SQLException e) {
-                connection.rollback();
                 log.error("DorisHelper getTableColumnInfos sql error", e);
             }
         }catch (SQLException e) {
@@ -93,6 +93,34 @@ public class DorisHelper {
         return columns;
     }
 
+    public String transferColumnTypeFromDorisToJava(String columnType) {
+        if (columnType == null) {
+            return "";
+        }
+
+        if (columnType.startsWith("varchar")) {
+            return "java.lang.String";
+        }
+
+        if (columnType.startsWith("int")) {
+            return "java.lang.Integer";
+        }
+
+        if (columnType.startsWith("bigint")) {
+            return "java.lang.Long";
+        }
+
+        if (columnType.startsWith("decimal")) {
+            return "java.math.BigDecimal";
+        }
+
+        if (columnType.startsWith("date")) {
+            return "java.util.Date";
+        }
+
+        return "";
+    }
+
     public void changeTableSchema(String dbName, String tableName, JSONObject jsonObject, Set<String> jsonFields) {
         List<String> alterQueries = new ArrayList<>(jsonFields.size());
         for (String jsonField: jsonFields) {
@@ -100,14 +128,15 @@ public class DorisHelper {
                 log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
                 continue;
             }
-            String className = jsonObject.get(jsonField).getClass().getCanonicalName().toLowerCase(Locale.ROOT);
+            String className = jsonObject.get(jsonField).getClass().getCanonicalName();
             String type = "";
             switch (className) {
-                case "java.lang.string":
+                case "java.lang.String":
                     type = "VARCHAR(64)";
                     break;
-                case "java.lang.integer":
+                case "java.lang.Integer":
                     type = "INT";
+                    break;
                 default:
                     break;
             }
@@ -142,5 +171,74 @@ public class DorisHelper {
             localCacheService.removeColumnCache(dbName, tableName);
             redisCacheService.removeColumnCache(dbName, tableName);
         }
+    }
+
+    public void tableInsertData(String sql, List<TableColumnDTO> columnDTOList, List<JSONObject> jsonDataList) {
+        if (sql == null || jsonDataList == null) {
+            return;
+        }
+
+        try (Connection insertConnection = dataSource.getConnection()) {
+            insertConnection.setAutoCommit(false);
+            try (PreparedStatement statement = insertConnection.prepareStatement(sql)) {
+                for (JSONObject jsonObject: jsonDataList) {
+                    if (columnDTOList.size() < jsonObject.size()) {
+                        log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
+                        return;
+                    }
+
+                    for (int i = 0; i < columnDTOList.size(); i++) {
+                        String columnName = columnDTOList.get(i).getColumnName();
+                        String columnType = columnDTOList.get(i).getColumnType();
+
+                        Object value = jsonObject.get(columnName);
+                        if (value == null) {
+                            if (!columnDTOList.get(i).getNullable()) {
+                                return;
+                            }
+
+                            switch (columnType) {
+                                case "java.lang.String":
+                                    value = "";
+                                    break;
+                                case "java.lang.Integer":
+                                    value = 0;
+                                    break;
+                                case "java.lang.Float":
+                                    value = 0.0f;
+                                    break;
+                                case "java.lang.Double":
+                                    value = 0.0d;
+                                    break;
+                                case "java.lang.Long":
+                                    value = 0L;
+                                    break;
+                                case "java.util.Date":
+                                    value = new Date();
+                                    break;
+                                default:
+                            }
+                        }
+
+                        statement.setObject(i + 1, value);
+                    }
+
+                    statement.addBatch();
+                    statement.executeBatch();
+                }
+
+            }catch (SQLException e) {
+                insertConnection.rollback();
+                log.error("tt", e);
+            }
+
+            insertConnection.commit();
+        }catch (SQLException e) {
+            log.error("", e);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Date.class.getCanonicalName());
     }
 }

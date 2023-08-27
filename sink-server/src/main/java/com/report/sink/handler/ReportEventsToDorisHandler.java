@@ -1,13 +1,15 @@
 package com.report.sink.handler;
 
+import cn.hutool.core.text.StrJoiner;
+import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.api.common.dto.LogEventDTO;
 import com.api.common.dto.TableColumnDTO;
 import com.api.common.entity.EventLog;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.helper.DorisHelper;
-import com.report.sink.properties.DataSourceProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -15,10 +17,11 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
@@ -37,21 +40,33 @@ public class ReportEventsToDorisHandler {
     @Resource
     private DorisHelper dorisHelper;
 
-    @Resource
-    private DataSourceProperty dataSourceProperty;
-
-    private List<JSONObject> buffers;
+    private List<LogEventDTO> buffers;
 
     private int capacity;
+
+    private ScheduledExecutorService scheduledExecutorService;
 
     public ReportEventsToDorisHandler() {}
 
     @PostConstruct
     public void init() {
+        ThreadFactory threadFactory = ThreadFactoryBuilder
+                .create()
+                .setNamePrefix("report-data-doris")
+                .setUncaughtExceptionHandler((value, ex) -> {log.error("");})
+                .build();
+
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
         buffers = new ArrayList<>(1000);
+
+        this.runSchedule();
     }
 
-    private void alterTableColumn(JSONObject jsonObject, String tableName) {
+    public void runSchedule() {
+        scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
+    }
+
+    private void alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
         String appId = jsonObject.getStr("app_id");
         if (StringUtils.isBlank(appId)) {
             EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
@@ -60,13 +75,13 @@ public class ReportEventsToDorisHandler {
             eventLogHandler.addEvent(failLog);
             return;
         }
-
-        DataSourceProperty.DorisConfig dorisConfig = dataSourceProperty.getDoris();
-        if (dorisConfig == null) {
+        List<TableColumnDTO> columns = new ArrayList<>();
+        try {
+            columns = dorisHelper.getTableColumnInfos(dbName, tableName);
+        }catch (IllegalStateException e) {
+            log.error("reportEventsToDorisHandler error", e);
             return;
         }
-
-        List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(dorisConfig.getDbName(), tableName);
 
         Set<String> jsonFields = jsonObject.keySet();
         Set<String> existFields = new HashSet<>();
@@ -99,7 +114,7 @@ public class ReportEventsToDorisHandler {
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
-            dorisHelper.changeTableSchema(dorisConfig.getDbName(), tableName, jsonObject, newFieldKeys);
+            dorisHelper.changeTableSchema(dbName, tableName, jsonObject, newFieldKeys);
         }
     }
 
@@ -113,21 +128,26 @@ public class ReportEventsToDorisHandler {
 
         return res;
     }
-    public void addEvent(JSONObject jsonObject, String tableName) {
+    public void addEvent(JSONObject jsonObject, String dbName, String tableName) {
         if (jsonObject == null) {
             return;
         }
 
-        alterTableColumn(jsonObject, tableName);
+        alterTableColumn(jsonObject, dbName, tableName);
 
-        insertTableData(jsonObject);
+        insertTableData(jsonObject, dbName, tableName);
     }
 
-    private void insertTableData(JSONObject jsonObject) {
+    private void insertTableData(JSONObject jsonObject, String dbName, String tableName) {
         lock.lock();
         try {
             if (jsonObject != null) {
-                this.buffers.add(jsonObject);
+                LogEventDTO eventDTO = new LogEventDTO();
+                eventDTO.setDataObject(jsonObject);
+                eventDTO.setDbName(dbName);
+                eventDTO.setTableName(tableName);
+
+                this.buffers.add(eventDTO);
             }
         }finally {
             lock.unlock();
@@ -149,7 +169,48 @@ public class ReportEventsToDorisHandler {
 
         lock.lock();
         try {
+            Map<String, List<LogEventDTO>> tableGroupMap = this.buffers
+                    .stream()
+                    .collect(Collectors.groupingBy(logEvent -> logEvent.getDbName() + ":" + logEvent.getTableName()));
 
+            for (Map.Entry<String, List<LogEventDTO>> entry: tableGroupMap.entrySet()) {
+                String key = entry.getKey();
+                String[] split = key.split(":");
+
+                String dbName = split[0];
+                String tableName = split[1];
+
+                List<TableColumnDTO> tableColumnInfos = dorisHelper.getTableColumnInfos(dbName, tableName);
+                if (CollectionUtils.isEmpty(tableColumnInfos)) {
+                    continue;
+                }
+
+                List<JSONObject> jsonDataList = entry.getValue().stream().map(LogEventDTO::getDataObject).collect(Collectors.toList());
+                List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
+
+                StrJoiner strJoiner = new StrJoiner(", ");
+                StrJoiner paramJoiner = new StrJoiner(", ");
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("INSERT INTO ");
+                sb.append(tableName);
+                sb.append(" (");
+                columnNames.forEach(column -> strJoiner.append(column));
+                sb.append(strJoiner.toString());
+                sb.append(") ");
+                sb.append("VALUES (");
+                columnNames.forEach(column -> paramJoiner.append("?"));
+                sb.append(paramJoiner.toString());
+                sb.append(")");
+
+                String insertSql = sb.toString();
+
+                dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
+            }
+
+            this.buffers.clear();
+        }catch (Exception e) {
+            log.error("test", e);
         }finally {
             lock.unlock();
         }

@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.api.common.entity.EventLog;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
+import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,10 +31,15 @@ public class SinkHandler {
     @Resource
     private ReportEventsToDorisHandler reportEventsToDorisHandler;
 
+    @Resource
+    private DataSourceProperty dataSourceProperty;
+
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
             return;
         }
+
+        DataSourceProperty.DorisConfig dorisConfig = dataSourceProperty.getDoris();
 
         for (ConsumerRecord<String, String> record: logRecords) {
             JSONObject jsonObject = parseJson(record.value());
@@ -52,7 +58,7 @@ public class SinkHandler {
             EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
 
-            reportEventsToDorisHandler.addEvent(jsonObject, tableName);
+            reportEventsToDorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
         }
     }
 
