@@ -3,7 +3,7 @@ package com.report.sink.handler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DbFailEventsHandler implements EventsHandler{
+public class FailEventsHandler implements EventsHandler{
 
 
     @Override

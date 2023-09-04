@@ -1,0 +1,1 @@
+{"timestamp": "2023-07-15T11:32:03+00:00", "remote_addr": "172.22.0.1", "request_body": "{\n    \"name\": \"test\",\n    \"price\": 12\n}", "agent": "PostmanRuntime/7.32.3" }

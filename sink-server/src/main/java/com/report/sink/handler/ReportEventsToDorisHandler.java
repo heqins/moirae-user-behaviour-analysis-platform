@@ -210,8 +210,6 @@ public class ReportEventsToDorisHandler implements EventsHandler{
             }
 
             this.buffers.clear();
-        }catch (Exception e) {
-            log.error("test", e);
         }finally {
             lock.unlock();
         }

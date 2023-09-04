@@ -1,0 +1,9 @@
+version: '3'
+services:
+  openresty:
+    image: openresty/openresty:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./html:/usr/local/openresty/nginx/html

@@ -1,0 +1,264 @@
+2023/07/15 23:06:40 [error] 49528#606086: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:06:40 [error] 49528#606086: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:06:41 [error] 49528#606086: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:06:41 [error] 49528#606086: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:06:41 [error] 49528#606086: *3 [lua] client.lua:210: _fetch_metadata(): all brokers failed in fetch topic metadata, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:06:41 [error] 49528#606086: *3 [lua] client.lua:210: _fetch_metadata(): all brokers failed in fetch topic metadata, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:06:41 [error] 49528#606086: *3 [lua] client.lua:210: _fetch_metadata(): all brokers failed in fetch topic metadata, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:06:41 [error] 49528#606086: *3 [lua] producer.lua:272: buffered messages send to kafka err: not found topic, retryable: true, topic: flume_test, partition_id: -1, length: 2, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:08:47 [error] 49896#609244: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:08:47 [error] 49896#609244: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:08:48 [error] 49896#609244: *3 [lua] producer.lua:272: buffered messages send to kafka err: no resolver defined to resolve "localhost", retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:10:27 [error] 50177#611804: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:10:27 [error] 50177#611804: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:10:28 [error] 50177#611804: *3 [lua] producer.lua:272: buffered messages send to kafka err: no resolver defined to resolve "localhost", retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:15:03 [error] 51386#621127: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:15:03 [error] 51386#621127: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:15:04 [error] 51386#621127: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:09 [error] 51386#621127: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:14 [error] 51386#621127: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:19 [error] 51386#621127: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:22 [error] 51461#621716: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:15:22 [error] 51461#621716: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:15:23 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:23 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:28 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:33 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:38 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:43 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:48 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:53 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:53 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:15:58 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:03 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:08 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:13 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:18 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:23 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:28 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:33 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:38 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:43 [error] 51461#621716: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:48 [error] 51461#621716: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:16:53 [error] 51461#621716: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:25:45 [error] 53646#638993: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:25:45 [error] 53646#638993: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:25:46 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:25:51 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:25:56 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:01 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:06 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:11 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:17 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:22 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:27 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:32 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:37 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:42 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:47 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:52 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:26:57 [error] 53646#638993: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:02 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:07 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:12 [error] 53646#638993: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:17 [error] 53646#638993: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:27:30 [error] 53873#640978: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:27:30 [error] 53873#640978: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:27:31 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:36 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:41 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:46 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:51 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:27:56 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:01 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:01 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:06 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:11 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:16 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:21 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:26 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:31 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:36 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:41 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:46 [error] 53873#640978: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:51 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:28:56 [error] 53873#640978: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:29:01 [error] 53873#640978: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/15 23:58:42 [error] 56222#661280: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:58:42 [error] 56222#661280: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/15 23:58:43 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:58:43 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:58:48 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:58:54 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:58:59 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:04 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:09 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:14 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:19 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:24 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:29 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:34 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:39 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:44 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:49 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:54 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/15 23:59:59 [error] 56222#661280: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:00:04 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:00:09 [error] 56222#661280: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:00:14 [error] 56222#661280: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:01:15 [error] 56505#663601: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:01:15 [error] 56505#663601: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:01:16 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:21 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:26 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:31 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:36 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:41 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:46 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:51 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:01:56 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:01 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:06 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:11 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:16 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:16 [error] 56505#663601: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:21 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:26 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:31 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:36 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:41 [error] 56505#663601: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:02:46 [error] 56505#663601: *3 [lua] client.lua:210: refresh(): all brokers failed in fetch topic metadata, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:02:46 [error] 56505#663601: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:03:22 [error] 56689#665571: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:03:22 [error] 56689#665571: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:03:23 [error] 56689#665571: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:23 [error] 56689#665571: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:28 [error] 56689#665571: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:33 [error] 56689#665571: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:38 [error] 56689#665571: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:43 [error] 56689#665571: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:03:51 [error] 56748#666095: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:03:51 [error] 56748#666095: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:03:52 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:03:52 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:03:57 [error] 56748#666095: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:02 [error] 56748#666095: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:07 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:11 [error] 56748#666095: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:04:11 [error] 56748#666095: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:04:12 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:17 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:22 [error] 56748#666095: recv() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:27 [error] 56748#666095: send() failed (61: Connection refused) while resolving, resolver: 127.0.0.1:53
+2023/07/16 00:04:33 [error] 56820#666809: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:04:33 [error] 56820#666809: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:04:35 [error] 56820#666809: *3 [lua] producer.lua:272: buffered messages send to kafka err: no resolver defined to resolve "localhost", retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:09:21 [error] 56820#666809: *575 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:09:21 [error] 56820#666809: *575 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:09:21 [error] 56820#666809: *577 [lua] producer.lua:272: buffered messages send to kafka err: no resolver defined to resolve "localhost", retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:09:38 [error] 56820#666809: *575 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:09:38 [error] 56820#666809: *575 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:09:38 [error] 56820#666809: *612 [lua] producer.lua:272: buffered messages send to kafka err: no resolver defined to resolve "localhost", retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 00:10:05 [error] 57324#672250: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:10:05 [error] 57324#672250: *1 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 00:10:06 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:11 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:16 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:21 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:26 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:31 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:36 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:41 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:46 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:51 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:10:56 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:01 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:06 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:06 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:11 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:16 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:21 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:26 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:31 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 00:11:36 [error] 57324#672250: *3 [lua] producer.lua:272: buffered messages send to kafka err: localhost could not be resolved (60: Operation timed out), retryable: true, topic: flume_test, partition_id: 0, length: 1, context: ngx.timer, client: 127.0.0.1, server: 0.0.0.0:8080
+2023/07/16 02:18:27 [error] 57324#672250: *15392 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:18:27 [error] 57324#672250: *15392 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:18:27 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:27 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:32 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:37 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:42 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:47 [error] 57324#672250: send() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:18:52 [error] 57324#672250: recv() failed (61: Connection refused) while resolving, resolver: 192.168.71.16:53
+2023/07/16 02:20:10 [error] 57324#672250: *15609 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:20:10 [error] 57324#672250: *15609 [lua] log.lua:26: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:25:22 [error] 73094#778048: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:25:22 [error] 73094#778048: *1 failed to run log_by_lua*: /Users/heqin/workspace/dockerData/nginx_flume/log.lua:21: API disabled in the context of log_by_lua*
+stack traceback:
+	[C]: in function 'read_body'
+	/Users/heqin/workspace/dockerData/nginx_flume/log.lua:21: in main chunk while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:28:23 [error] 73348#780882: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:28:23 [error] 73348#780882: *1 failed to run log_by_lua*: /Users/heqin/workspace/dockerData/nginx_flume/log.lua:26: API disabled in the context of log_by_lua*
+stack traceback:
+	[C]: in function 'ngx_req_read_body'
+	/Users/heqin/workspace/dockerData/nginx_flume/log.lua:26: in main chunk while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:32:34 [error] 73718#785187: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:32:34 [error] 73718#785187: *1 [lua] log.lua:36: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:32:58 [error] 73718#785187: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:32:58 [error] 73718#785187: *1 [lua] log.lua:36: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:33:50 [error] 73821#786215: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:33:50 [error] 73821#786215: *1 failed to run log_by_lua*: /Users/heqin/workspace/dockerData/nginx_flume/log.lua:6: API disabled in the context of log_by_lua*
+stack traceback:
+	[C]: in function 'read_body'
+	/Users/heqin/workspace/dockerData/nginx_flume/log.lua:6: in main chunk while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:38:04 [error] 74154#789589: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:38:04 [error] 74154#789589: *1 [lua] log.lua:28: kafka send err:nil while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:39:49 [error] 74304#790993: *1 open() "/opt/homebrew/Cellar/openresty/1.21.4.1_2/nginx/html/cslog" failed (2: No such file or directory), client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:39:49 [error] 74304#790993: *1 failed to run log_by_lua*: /Users/heqin/workspace/dockerData/nginx_flume/log.lua:5: API disabled in the context of log_by_lua*
+stack traceback:
+	[C]: in function 'read_body'
+	/Users/heqin/workspace/dockerData/nginx_flume/log.lua:5: in main chunk while logging request, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 02:43:11 [error] 74610#794370: *1 [lua] log.lua:32: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 11:32:44 [error] 74610#794370: *28595 [lua] log.lua:32: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:19:39 [error] 11686#1161262: *1 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:22:43 [error] 11686#1161262: *369 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:23:23 [error] 12137#1166457: *1 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:26:08 [error] 12137#1166457: *331 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:26:19 [error] 12137#1166457: *331 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:26:58 [error] 12137#1166457: *432 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:27:04 [error] 12137#1166457: *432 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:27:06 [error] 12137#1166457: *432 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:28:46 [error] 12137#1166457: *649 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:29:59 [error] 12137#1166457: *794 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:30:45 [error] 12137#1166457: *889 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:32:52 [error] 12136#1166456: *1144 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:33:44 [error] 12136#1166456: *1350 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:36:51 [error] 12137#1166457: *2099 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:37:35 [error] 12136#1166456: *2276 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:37:45 [error] 12136#1166456: *2276 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:38:07 [error] 12136#1166456: *2276 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:43:45 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:43:59 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:00 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:00 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:01 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:15 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:16 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:16 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:17 [error] 12137#1166457: *3757 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:44:57 [error] 12136#1166456: *4042 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:45:10 [error] 12136#1166456: *4042 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:45:10 [error] 12136#1166456: *4042 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:45:11 [error] 12136#1166456: *4042 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:45:12 [error] 12136#1166456: *4042 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:46:14 [error] 12137#1166457: *4351 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:48:49 [error] 12137#1166457: *4972 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:48:50 [error] 12137#1166457: *4972 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:49:15 [error] 12137#1166457: *4972 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:52:19 [error] 12137#1166457: *5813 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:52:26 [error] 12137#1166457: *5813 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:52:38 [error] 12137#1166457: *5813 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:52:56 [error] 12137#1166457: *5813 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:56:23 [error] 12137#1166457: *6786 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:56:29 [error] 12137#1166457: *6786 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"
+2023/07/16 15:56:45 [error] 12137#1166457: *6786 [lua] log.lua:33: kafka send err:nil, client: 127.0.0.1, server: localhost, request: "POST /cslog?uid=heqin03 HTTP/1.1", host: "localhost:8080"

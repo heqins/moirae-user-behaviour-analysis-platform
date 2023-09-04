@@ -1,0 +1,1 @@
+./flume-ng agent --conf /Users/heqin/workspace/dockerData/nginx_flume/conf/ --name agent1 --conf-file /Users/heqin/workspace/dockerData/nginx_flume/conf/my_flume.conf -Dflume.root.logger=INFO,console;flume.log.file=/Users/heqin/workspace/dockerData/nginx_flume/flume.log
