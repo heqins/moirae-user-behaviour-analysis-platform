@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class ReportEventsToDorisHandler {
+public class ReportEventsToDorisHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -158,7 +158,8 @@ public class ReportEventsToDorisHandler {
         }
     }
 
-    private void flush() {
+    @Override
+    public void flush() {
         if (this.buffers.isEmpty()) {
             return;
         }
