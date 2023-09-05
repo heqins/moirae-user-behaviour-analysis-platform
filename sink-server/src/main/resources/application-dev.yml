@@ -71,3 +71,7 @@ data-source:
     db-name: user_behaviour_analysis
 
   mysql:
+    url: jdbc:mysql://localhost:3060/user_behaviour_analysis?rewriteBatchedStatements=true
+    username: root
+    password: 5323105
+    driver: com.mysql.cj.jdbc.Driver

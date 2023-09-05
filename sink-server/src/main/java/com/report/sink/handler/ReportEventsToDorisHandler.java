@@ -34,12 +34,6 @@ public class ReportEventsToDorisHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    @Resource
-    private EventLogHandler eventLogHandler;
-
-    @Resource
-    private DorisHelper dorisHelper;
-
     private List<LogEventDTO> buffers;
 
     private int capacity;
@@ -62,6 +56,15 @@ public class ReportEventsToDorisHandler implements EventsHandler{
         this.runSchedule();
     }
 
+    @Resource
+    private EventLogHandler eventLogHandler;
+
+    @Resource
+    private DorisHelper dorisHelper;
+
+    @Resource
+    private MetaEventHandler metaEventHandler;
+
     public void runSchedule() {
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
     }
@@ -75,6 +78,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
             eventLogHandler.addEvent(failLog);
             return;
         }
+
         List<TableColumnDTO> columns = new ArrayList<>();
         try {
             columns = dorisHelper.getTableColumnInfos(dbName, tableName);
