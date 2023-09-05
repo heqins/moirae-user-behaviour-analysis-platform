@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Component
 @Slf4j
-public class EventLogHandler {
+public class EventLogHandler implements EventsHandler{
 
     private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name," +
             " event_data, event_type, error_reason, error_handling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -112,6 +112,7 @@ public class EventLogHandler {
         }
     }
 
+    @Override
     public void flush() {
         if (this.buffers.isEmpty()) {
             return;

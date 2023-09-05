@@ -1,0 +1,6 @@
+FROM centos:7
+ADD jdk-8u361-linux-x64.tar.gz /usr/local/java
+ENV JAVA_HOME /usr/local/java/jdk1.8.0_281
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV PATH $PATH:$JAVA_HOME/bin
+CMD ["java","-version"]

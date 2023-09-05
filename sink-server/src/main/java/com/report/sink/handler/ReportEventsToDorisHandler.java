@@ -30,15 +30,9 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class ReportEventsToDorisHandler {
+public class ReportEventsToDorisHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
-
-    @Resource
-    private EventLogHandler eventLogHandler;
-
-    @Resource
-    private DorisHelper dorisHelper;
 
     private List<LogEventDTO> buffers;
 
@@ -62,6 +56,15 @@ public class ReportEventsToDorisHandler {
         this.runSchedule();
     }
 
+    @Resource
+    private EventLogHandler eventLogHandler;
+
+    @Resource
+    private DorisHelper dorisHelper;
+
+    @Resource
+    private MetaEventHandler metaEventHandler;
+
     public void runSchedule() {
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
     }
@@ -75,6 +78,7 @@ public class ReportEventsToDorisHandler {
             eventLogHandler.addEvent(failLog);
             return;
         }
+
         List<TableColumnDTO> columns = new ArrayList<>();
         try {
             columns = dorisHelper.getTableColumnInfos(dbName, tableName);
@@ -158,7 +162,8 @@ public class ReportEventsToDorisHandler {
         }
     }
 
-    private void flush() {
+    @Override
+    public void flush() {
         if (this.buffers.isEmpty()) {
             return;
         }
@@ -209,8 +214,6 @@ public class ReportEventsToDorisHandler {
             }
 
             this.buffers.clear();
-        }catch (Exception e) {
-            log.error("test", e);
         }finally {
             lock.unlock();
         }

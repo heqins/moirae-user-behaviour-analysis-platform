@@ -24,4 +24,15 @@ public class DataSourceConfig {
                 .username(dorisConfig.getUsername())
                 .build();
     }
+
+    @Bean(name = "mysql")
+    public DataSource mysqlDataSource() {
+        DataSourceProperty.MysqlConfig mysqlConfig = dataSourceProperty.getMysql();
+        return DataSourceBuilder.create()
+                .url(mysqlConfig.getUrl())
+                .driverClassName(mysqlConfig.getDriver())
+                .password(mysqlConfig.getPassword())
+                .username(mysqlConfig.getUsername())
+                .build();
+    }
 }

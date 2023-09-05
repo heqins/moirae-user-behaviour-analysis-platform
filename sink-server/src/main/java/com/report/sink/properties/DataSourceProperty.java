@@ -14,6 +14,19 @@ public class DataSourceProperty {
 
     private DorisConfig doris;
 
+    private MysqlConfig mysql;
+
+    @Data
+    public static class MysqlConfig {
+        private String url;
+
+        private String username;
+
+        private String password;
+
+        private String driver;
+    }
+
     @Data
     public static class DorisConfig {
         private String url;
