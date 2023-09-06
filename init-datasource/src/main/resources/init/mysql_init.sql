@@ -10,13 +10,13 @@ CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                                  `update_by` int(11) NULL DEFAULT 0,
                                  `app_manager` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-                                 `is_close` tinyint(4) NULL DEFAULT 0 COMMENT '是否关闭 0为false 1 为 true',
+                                 `status` tinyint(4) NULL DEFAULT 0 COMMENT '是否关闭 0 - false 1 - true',
                                  `save_month` int(11) NULL DEFAULT 1 COMMENT '保存n个月',
                                  PRIMARY KEY (`id`) USING BTREE,
                                  UNIQUE INDEX `app_name`(`app_name`) USING BTREE,
                                  UNIQUE INDEX `app_id`(`app_id`) USING BTREE,
-                                 INDEX `app_create_by`(`create_by`, `app_name`, `is_close`) USING BTREE,
-                                 INDEX `app_isclose`(`is_close`) USING BTREE
+                                 INDEX `app_create_by`(`create_by`, `app_name`, `status`) USING BTREE,
+                                 INDEX `app_isclose`(`status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`attribute`;
@@ -83,17 +83,15 @@ CREATE TABLE `user_behaviour_analysis`.`sys_user`  (
                                      `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                      `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                      `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                     `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
-                                     `real_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '真实姓名',
+                                     `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色id',
                                      `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                      `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                     `last_login_time` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
+                                     `last_login_time` bigint(20) NULL DEFAULT 0,
                                      `status` tinyint NULL DEFAULT 0 COMMENT '是否禁止该账号 0 - 否 1 - 是',
                                      PRIMARY KEY (`id`) USING BTREE,
                                      UNIQUE INDEX `sys_user_username`(`username`) USING BTREE COMMENT '角色名唯一索引',
                                      INDEX `sys_user_username_pwd`(`username`, `password`, `status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
-INSERT INTO `user_behaviour_analysis`.`sys_user` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'admin', '2021-10-21 10:48:08', '2022-01-07 14:49:28', '2022-01-07 14:49:29', 0);
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_attribute_relation`;
 CREATE TABLE `user_behaviour_analysis`.`meta_attribute_relation`  (

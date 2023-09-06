@@ -49,7 +49,7 @@ public class AppServiceImpl implements IAppService {
 
         log.info("appId length:{} key length:{}", app.getAppId().length(), app.getAppKey().length());
 
-        Integer id = appDao.createApp(app);
+        Long id = appDao.createApp(app);
         log.info("create app, id={}", id);
     }
 }

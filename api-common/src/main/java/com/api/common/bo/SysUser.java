@@ -13,43 +13,23 @@ import java.time.LocalDateTime;
  * @author heqin
  */
 @Data
-@TableName(value = "app")
 public class SysUser {
 
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String appName;
+    private String username;
 
-    private String description;
+    private String password;
 
-    private String appId;
-
-    private String appKey;
-
-    private Integer createBy;
+    private Long roleId;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
-    private Integer updateBy;
+    private Long lastLoginTime;
 
-    private String appManager;
+    private Integer status;
 
-    private Boolean closed;
-
-    private Integer saveMonth;
-
-    public static SysUser transferFromCreateAppParam(CreateAppParam appParam) {
-        if (appParam == null || appParam.getAppName() == null) {
-            return null;
-        }
-
-        SysUser app = new SysUser();
-        BeanUtils.copyProperties(appParam, app);
-        app.setAppName(appParam.getAppName());
-
-        return app;
-    }
 }

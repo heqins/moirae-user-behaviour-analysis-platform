@@ -12,7 +12,7 @@ public class AppDao {
     @Resource
     private AppMapper appMapper;
 
-    public Integer createApp(App createApp) {
+    public Long createApp(App createApp) {
         appMapper.insert(createApp);
 
         return createApp.getId();

@@ -30,6 +30,10 @@ spring:
         max-wait: 300ms
     connect-timeout: 30000ms
 
+custom:
+  security:
+    salt: sfdfsd
+
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
   # token 名称（同时也是 cookie 名称）

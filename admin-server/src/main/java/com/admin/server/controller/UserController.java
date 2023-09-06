@@ -29,6 +29,7 @@ public class UserController {
     @ApiOperation(value = "登录系统")
     @PostMapping("/doLogin")
     public CommonResponse<Void> doLogin(@RequestBody UserLoginParam userLoginParam) {
+        userService.doLogin(userLoginParam);
         return CommonResponse.ofSuccess();
     }
 
