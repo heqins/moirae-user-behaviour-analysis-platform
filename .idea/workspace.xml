@@ -4,30 +4,62 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 初始化元数据管理">
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/MetaEventDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/MetaEventMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新加锁逻辑">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/RedisHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/ICacheService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/messages/messages_en_US.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ApiConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/BasePageVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/CommonResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventsPageVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/cmd/start_agent.sh" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/cmd/start_agent.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/conf/my_flume.conf" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/conf/my_flume.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/conf/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/conf/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/conf/nginx_backup copy.conf" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/conf/nginx_backup copy.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/docker/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/docker/Dockerfile_centos" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/docker/Dockerfile_centos" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/logs/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/logs/postdata.log" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/logs/postdata.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/logs/test" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/logs/test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-server/lua/log.lua" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/lua/log.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/AppDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/admin/AppDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/GeoIpDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/GeoIpDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/LogEventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/LogEventDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/TableColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/TableColumnDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/EventLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/EventLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEventAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEventAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/OpenAPIConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/AppDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/MetaEventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/MetaEventDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/AppMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/AppMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/MetaEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/MetaEventMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/AppServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +73,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -102,7 +134,7 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "jdk.selected.JAVA_MODULE": "temurin-11",
-    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/report-server",
+    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/admin-server/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -113,7 +145,7 @@
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.customizations",
-    "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
+    "spring.configuration.checksum": "3f6706cba2f40de4fb653e0d285aa3b7",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -122,6 +154,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin-server/src/main/resources" />
       <recent name="$PROJECT_DIR$/report-server" />
       <recent name="$PROJECT_DIR$/flink-job/src/main/resources" />
     </key>
@@ -133,12 +166,14 @@
       <recent name="$PROJECT_DIR$/report-server/lua" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.admin.server.helper" />
+      <recent name="com.admin.server.config" />
       <recent name="com.report.sink.dao" />
       <recent name="com.api.common.entity" />
       <recent name="com.flink.job.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SinkMain">
+  <component name="RunManager" selected="Spring Boot.AdminMain">
     <configuration name="DorisHelper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.report.sink.helper.DorisHelper" />
       <module name="sink-server" />
@@ -165,12 +200,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
-      <module name="sink-server" />
+    <configuration name="MysqlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.MysqlTask" />
+      <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.*" />
+          <option name="PATTERN" value="com.init.datasource.task.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -178,8 +213,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SinkHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.SinkHandler" />
+    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
       <module name="sink-server" />
       <extension name="coverage">
         <pattern>
@@ -223,11 +258,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MysqlTask" />
         <item itemvalue="Application.DorisHelper" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.DorisTask" />
         <item itemvalue="Application.ReportEventsToDorisHandler" />
-        <item itemvalue="Application.SinkHandler" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +283,8 @@
       <workItem from="1693359821735" duration="597000" />
       <workItem from="1693448490801" duration="3178000" />
       <workItem from="1693451906518" duration="1194000" />
-      <workItem from="1693637499172" duration="15640000" />
+      <workItem from="1693637499172" duration="19524000" />
+      <workItem from="1693967336127" duration="3344000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -467,7 +503,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693906330977</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat: 更新加锁逻辑">
+      <created>1693963436477</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1693963436477</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,7 +528,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新readme" />
     <MESSAGE value="feat: 更新report-server" />
     <MESSAGE value="feat: 更新依赖" />
     <MESSAGE value="feat: 初始化flink模块" />
@@ -510,6 +552,7 @@
     <MESSAGE value="feat: 更新查询app表信息" />
     <MESSAGE value="feat: 增加Flume收集配置" />
     <MESSAGE value="feat: 初始化元数据管理" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化元数据管理" />
+    <MESSAGE value="feat: 更新加锁逻辑" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新加锁逻辑" />
   </component>
 </project>

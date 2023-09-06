@@ -1,7 +1,6 @@
 package com.report.sink.handler;
 
-import cn.hutool.json.JSONObject;
-import com.api.common.entity.EventLog;
+import com.api.common.bo.EventLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

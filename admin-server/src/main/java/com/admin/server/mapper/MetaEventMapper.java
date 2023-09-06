@@ -1,4 +1,4 @@
-package com.report.sink.mapper;
+package com.admin.server.mapper;
 
 import com.api.common.bo.MetaEvent;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

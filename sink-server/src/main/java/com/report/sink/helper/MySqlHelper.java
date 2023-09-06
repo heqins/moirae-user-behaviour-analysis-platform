@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
-import com.api.common.entity.MetaEvent;
-import com.api.common.entity.MetaEventAttribute;
+import com.api.common.bo.MetaEvent;
+import com.api.common.bo.MetaEventAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

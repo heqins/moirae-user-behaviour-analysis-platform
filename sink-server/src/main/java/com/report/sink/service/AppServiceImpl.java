@@ -1,7 +1,7 @@
 package com.report.sink.service;
 
-import com.api.common.dto.AppDTO;
-import com.api.common.entity.App;
+import com.api.common.dto.admin.AppDTO;
+import com.api.common.bo.App;
 import com.report.sink.dao.AppDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

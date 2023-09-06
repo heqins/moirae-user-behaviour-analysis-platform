@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
 import cn.hutool.json.JSONObject;
-import com.api.common.dto.TableColumnDTO;
+import com.api.common.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

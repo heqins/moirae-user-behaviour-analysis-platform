@@ -1,6 +1,6 @@
 package com.report.sink.dao;
 
-import com.api.common.entity.MetaEvent;
+import com.api.common.bo.MetaEvent;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.report.sink.mapper.MetaEventMapper;

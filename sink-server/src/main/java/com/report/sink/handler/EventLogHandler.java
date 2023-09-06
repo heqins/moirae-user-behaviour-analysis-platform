@@ -2,7 +2,7 @@ package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
-import com.api.common.entity.EventLog;
+import com.api.common.bo.EventLog;
 import com.report.sink.enums.EventStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

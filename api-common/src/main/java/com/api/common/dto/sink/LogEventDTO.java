@@ -1,4 +1,4 @@
-package com.api.common.dto;
+package com.api.common.dto.sink;
 
 import cn.hutool.json.JSONObject;
 

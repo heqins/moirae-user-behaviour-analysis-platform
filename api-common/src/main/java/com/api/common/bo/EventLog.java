@@ -1,4 +1,4 @@
-package com.api.common.entity;
+package com.api.common.bo;
 
 public class EventLog {
 

@@ -1,4 +1,4 @@
-package com.api.common.dto;
+package com.api.common.dto.admin;
 
 import lombok.Data;
 
@@ -24,7 +24,7 @@ public class AppDTO {
 
     private String appManager;
 
-    private boolean isClose;
+    private Boolean closed;
 
-    private int saveMonth;
+    private Integer saveMonth;
 }

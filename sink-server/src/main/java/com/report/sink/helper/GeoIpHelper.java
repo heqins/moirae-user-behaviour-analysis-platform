@@ -1,14 +1,11 @@
 package com.report.sink.helper;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.GeoIpDTO;
+import com.api.common.dto.sink.GeoIpDTO;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
-import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.model.CountryResponse;
-import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
-import com.maxmind.geoip2.record.Location;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

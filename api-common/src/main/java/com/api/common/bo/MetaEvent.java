@@ -1,4 +1,4 @@
-package com.api.common.entity;
+package com.api.common.bo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -30,5 +30,5 @@ public class MetaEvent {
     /**
      * 0 - enable 1 - disable
      */
-    private String status;
+    private Integer status;
 }

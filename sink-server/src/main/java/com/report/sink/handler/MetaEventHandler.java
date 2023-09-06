@@ -1,8 +1,8 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import com.api.common.entity.MetaEvent;
-import com.api.common.entity.MetaEventAttribute;
+import com.api.common.bo.MetaEvent;
+import com.api.common.bo.MetaEventAttribute;
 import com.report.sink.dao.MetaEventDao;
 import com.report.sink.helper.MySqlHelper;
 import com.report.sink.service.ICacheService;

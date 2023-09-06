@@ -1,6 +1,6 @@
 package com.flink.job.window.watermark;
 
-import com.api.common.entity.EventLog;
+import com.api.common.bo.EventLog;
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;
 

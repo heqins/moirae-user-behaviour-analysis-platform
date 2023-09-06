@@ -2,8 +2,8 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.AppDTO;
-import com.api.common.entity.EventLog;
+import com.api.common.dto.admin.AppDTO;
+import com.api.common.bo.EventLog;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
