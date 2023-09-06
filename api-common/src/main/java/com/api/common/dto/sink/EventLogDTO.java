@@ -1,6 +1,6 @@
-package com.api.common.bo;
+package com.api.common.dto.sink;
 
-public class EventLog {
+public class EventLogDTO {
 
     private String appId;
 
@@ -18,7 +18,7 @@ public class EventLog {
 
     private Integer status;
 
-    public EventLog(String appId, String eventName, Long eventTime, String dataJson, String errorReason, String errorHandling, String eventType, Integer status) {
+    public EventLogDTO(String appId, String eventName, Long eventTime, String dataJson, String errorReason, String errorHandling, String eventType, Integer status) {
         this.appId = appId;
         this.eventName = eventName;
         this.eventTime = eventTime;
@@ -29,7 +29,7 @@ public class EventLog {
         this.status = status;
     }
 
-    public EventLog() {
+    public EventLogDTO() {
     }
 
     public String getAppId() {

@@ -3,7 +3,7 @@ package com.report.sink.handler;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.dto.admin.AppDTO;
-import com.api.common.bo.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
@@ -64,7 +64,7 @@ public class SinkHandler {
 
             String tableName = generateTableName(jsonObject, appId);
 
-            EventLog eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
+            EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
 
             reportEventsToDorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);

@@ -21,4 +21,8 @@ public class UserServiceImpl implements IUserService {
     @Resource
     private AppDao appDao;
 
+    @Override
+    public void doLogin() {
+
+    }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class SysUser {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String appName;
 

@@ -4,33 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加adminServer应用创建接口">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/annotation/PermissionAuthorize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/RoleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/error/ResponseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/UserLoginParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppPageVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppVo.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新异常处理类">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/interceptor/ErrorInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/interceptor/ErrorInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateAppParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateAppParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/CommonResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/CommonResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaEventVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventsPageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaEventsPageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/EventLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/EventLogDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +132,7 @@
       <recent name="com.admin.server.helper" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.AdminMain">
+  <component name="RunManager" selected="Application.MysqlTask">
     <configuration name="DorisHelper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.report.sink.helper.DorisHelper" />
       <module name="sink-server" />
@@ -256,7 +243,7 @@
       <workItem from="1693448490801" duration="3178000" />
       <workItem from="1693451906518" duration="1194000" />
       <workItem from="1693637499172" duration="19524000" />
-      <workItem from="1693967336127" duration="11181000" />
+      <workItem from="1693967336127" duration="11517000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -496,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693989019425</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="feat: 更新异常处理类">
+      <created>1693991630819</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1693991630819</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -514,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 初始化flink模块" />
     <MESSAGE value="feat: 初始化flink的读取任务" />
     <MESSAGE value="feat: 更改标题" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql" />
@@ -539,6 +532,7 @@
     <MESSAGE value="feat: 更新加锁逻辑" />
     <MESSAGE value="feat: 增加adminServer元数据查询接口" />
     <MESSAGE value="feat: 增加adminServer应用创建接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加adminServer应用创建接口" />
+    <MESSAGE value="feat: 更新异常处理类" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新异常处理类" />
   </component>
 </project>

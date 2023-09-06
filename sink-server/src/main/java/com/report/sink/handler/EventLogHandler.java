@@ -2,7 +2,7 @@ package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
-import com.api.common.bo.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +33,7 @@ public class EventLogHandler implements EventsHandler{
     private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name," +
             " event_data, event_type, error_reason, error_handling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private List<EventLog> buffers;
+    private List<EventLogDTO> buffers;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -65,7 +65,7 @@ public class EventLogHandler implements EventsHandler{
         run();
     }
 
-    public EventLog transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
+    public EventLogDTO transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
         if (jsonObject == null) {
             log.error("EventLogHandler");
             return null;
@@ -76,7 +76,7 @@ public class EventLogHandler implements EventsHandler{
             return null;
         }
 
-        EventLog eventLog = new EventLog();
+        EventLogDTO eventLog = new EventLogDTO();
         eventLog.setEventType(jsonObject.getStr("event_type"));
         eventLog.setStatus(status);
         if (dataJson != null) {
@@ -97,7 +97,7 @@ public class EventLogHandler implements EventsHandler{
         }
     }
 
-    public void addEvent(EventLog eventLog) {
+    public void addEvent(EventLogDTO eventLog) {
         if (eventLog != null) {
             this.buffers.add(eventLog);
         }
@@ -129,7 +129,7 @@ public class EventLogHandler implements EventsHandler{
                 connection.setAutoCommit(false);
 
                 try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
-                    for (EventLog eventLog : this.buffers) {
+                    for (EventLogDTO eventLog : this.buffers) {
                         preparedStatement.setString(1, eventLog.getAppId());
                         preparedStatement.setLong(2, eventLog.getEventTime());
                         preparedStatement.setDate(3, new Date(eventLog.getEventTime()));

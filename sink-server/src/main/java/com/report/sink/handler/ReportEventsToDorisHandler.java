@@ -6,7 +6,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.dto.sink.LogEventDTO;
 import com.api.common.dto.sink.TableColumnDTO;
-import com.api.common.bo.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.helper.DorisHelper;
@@ -72,7 +72,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
     private void alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
         String appId = jsonObject.getStr("app_id");
         if (StringUtils.isBlank(appId)) {
-            EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
+            EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
                     EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(),
                     "保留数据");
             eventLogHandler.addEvent(failLog);
@@ -101,7 +101,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
 
                 // 比较表字段类型是否一致
                 if (!objFieldType.equals(columnDTO.getColumnType())) {
-                    EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
+                    EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
                             EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
                     eventLogHandler.addEvent(failLog);
 

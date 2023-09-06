@@ -1,7 +1,7 @@
 package com.flink.job.window;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.bo.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import com.flink.job.model.entity.EventLogPv;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
@@ -13,7 +13,7 @@ import org.apache.flink.util.OutputTag;
 
 import java.util.Iterator;
 
-public class LogPvWindow extends ProcessWindowFunction<EventLog, EventLogPv, String, TimeWindow> {
+public class LogPvWindow extends ProcessWindowFunction<EventLogDTO, EventLogPv, String, TimeWindow> {
 
     private ValueState<Long> countState;
 
@@ -30,18 +30,18 @@ public class LogPvWindow extends ProcessWindowFunction<EventLog, EventLogPv, Str
     }
 
     @Override
-    public void process(String s, Context context, Iterable<EventLog> elements, Collector<EventLogPv> out) throws Exception {
+    public void process(String s, Context context, Iterable<EventLogDTO> elements, Collector<EventLogPv> out) throws Exception {
         Long count = countState.value();
         if (count == null) {
             count = 0L;
         }
 
-        Iterator<EventLog> iterator = elements.iterator();
+        Iterator<EventLogDTO> iterator = elements.iterator();
         EventLogPv pv = new EventLogPv();
         String appId = null;
         while (iterator.hasNext()) {
             count++;
-            EventLog next = iterator.next();
+            EventLogDTO next = iterator.next();
             if (appId == null) {
                 appId = next.getAppId();
             }

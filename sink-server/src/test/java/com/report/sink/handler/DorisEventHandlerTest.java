@@ -1,6 +1,6 @@
 package com.report.sink.handler;
 
-import com.api.common.bo.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +24,7 @@ public class DorisEventHandlerTest {
 
     @Test
     public void addEvent() {
-        EventLog log = new EventLog();
+        EventLogDTO log = new EventLogDTO();
 //        log.set("event_name", "test");
 //        log.set("event_time", System.currentTimeMillis());
 //        log.set("app_id", "popo");
