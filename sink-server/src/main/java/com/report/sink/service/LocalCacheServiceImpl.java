@@ -1,6 +1,7 @@
 package com.report.sink.service;
 
 import com.api.common.dto.TableColumnDTO;
+import com.api.common.entity.MetaEvent;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.report.sink.constants.CacheConstants;
 import com.report.sink.helper.DorisHelper;
@@ -31,5 +32,10 @@ public class LocalCacheServiceImpl implements ICacheService{
     @Override
     public void removeColumnCache(String dbName, String tableName) {
 
+    }
+
+    @Override
+    public List<MetaEvent> getMetaEventCache(String appId) {
+        return null;
     }
 }

@@ -26,4 +26,9 @@ public class MetaEvent {
     private Integer yesterdayCount;
 
     private String showName;
+
+    /**
+     * 0 - enable 1 - disable
+     */
+    private String status;
 }

@@ -62,7 +62,7 @@ public class EventLogHandler implements EventsHandler{
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
         buffers = new ArrayList<>(bufferSize);
 
-        this.run();
+        run();
     }
 
     public EventLog transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
@@ -98,16 +98,11 @@ public class EventLogHandler implements EventsHandler{
     }
 
     public void addEvent(EventLog eventLog) {
-        lock.lock();
-        try {
-            if (eventLog != null) {
-                this.buffers.add(eventLog);
-            }
-        }finally {
-            lock.unlock();
+        if (eventLog != null) {
+            this.buffers.add(eventLog);
         }
 
-        if (this.buffers.size() == this.bufferSize) {
+        if (this.buffers.size() >= this.bufferSize) {
             this.flush();
         }
     }
@@ -118,11 +113,17 @@ public class EventLogHandler implements EventsHandler{
             return;
         }
 
-        if (lock.isLocked()) {
+        boolean acquireLock = false;
+        try {
+            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
+        }catch (InterruptedException e) {
+            log.error("EventLogHandler tryLock error", e);
+        }
+
+        if (!acquireLock) {
             return;
         }
 
-        lock.lock();
         try {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);

@@ -2,6 +2,7 @@ package com.report.sink.service;
 
 
 import com.api.common.dto.TableColumnDTO;
+import com.api.common.entity.MetaEvent;
 import com.report.sink.helper.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,10 @@ public class RedisCacheServiceImpl implements ICacheService{
     @Override
     public void removeColumnCache(String dbName, String tableName) {
 
+    }
+
+    @Override
+    public List<MetaEvent> getMetaEventCache(String appId) {
+        return null;
     }
 }
