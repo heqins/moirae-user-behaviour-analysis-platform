@@ -4,16 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加Flume收集配置">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEventAttribute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新异常处理类">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DataSourceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaAttributeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/EventLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/EventLogDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/DataSourceProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/DataSourceProperty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -88,7 +93,7 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "jdk.selected.JAVA_MODULE": "temurin-11",
-    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/report-server",
+    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/admin-server/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,7 +104,7 @@
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.customizations",
-    "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
+    "spring.configuration.checksum": "3f6706cba2f40de4fb653e0d285aa3b7",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -108,6 +113,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin-server/src/main/resources" />
       <recent name="$PROJECT_DIR$/report-server" />
       <recent name="$PROJECT_DIR$/flink-job/src/main/resources" />
     </key>
@@ -119,11 +125,14 @@
       <recent name="$PROJECT_DIR$/report-server/lua" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.api.common.entity" />
-      <recent name="com.flink.job.config" />
+      <recent name="com.api.common.param.admin" />
+      <recent name="com.api.common.bo" />
+      <recent name="com.admin.server.service.impl" />
+      <recent name="com.admin.server.controller" />
+      <recent name="com.admin.server.helper" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SinkMain">
+  <component name="RunManager" selected="Application.MysqlTask">
     <configuration name="DorisHelper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.report.sink.helper.DorisHelper" />
       <module name="sink-server" />
@@ -150,12 +159,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
-      <module name="sink-server" />
+    <configuration name="MysqlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.MysqlTask" />
+      <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.*" />
+          <option name="PATTERN" value="com.init.datasource.task.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -163,8 +172,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SinkHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.SinkHandler" />
+    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
       <module name="sink-server" />
       <extension name="coverage">
         <pattern>
@@ -208,11 +217,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MysqlTask" />
         <item itemvalue="Application.DorisHelper" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.DorisTask" />
         <item itemvalue="Application.ReportEventsToDorisHandler" />
-        <item itemvalue="Application.SinkHandler" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +242,8 @@
       <workItem from="1693359821735" duration="597000" />
       <workItem from="1693448490801" duration="3178000" />
       <workItem from="1693451906518" duration="1194000" />
-      <workItem from="1693637499172" duration="9307000" />
+      <workItem from="1693637499172" duration="19524000" />
+      <workItem from="1693967336127" duration="11517000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -445,7 +455,42 @@
       <option name="project" value="LOCAL" />
       <updated>1693816349388</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="feat: 初始化元数据管理">
+      <created>1693906330977</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1693906330977</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: 更新加锁逻辑">
+      <created>1693963436477</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1693963436477</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: 增加adminServer元数据查询接口">
+      <created>1693970987301</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1693970987301</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: 增加adminServer应用创建接口">
+      <created>1693989019425</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1693989019425</updated>
+    </task>
+    <task id="LOCAL-00035" summary="feat: 更新异常处理类">
+      <created>1693991630819</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1693991630819</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -463,11 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新父项目Pom" />
-    <MESSAGE value="feat: 更新readme" />
-    <MESSAGE value="feat: 更新report-server" />
-    <MESSAGE value="feat: 更新依赖" />
-    <MESSAGE value="feat: 初始化flink模块" />
     <MESSAGE value="feat: 初始化flink的读取任务" />
     <MESSAGE value="feat: 更改标题" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql" />
@@ -488,6 +528,11 @@
     <MESSAGE value="feat: 实现doris监听插入数据库" />
     <MESSAGE value="feat: 更新查询app表信息" />
     <MESSAGE value="feat: 增加Flume收集配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加Flume收集配置" />
+    <MESSAGE value="feat: 初始化元数据管理" />
+    <MESSAGE value="feat: 更新加锁逻辑" />
+    <MESSAGE value="feat: 增加adminServer元数据查询接口" />
+    <MESSAGE value="feat: 增加adminServer应用创建接口" />
+    <MESSAGE value="feat: 更新异常处理类" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新异常处理类" />
   </component>
 </project>

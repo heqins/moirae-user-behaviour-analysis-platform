@@ -1,6 +1,6 @@
 package com.report.sink.dao;
 
-import com.api.common.entity.App;
+import com.api.common.bo.App;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.report.sink.mapper.AppMapper;
 import org.springframework.stereotype.Component;

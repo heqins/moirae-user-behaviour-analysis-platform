@@ -4,9 +4,9 @@ import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.LogEventDTO;
-import com.api.common.dto.TableColumnDTO;
-import com.api.common.entity.EventLog;
+import com.api.common.dto.sink.LogEventDTO;
+import com.api.common.dto.sink.TableColumnDTO;
+import com.api.common.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.helper.DorisHelper;
@@ -53,7 +53,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
         buffers = new ArrayList<>(1000);
 
-        this.runSchedule();
+        runSchedule();
     }
 
     @Resource
@@ -72,20 +72,15 @@ public class ReportEventsToDorisHandler implements EventsHandler{
     private void alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
         String appId = jsonObject.getStr("app_id");
         if (StringUtils.isBlank(appId)) {
-            EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
+            EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
                     EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(),
                     "保留数据");
             eventLogHandler.addEvent(failLog);
-            return;
+
+            throw new IllegalArgumentException("no appId");
         }
 
-        List<TableColumnDTO> columns = new ArrayList<>();
-        try {
-            columns = dorisHelper.getTableColumnInfos(dbName, tableName);
-        }catch (IllegalStateException e) {
-            log.error("reportEventsToDorisHandler error", e);
-            return;
-        }
+        List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(dbName, tableName);
 
         Set<String> jsonFields = jsonObject.keySet();
         Set<String> existFields = new HashSet<>();
@@ -106,9 +101,11 @@ public class ReportEventsToDorisHandler implements EventsHandler{
 
                 // 比较表字段类型是否一致
                 if (!objFieldType.equals(columnDTO.getColumnType())) {
-                    EventLog failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
+                    EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
                             EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
                     eventLogHandler.addEvent(failLog);
+
+                    throw new IllegalStateException("字段类型不一致");
                 }
             }
 
@@ -137,27 +134,27 @@ public class ReportEventsToDorisHandler implements EventsHandler{
             return;
         }
 
-        alterTableColumn(jsonObject, dbName, tableName);
+        try {
+            alterTableColumn(jsonObject, dbName, tableName);
+        }catch (IllegalArgumentException | IllegalStateException ia) {
+            log.error("reportEventsToDorisHandler addEvent error", ia);
+            return;
+        }
 
         insertTableData(jsonObject, dbName, tableName);
     }
 
     private void insertTableData(JSONObject jsonObject, String dbName, String tableName) {
-        lock.lock();
-        try {
-            if (jsonObject != null) {
-                LogEventDTO eventDTO = new LogEventDTO();
-                eventDTO.setDataObject(jsonObject);
-                eventDTO.setDbName(dbName);
-                eventDTO.setTableName(tableName);
+        if (jsonObject != null) {
+            LogEventDTO eventDTO = new LogEventDTO();
+            eventDTO.setDataObject(jsonObject);
+            eventDTO.setDbName(dbName);
+            eventDTO.setTableName(tableName);
 
-                this.buffers.add(eventDTO);
-            }
-        }finally {
-            lock.unlock();
+            this.buffers.add(eventDTO);
         }
 
-        if (this.buffers.size() == this.capacity) {
+        if (this.buffers.size() >= this.capacity) {
             this.flush();
         }
     }
@@ -168,11 +165,17 @@ public class ReportEventsToDorisHandler implements EventsHandler{
             return;
         }
 
-        if (lock.isLocked()) {
+        boolean acquireLock = false;
+        try {
+            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
+        }catch (InterruptedException e) {
+            log.error("reportEventsToDorisHandler flush lock error", e);
+        }
+
+        if (!acquireLock) {
             return;
         }
 
-        lock.lock();
         try {
             Map<String, List<LogEventDTO>> tableGroupMap = this.buffers
                     .stream()
@@ -200,7 +203,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
                 sb.append("INSERT INTO ");
                 sb.append(tableName);
                 sb.append(" (");
-                columnNames.forEach(column -> strJoiner.append(column));
+                columnNames.forEach(strJoiner::append);
                 sb.append(strJoiner.toString());
                 sb.append(") ");
                 sb.append("VALUES (");

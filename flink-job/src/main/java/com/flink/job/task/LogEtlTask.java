@@ -1,7 +1,7 @@
 package com.flink.job.task;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.entity.EventLog;
+import com.api.common.dto.sink.EventLogDTO;
 import com.flink.job.model.entity.EventLogPv;
 import com.flink.job.config.Config;
 import com.api.common.constant.ConfigConstant;
@@ -46,10 +46,10 @@ public class LogEtlTask {
 
         OutputTag<String> etlOutputTag = new OutputTag<>("etl-output-tag"){};
 
-        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(json -> JSONUtil.toBean(json, EventLog.class))
+        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(json -> JSONUtil.toBean(json, EventLogDTO.class))
                 .assignTimestampsAndWatermarks(new LogPvWatermarkAssigner())
                 .filter(log -> StringUtils.isNotBlank(log.getAppId()))
-                .keyBy(EventLog::getAppId)
+                .keyBy(EventLogDTO::getAppId)
                 .timeWindow(Time.minutes(5))
                 .process(new LogPvWindow(etlOutputTag));
 

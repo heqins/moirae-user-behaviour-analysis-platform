@@ -1,6 +1,8 @@
 package com.report.sink.service;
 
-import com.api.common.dto.TableColumnDTO;
+import com.api.common.dto.admin.AppDTO;
+import com.api.common.dto.sink.TableColumnDTO;
+import com.api.common.bo.MetaEvent;
 
 import java.util.List;
 
@@ -15,5 +17,8 @@ public interface ICacheService {
 
     void removeColumnCache(String dbName, String tableName);
 
+    List<MetaEvent> getMetaEventCache(String appId);
+
+    AppDTO getAppInfoCache(String appId);
 
 }
