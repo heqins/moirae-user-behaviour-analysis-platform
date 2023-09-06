@@ -1,9 +1,11 @@
 package com.api.common.bo;
 
+import com.api.common.param.admin.CreateAppParam;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 
@@ -13,29 +15,41 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "app")
 public class App {
+
     @TableId(type = IdType.AUTO)
-    private int id;
+    private Integer id;
 
     private String appName;
 
-    private String describe;
+    private String description;
 
     private String appId;
 
     private String appKey;
 
-    private int createBy;
+    private Integer createBy;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
-    private int updateBy;
+    private Integer updateBy;
 
     private String appManager;
 
-    private boolean isClose;
+    private Boolean closed;
 
-    private int saveMonth;
+    private Integer saveMonth;
 
+    public static App transferFromCreateAppParam(CreateAppParam appParam) {
+        if (appParam == null || appParam.getAppName() == null) {
+            return null;
+        }
+
+        App app = new App();
+        BeanUtils.copyProperties(appParam, app);
+        app.setAppName(appParam.getAppName());
+
+        return app;
+    }
 }

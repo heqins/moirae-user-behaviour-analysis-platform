@@ -57,7 +57,7 @@ public class SinkHandler {
 
             String appId = jsonObject.getStr("app_id");
             AppDTO appDTO = appService.getAppInfo(appId);
-            if (appDTO == null || appDTO.isClose()) {
+            if (appDTO == null || appDTO.getClosed()) {
                 log.warn("SinkHandler appId not found:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }

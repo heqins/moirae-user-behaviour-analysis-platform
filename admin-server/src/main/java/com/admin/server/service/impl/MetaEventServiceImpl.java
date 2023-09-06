@@ -4,6 +4,7 @@ import com.admin.server.dao.MetaEventDao;
 import com.admin.server.service.ICacheService;
 import com.admin.server.service.IMetaEventService;
 import com.api.common.bo.MetaEvent;
+import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.vo.MetaEventVo;
 import com.api.common.vo.MetaEventsPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -55,16 +56,18 @@ public class MetaEventServiceImpl implements IMetaEventService {
     @Override
     public void enableMetaEvent(String appId, String eventName) {
         if (StringUtils.isBlank(appId) || StringUtils.isBlank(eventName)) {
-            log.warn("");
             return;
         }
 
-        metaEventDao.enableMetaEvent(appId, eventName);
-
+        metaEventDao.changeMetaEventStatus(appId, eventName, MetaEventStatusEnum.ENABLE.getStatus());
     }
 
     @Override
     public void disableMetaEvent(String appId, String eventName) {
+        if (StringUtils.isBlank(appId) || StringUtils.isBlank(eventName)) {
+            return;
+        }
 
+        metaEventDao.changeMetaEventStatus(appId, eventName, MetaEventStatusEnum.DISABLE.getStatus());
     }
 }

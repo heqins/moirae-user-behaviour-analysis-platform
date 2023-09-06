@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `user_behaviour_analysis`.`app`;
 CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  `id` int(11) NOT NULL AUTO_INCREMENT,
                                  `app_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-                                 `describe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                 `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `app_id` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `app_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `create_by` int(11) NULL DEFAULT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  `update_by` int(11) NULL DEFAULT 0,
                                  `app_manager` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                  `is_close` tinyint(4) NULL DEFAULT 0 COMMENT '是否关闭 0为false 1 为 true',
-                                 `save_mouth` int(11) NULL DEFAULT 1 COMMENT '保存n个月',
+                                 `save_month` int(11) NULL DEFAULT 1 COMMENT '保存n个月',
                                  PRIMARY KEY (`id`) USING BTREE,
                                  UNIQUE INDEX `app_name`(`app_name`) USING BTREE,
                                  UNIQUE INDEX `app_id`(`app_id`) USING BTREE,

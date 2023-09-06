@@ -11,6 +11,7 @@
 
     <properties>
         <spring-plugin.version>2.0.0.RELEASE</spring-plugin.version>
+        <lombok.verseion>1.18.28</lombok.verseion>
     </properties>
 
     <dependencies>
@@ -43,5 +44,11 @@
             <version>2.9.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+            <version>${lombok.verseion}</version>
+        </dependency>
     </dependencies>
 </project>

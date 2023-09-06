@@ -26,13 +26,13 @@ public class MetaEventDao {
         return metaEventMapper.selectPage(page, queryWrapper);
     }
 
-    public void enableMetaEvent(String appId, String eventName) {
+    public void changeMetaEventStatus(String appId, String eventName, Integer status) {
         LambdaQueryWrapper<MetaEvent> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(MetaEvent::getAppId, appId);
         queryWrapper.eq(MetaEvent::getEventName, eventName);
 
         MetaEvent update = new MetaEvent();
-        update.setStatus(MetaEventStatusEnum.ENABLE.getStatus());
+        update.setStatus(status);
 
         metaEventMapper.update(update, queryWrapper);
     }

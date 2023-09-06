@@ -4,62 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新加锁逻辑">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/RedisHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/ICacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/resources/messages/messages_en_US.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ApiConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/BasePageVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/CommonResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/MetaEventsPageVo.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加adminServer元数据查询接口">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/interceptor/ErrorInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/AppMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/KeyUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateAppParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/AppDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/admin/AppDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/GeoIpDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/GeoIpDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/LogEventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/LogEventDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/TableColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/TableColumnDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/EventLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/EventLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/entity/MetaEventAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEventAttribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/OpenAPIConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/AppDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/MetaEventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/dao/MetaEventDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/ReportEventsToDorisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/AppMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/AppMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/MetaEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/MetaEventMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/AppServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,11 +132,11 @@
       <recent name="$PROJECT_DIR$/report-server/lua" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.admin.server.controller" />
       <recent name="com.admin.server.helper" />
       <recent name="com.admin.server.config" />
       <recent name="com.report.sink.dao" />
       <recent name="com.api.common.entity" />
-      <recent name="com.flink.job.config" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AdminMain">
@@ -284,7 +250,7 @@
       <workItem from="1693448490801" duration="3178000" />
       <workItem from="1693451906518" duration="1194000" />
       <workItem from="1693637499172" duration="19524000" />
-      <workItem from="1693967336127" duration="3344000" />
+      <workItem from="1693967336127" duration="8448000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -510,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693963436477</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="feat: 增加adminServer元数据查询接口">
+      <created>1693970987301</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1693970987301</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +501,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新report-server" />
     <MESSAGE value="feat: 更新依赖" />
     <MESSAGE value="feat: 初始化flink模块" />
     <MESSAGE value="feat: 初始化flink的读取任务" />
@@ -553,6 +525,7 @@
     <MESSAGE value="feat: 增加Flume收集配置" />
     <MESSAGE value="feat: 初始化元数据管理" />
     <MESSAGE value="feat: 更新加锁逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新加锁逻辑" />
+    <MESSAGE value="feat: 增加adminServer元数据查询接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加adminServer元数据查询接口" />
   </component>
 </project>

@@ -7,9 +7,6 @@ import com.api.common.vo.MetaEventsPageVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,7 +32,7 @@ public class MetaEventController {
 
     @ApiOperation(value = "启用应用元事件")
     @PostMapping("/event/{appId}/{eventName}")
-    public CommonResponse enableMetaEvent(@PathVariable String appId,
+    public CommonResponse<Void> enableMetaEvent(@PathVariable String appId,
                                           @PathVariable String eventName) {
         metaEventService.enableMetaEvent(appId, eventName);
         return CommonResponse.ofSuccess();
@@ -43,9 +40,11 @@ public class MetaEventController {
 
     @ApiOperation(value = "关闭应用元事件")
     @DeleteMapping("/event/{appId}/{eventName}")
-    public CommonResponse disableMetaEvent(@PathVariable String appId,
-                                           @PathVariable String eventName) {
+    public CommonResponse<Void> disableMetaEvent(@PathVariable String appId,
+                                                 @PathVariable String eventName) {
         metaEventService.disableMetaEvent(appId, eventName);
         return CommonResponse.ofSuccess();
     }
+
+
 }
