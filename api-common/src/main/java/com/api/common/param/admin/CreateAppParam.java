@@ -15,7 +15,7 @@ public class CreateAppParam {
     private String appName;
 
     @ApiParam(value = "应用描述")
-    private String describe;
+    private String description;
 
     @ApiParam(value = "保存月数")
     private Integer saveMonth;

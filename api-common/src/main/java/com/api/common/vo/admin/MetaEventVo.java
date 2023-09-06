@@ -1,4 +1,4 @@
-package com.api.common.vo;
+package com.api.common.vo.admin;
 
 import com.api.common.bo.MetaEvent;
 import lombok.Data;

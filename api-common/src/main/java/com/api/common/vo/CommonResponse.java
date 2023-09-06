@@ -29,4 +29,13 @@ public class CommonResponse<T> {
 
         return response;
     }
+
+    public static <T> CommonResponse<T> ofSuccess(ResponseStatusEnum statusEnum) {
+        CommonResponse<T> response = new CommonResponse<>();
+
+        response.setMsg(statusEnum.getMsg());
+        response.setCode(statusEnum.getCode());
+
+        return response;
+    }
 }

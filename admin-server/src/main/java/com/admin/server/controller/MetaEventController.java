@@ -3,7 +3,7 @@ package com.admin.server.controller;
 import com.admin.server.service.IMetaEventService;
 import com.api.common.constant.ApiConstants;
 import com.api.common.vo.CommonResponse;
-import com.api.common.vo.MetaEventsPageVo;
+import com.api.common.vo.admin.MetaEventsPageVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

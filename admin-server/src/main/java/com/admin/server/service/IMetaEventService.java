@@ -1,6 +1,6 @@
 package com.admin.server.service;
 
-import com.api.common.vo.MetaEventsPageVo;
+import com.api.common.vo.admin.MetaEventsPageVo;
 
 public interface IMetaEventService {
 
