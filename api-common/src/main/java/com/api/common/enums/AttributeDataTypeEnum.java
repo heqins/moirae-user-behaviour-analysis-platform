@@ -31,6 +31,10 @@ public enum AttributeDataTypeEnum {
         this.description = description;
     }
 
+    public String getDorisType() {
+        return this.dorisType;
+    }
+
     public static Boolean containType(String type) {
         String lowerCaseType = type.toLowerCase(Locale.ROOT);
 

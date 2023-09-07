@@ -36,4 +36,8 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
     public void batchInsertAttributes(List<MetaEventAttribute> metaEventAttributes) {
         metaEventAttributeMapper.batchInsertAttributes(metaEventAttributes);
     }
+
+    public void updateAttributeByAppIdAndName(String appId, String eventName, String attributeName) {
+
+    }
 }
