@@ -3,6 +3,7 @@ package com.report.sink.handler;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.bo.MetaEvent;
+import com.api.common.constant.ConfigConstant;
 import com.api.common.dto.admin.AppDTO;
 import com.api.common.dto.sink.EventLogDTO;
 import com.api.common.enums.MetaEventStatusEnum;
@@ -26,8 +27,6 @@ import java.util.Objects;
 @Component
 @Slf4j
 public class SinkHandler {
-
-    private static final String EVENT_TABLE_PREFIX = "event_log_detail_";
 
     @Resource
     private EventLogHandler eventLogHandler;
@@ -84,7 +83,7 @@ public class SinkHandler {
                 continue;
             }
 
-            String tableName = generateTableName(appId);
+            String tableName = ConfigConstant.generateTableName(appId);
 
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
@@ -100,10 +99,6 @@ public class SinkHandler {
         }
 
         return true;
-    }
-
-    private String generateTableName(String appId) {
-        return EVENT_TABLE_PREFIX + appId;
     }
 
     private JSONObject parseJson(String json) {

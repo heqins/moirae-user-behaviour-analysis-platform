@@ -113,7 +113,7 @@ public class DorisHandler implements EventsHandler{
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
-            dorisHelper.changeTableSchema(dbName, tableName, jsonObject, newFieldKeys);
+            dorisHelper.addTableColumn(dbName, tableName, jsonObject, newFieldKeys);
         }
     }
 

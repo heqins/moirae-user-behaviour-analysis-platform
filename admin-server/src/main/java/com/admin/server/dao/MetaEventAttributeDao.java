@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Component
-public class AttributeDao extends ServiceImpl<MetaEventAttributeMapper, MetaEventAttribute> {
+public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper, MetaEventAttribute> {
 
     @Resource
     private MetaEventAttributeMapper metaEventAttributeMapper;
@@ -22,6 +22,15 @@ public class AttributeDao extends ServiceImpl<MetaEventAttributeMapper, MetaEven
         queryWrapper.eq(MetaEventAttribute::getStatus, 1);
 
         return metaEventAttributeMapper.selectList(queryWrapper);
+    }
+
+    public MetaEventAttribute selectByEventAndAttributeName(String appId, String eventName, String attributeName) {
+        LambdaQueryWrapper<MetaEventAttribute> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MetaEventAttribute::getAttributeName, attributeName);
+        queryWrapper.eq(MetaEventAttribute::getAppId, appId);
+        queryWrapper.eq(MetaEventAttribute::getStatus, 1);
+
+        return metaEventAttributeMapper.selectOne(queryWrapper);
     }
 
     public void batchInsertAttributes(List<MetaEventAttribute> metaEventAttributes) {

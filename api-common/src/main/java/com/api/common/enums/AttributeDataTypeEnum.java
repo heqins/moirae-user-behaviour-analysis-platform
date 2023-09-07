@@ -1,5 +1,8 @@
 package com.api.common.enums;
 
+import java.util.Locale;
+import java.util.Objects;
+
 public enum AttributeDataTypeEnum {
 
     VARCHAR("VARCHAR", "java.lang.String", "字符串"),
@@ -28,7 +31,23 @@ public enum AttributeDataTypeEnum {
         this.description = description;
     }
 
+    public static Boolean containType(String type) {
+        String lowerCaseType = type.toLowerCase(Locale.ROOT);
+
+        for (AttributeDataTypeEnum dataTypeEnum : AttributeDataTypeEnum.values()) {
+            if (Objects.equals(dataTypeEnum.dorisType.toLowerCase(Locale.ROOT), lowerCaseType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static String generateDorisTypeWithLength(String type, Integer length, Integer limit) {
+        if (!containType(type)) {
+            return null;
+        }
+
         switch (type) {
             case "VARCHAR":
                 return "VARCHAR(" + length + ")";

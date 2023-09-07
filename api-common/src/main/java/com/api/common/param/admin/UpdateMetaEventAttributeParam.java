@@ -28,6 +28,10 @@ public class UpdateMetaEventAttributeParam {
 
     private String dataType;
 
+    private Integer length;
+
+    private Integer limit;
+
     private String showName;
 
 }

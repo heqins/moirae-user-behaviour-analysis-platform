@@ -8,6 +8,12 @@ spring:
       connection-timeout: 60000
       idle-timeout: 500000
 
+    doris:
+      url: jdbc:doris://localhost:40000
+      username: root
+      password: 5323105
+      driver-class-name: com.doris.Doris
+
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源

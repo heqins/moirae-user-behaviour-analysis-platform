@@ -43,8 +43,7 @@ public class DorisHelper {
             return null;
         }
 
-        List<TableColumnDTO> columns;
-        columns = localCacheService.getColumnCache(dbName, tableName);
+        List<TableColumnDTO> columns = localCacheService.getColumnCache(dbName, tableName);
         if (columns != null) {
             return columns;
         }
@@ -133,7 +132,7 @@ public class DorisHelper {
         return "";
     }
 
-    public void changeTableSchema(String dbName, String tableName, JSONObject jsonObject, Set<String> jsonFields) {
+    public void addTableColumn(String dbName, String tableName, JSONObject jsonObject, Set<String> jsonFields) {
         List<String> alterQueries = new ArrayList<>(jsonFields.size());
         for (String jsonField: jsonFields) {
             if (!jsonObject.containsKey(jsonField)) {
