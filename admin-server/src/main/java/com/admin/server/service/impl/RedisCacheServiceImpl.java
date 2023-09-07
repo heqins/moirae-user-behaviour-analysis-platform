@@ -19,4 +19,11 @@ public class RedisCacheServiceImpl implements ICacheService {
 
         redisHelper.setValue(cacheKey, String.valueOf(status));
     }
+
+    @Override
+    public void removeMetaEventCache(String appId, String eventName) {
+        String cacheKey = RedisCacheConstants.getMetaEventCacheKey(appId, eventName);
+
+        redisHelper.deleteValue(cacheKey);
+    }
 }

@@ -22,11 +22,6 @@ public class AppServiceImpl implements IAppService {
     private ICacheService redisCacheService;
 
     @Override
-    public void generateApp(String appName, String describe) {
-
-    }
-
-    @Override
     public AppDTO getAppInfo(String appId) {
         if (StringUtils.isBlank(appId)) {
             return null;

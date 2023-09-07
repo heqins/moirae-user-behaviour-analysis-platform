@@ -16,7 +16,7 @@ spring:
           url: jdbc:mysql://localhost:3306/user_behaviour_analysis
           username: root
           password: 5323105
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
 
   redis:
     host: 127.0.0.1

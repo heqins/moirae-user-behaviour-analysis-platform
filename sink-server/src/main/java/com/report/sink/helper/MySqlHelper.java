@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class MySqlHelper {
 
-    @Resource(name = "mysql")
+    @Resource(name = "mysqlDataSource")
     private DataSource dataSource;
 
     public void insertMetaEvent(List<MetaEvent> metaEventList) {

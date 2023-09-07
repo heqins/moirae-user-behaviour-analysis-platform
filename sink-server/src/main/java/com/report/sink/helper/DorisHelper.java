@@ -29,13 +29,13 @@ public class DorisHelper {
 
     private static final String ALTER_ADD_COLUMN_SQL = "ALTER TABLE `%s`.`%s` ADD COLUMN %s %s;";
 
-    @Resource(name = "redisCacheServiceImpl")
+    @Resource(name = "redisCacheService")
     private ICacheService redisCacheService;
 
     @Resource(name = "localCacheServiceImpl")
     private ICacheService localCacheService;
 
-    @Resource(name = "doris")
+    @Resource(name = "dorisDataSource")
     private DataSource dataSource;
 
     public List<TableColumnDTO> getTableColumnInfos(String dbName, String tableName) {

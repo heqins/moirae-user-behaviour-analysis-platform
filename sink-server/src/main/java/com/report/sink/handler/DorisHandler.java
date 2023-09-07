@@ -30,17 +30,15 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class ReportEventsToDorisHandler implements EventsHandler{
+public class DorisHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
     private List<LogEventDTO> buffers;
 
-    private int capacity;
+    private final int capacity = 1000;
 
     private ScheduledExecutorService scheduledExecutorService;
-
-    public ReportEventsToDorisHandler() {}
 
     @PostConstruct
     public void init() {
@@ -51,7 +49,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
-        buffers = new ArrayList<>(1000);
+        buffers = new ArrayList<>(capacity);
 
         runSchedule();
     }
@@ -69,14 +67,9 @@ public class ReportEventsToDorisHandler implements EventsHandler{
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
     }
 
-    private void alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
+    private void  alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
         String appId = jsonObject.getStr("app_id");
         if (StringUtils.isBlank(appId)) {
-            EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
-                    EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(),
-                    "保留数据");
-            eventLogHandler.addEvent(failLog);
-
             throw new IllegalArgumentException("no appId");
         }
 
@@ -118,6 +111,7 @@ public class ReportEventsToDorisHandler implements EventsHandler{
             dorisHelper.changeTableSchema(dbName, tableName, jsonObject, newFieldKeys);
         }
     }
+
 
     private Set<String> getNewFieldKey(Set<String> jsonFields, Set<String> existFields) {
         Set<String> res = new HashSet<>();

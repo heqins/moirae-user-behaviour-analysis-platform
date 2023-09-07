@@ -1,8 +1,11 @@
 package com.report.sink;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -11,7 +14,10 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @Slf4j
+@EnableCaching
+@MapperScan(basePackages = {"com.report.sink.mapper"})
 public class SinkMain {
+
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(SinkMain.class, args);
         Environment env = application.getEnvironment();

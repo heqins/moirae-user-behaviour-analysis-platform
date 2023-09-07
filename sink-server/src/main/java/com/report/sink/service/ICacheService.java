@@ -1,6 +1,7 @@
 package com.report.sink.service;
 
 import com.api.common.dto.admin.AppDTO;
+import com.api.common.dto.sink.MetaEventAttributeDTO;
 import com.api.common.dto.sink.TableColumnDTO;
 import com.api.common.bo.MetaEvent;
 
@@ -17,10 +18,16 @@ public interface ICacheService {
 
     void removeColumnCache(String dbName, String tableName);
 
-    List<MetaEvent> getMetaEventCache(String appId);
+    List<MetaEvent> getMetaEventsCache(String appId);
+
+    MetaEvent getMetaEventCache(String appId, String eventName);
+
+    void setMetaEventCache(String appId, String eventName, MetaEvent metaEvent);
 
     AppDTO getAppInfoCache(String appId);
 
     Integer getMetaEventStatusCache(String appId, String eventName);
+
+    List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName);
 
 }

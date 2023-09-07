@@ -32,6 +32,8 @@ public class MetaEventHandler implements EventsHandler{
 
     private ScheduledExecutorService scheduledExecutorService;
 
+    private final int capacity = 1000;
+
     @PostConstruct
     public void init() {
         ThreadFactory threadFactory = ThreadFactoryBuilder
@@ -42,13 +44,13 @@ public class MetaEventHandler implements EventsHandler{
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
 
-        metaEventsBuffers = new ArrayList<>(1000);
-        metaAttributeRelationBuffers = new ArrayList<>(1000);
+        metaEventsBuffers = new ArrayList<>(capacity);
+        metaAttributeRelationBuffers = new ArrayList<>(capacity);
 
         runSchedule();
     }
 
-    @Resource(name = "redisCacheServiceImpl")
+    @Resource(name = "redisCacheService")
     private ICacheService redisCache;
 
     @Resource
@@ -62,7 +64,7 @@ public class MetaEventHandler implements EventsHandler{
             Map<String, List<MetaEvent>> appMetaEvents = metaEvents.stream().collect(Collectors.groupingBy(MetaEvent::getAppId));
             for (Map.Entry<String, List<MetaEvent>> entry: appMetaEvents.entrySet()) {
                 String appId = entry.getKey();
-                List<MetaEvent> metaEventCache = redisCache.getMetaEventCache(appId);
+                List<MetaEvent> metaEventCache = redisCache.getMetaEventsCache(appId);
                 if (!CollectionUtils.isEmpty(metaEventCache)) {
                     Set<String> enabledMetaEvents = getEnabledMetaEvents(metaEventCache);
 

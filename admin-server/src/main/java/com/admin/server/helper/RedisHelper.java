@@ -50,4 +50,8 @@ public class RedisHelper {
     public void hashSet(String key, Map<String, String> values) {
 
     }
+
+    public void deleteValue(String key) {
+        redisTemplate.delete(key);
+    }
 }

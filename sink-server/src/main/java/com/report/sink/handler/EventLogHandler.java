@@ -47,7 +47,7 @@ public class EventLogHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    public EventLogHandler(@Qualifier(value = "doris")DataSource dataSource) {
+    public EventLogHandler(@Qualifier(value = "dorisDataSource")DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

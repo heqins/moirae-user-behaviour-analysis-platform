@@ -2,6 +2,7 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.api.common.bo.MetaEvent;
 import com.api.common.dto.admin.AppDTO;
 import com.api.common.dto.sink.EventLogDTO;
 import com.api.common.enums.MetaEventStatusEnum;
@@ -9,6 +10,7 @@ import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.ICacheService;
+import com.report.sink.service.IMetaEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
@@ -31,7 +33,7 @@ public class SinkHandler {
     private EventLogHandler eventLogHandler;
 
     @Resource
-    private ReportEventsToDorisHandler reportEventsToDorisHandler;
+    private DorisHandler dorisHandler;
 
     @Resource
     private DataSourceProperty dataSourceProperty;
@@ -41,6 +43,9 @@ public class SinkHandler {
 
     @Resource(name = "redisCacheService")
     private ICacheService redisCache;
+
+    @Resource
+    private IMetaEventService metaEventService;
 
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
@@ -78,25 +83,25 @@ public class SinkHandler {
                 continue;
             }
 
-            String tableName = generateTableName(jsonObject, appId);
+            String tableName = generateTableName(appId);
 
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
 
-            reportEventsToDorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
+            dorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
         }
     }
 
     private Boolean checkIfEventEnabled(String appId, String eventName) {
-        Integer eventStatus = redisCache.getMetaEventStatusCache(appId, eventName);
-        return Objects.equals(MetaEventStatusEnum.ENABLE.getStatus(), eventStatus);
-    }
-
-    private String generateTableName(JSONObject jsonObject, String appId) {
-        if (jsonObject == null) {
-            return null;
+        MetaEvent metaEvent = metaEventService.getMetaEvent(appId, eventName);
+        if (metaEvent != null && MetaEventStatusEnum.DISABLE.getStatus().equals(metaEvent.getStatus())) {
+            return false;
         }
 
+        return true;
+    }
+
+    private String generateTableName(String appId) {
         return EVENT_TABLE_PREFIX + appId;
     }
 

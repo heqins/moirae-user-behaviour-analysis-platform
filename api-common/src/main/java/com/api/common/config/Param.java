@@ -6,7 +6,9 @@ import lombok.Getter;
 public class Param<T> {
 
   private String name;
+
   private Class<T> type;
+
   private T defaultValue;
 
   Param(String name, T defaultValue, Class<T> type) {
@@ -26,4 +28,5 @@ public class Param<T> {
   public static Param<Boolean> bool(String name, Boolean defaultValue) {
     return new Param<>(name, defaultValue, Boolean.class);
   }
+
 }

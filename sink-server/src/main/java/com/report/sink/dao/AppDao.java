@@ -2,13 +2,14 @@ package com.report.sink.dao;
 
 import com.api.common.bo.App;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.report.sink.mapper.AppMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.report.sink.mapper.mysql.AppMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 @Component
-public class AppDao {
+public class AppDao extends ServiceImpl<AppMapper, App> {
 
     @Resource
     private AppMapper appMapper;

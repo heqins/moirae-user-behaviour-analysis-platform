@@ -1,11 +1,10 @@
 package com.api.common.vo.admin;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.api.common.bo.App;
 import com.api.common.util.DateTimeUtil;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.CollectionUtils;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,13 +29,13 @@ public class AppVo {
     private Long id;
 
     public static List<AppVo> transferFromAppBo(List<App> appList) {
-        if (CollectionUtils.isEmpty(appList)) {
+        if (CollectionUtil.isEmpty(appList)) {
             return Collections.emptyList();
         }
 
         return appList.stream().map(app -> {
             AppVo appVo = new AppVo();
-            BeanUtils.copyProperties(app, appVo);
+            BeanUtil.copyProperties(app, appVo);
 
             appVo.setCreateTime(DateTimeUtil.toEpoch(app.getCreateTime()));
             appVo.setUpdateTime(DateTimeUtil.toEpoch(app.getUpdateTime()));

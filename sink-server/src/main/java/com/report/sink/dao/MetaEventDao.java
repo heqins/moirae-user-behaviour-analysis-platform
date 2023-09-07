@@ -3,12 +3,10 @@ package com.report.sink.dao;
 import com.api.common.bo.MetaEvent;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.report.sink.mapper.MetaEventMapper;
-import org.apache.commons.lang3.StringUtils;
+import com.report.sink.mapper.mysql.MetaEventMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,15 +19,17 @@ public class MetaEventDao extends ServiceImpl<MetaEventMapper, MetaEvent> {
     private MetaEventMapper metaEventMapper;
 
     public List<MetaEvent> getEventsByAppIdFromDb(String appId) {
-        if (StringUtils.isBlank(appId)) {
-            return Collections.emptyList();
-        }
-
         LambdaQueryWrapper<MetaEvent> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(MetaEvent::getAppId, appId);
 
         return metaEventMapper.selectList(wrapper);
     }
 
+    public MetaEvent getByName(String appId, String eventName) {
+        LambdaQueryWrapper<MetaEvent> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MetaEvent::getAppId, appId);
+        queryWrapper.eq(MetaEvent::getEventName, eventName);
 
+        return metaEventMapper.selectOne(queryWrapper);
+    }
 }

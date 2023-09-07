@@ -63,7 +63,7 @@ public class MetaEventServiceImpl implements IMetaEventService {
         }
 
         metaEventDao.changeMetaEventStatus(appId, eventName, MetaEventStatusEnum.ENABLE.getStatus());
-        redisCache.setMetaEventCache(appId, eventName, MetaEventStatusEnum.ENABLE.getStatus());
+        redisCache.removeMetaEventCache(appId, eventName);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MetaEventServiceImpl implements IMetaEventService {
         }
 
         metaEventDao.changeMetaEventStatus(appId, eventName, MetaEventStatusEnum.DISABLE.getStatus());
-        redisCache.setMetaEventCache(appId, eventName, MetaEventStatusEnum.DISABLE.getStatus());
+        redisCache.removeMetaEventCache(appId, eventName);
     }
 
     @Override

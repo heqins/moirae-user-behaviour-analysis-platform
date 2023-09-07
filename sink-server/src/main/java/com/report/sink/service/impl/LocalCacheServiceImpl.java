@@ -1,6 +1,7 @@
 package com.report.sink.service.impl;
 
 import com.api.common.dto.admin.AppDTO;
+import com.api.common.dto.sink.MetaEventAttributeDTO;
 import com.api.common.dto.sink.TableColumnDTO;
 import com.api.common.bo.MetaEvent;
 import com.github.benmanes.caffeine.cache.Cache;
@@ -36,8 +37,18 @@ public class LocalCacheServiceImpl implements ICacheService {
     }
 
     @Override
-    public List<MetaEvent> getMetaEventCache(String appId) {
+    public List<MetaEvent> getMetaEventsCache(String appId) {
         return null;
+    }
+
+    @Override
+    public MetaEvent getMetaEventCache(String appId, String eventName) {
+        return null;
+    }
+
+    @Override
+    public void setMetaEventCache(String appId, String eventName, MetaEvent metaEvent) {
+
     }
 
     @Override
@@ -47,6 +58,11 @@ public class LocalCacheServiceImpl implements ICacheService {
 
     @Override
     public Integer getMetaEventStatusCache(String appId, String eventName) {
+        return null;
+    }
+
+    @Override
+    public List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName) {
         return null;
     }
 }

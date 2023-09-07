@@ -7,7 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>admin-server</artifactId>
-    <name>Archetype - admin-server</name>
+    <name>admin-server</name>
 
     <properties>
         <spring-plugin.version>2.0.0.RELEASE</spring-plugin.version>
@@ -63,5 +63,13 @@
             <artifactId>sa-token-jwt</artifactId>
             <version>1.35.0.RC</version>
         </dependency>
+
+        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.35.0.RC</version>
+        </dependency>
+
     </dependencies>
 </project>
