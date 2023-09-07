@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 @Data
 public class MetaEventVo {
 
+    private Long id;
+
     private String eventName;
 
     private String displayName;

@@ -4,6 +4,7 @@ import com.admin.server.service.IAppService;
 import com.api.common.constant.ApiConstants;
 import com.api.common.param.admin.CreateAppParam;
 import com.api.common.vo.CommonResponse;
+import com.api.common.vo.PageVo;
 import com.api.common.vo.admin.AppPageVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,8 +32,8 @@ public class AppController {
 
     @ApiOperation(value = "获取应用列表")
     @GetMapping("/available-app")
-    public CommonResponse<AppPageVo> getAvailableApps(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                                      @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+    public CommonResponse<PageVo<AppPageVo>> getAvailableApps(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return CommonResponse.ofSuccess(appService.getAvailableApps(pageNum, pageSize));
     }
 }

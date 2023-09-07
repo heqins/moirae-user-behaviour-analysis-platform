@@ -88,6 +88,11 @@ public class MetaEventServiceImpl implements IMetaEventService {
         metaEventDao.save(metaEvent);
     }
 
+    @Override
+    public MetaEvent selectByAppId(String appId, String eventName) {
+        return metaEventDao.selectByName(appId, eventName);
+    }
+
     private MetaEvent transferFromCreateParam(CreateMetaEventParam param) {
         if (Objects.isNull(param)) {
             return null;

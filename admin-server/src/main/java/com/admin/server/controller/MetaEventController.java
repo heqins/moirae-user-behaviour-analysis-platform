@@ -6,10 +6,12 @@ import com.api.common.constant.ApiConstants;
 import com.api.common.param.admin.CreateMetaEventAttributeParam;
 import com.api.common.param.admin.CreateMetaEventParam;
 import com.api.common.vo.CommonResponse;
+import com.api.common.vo.admin.MetaEventAttributePageVo;
 import com.api.common.vo.admin.MetaEventsPageVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -46,9 +48,18 @@ public class MetaEventController {
 
     @ApiOperation(value = "创建元事件属性")
     @PostMapping("/event/attribute")
-    public CommonResponse<Void> createMetaEventAttribute(@RequestBody @Valid CreateMetaEventAttributeParam param) {
+    public CommonResponse<Void> createMetaEventAttribute(@RequestBody @Validated CreateMetaEventAttributeParam param) {
         metaFacade.createMetaEventAttribute(param);
         return CommonResponse.ofSuccess();
+    }
+
+    @ApiOperation(value = "获取分页获取指定元事件下的所有属性")
+    @GetMapping("/event/{eventName}/attributes")
+    public CommonResponse<MetaEventAttributePageVo> getMetaEventAttributes(@ApiParam(value = "test") @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                                                           @RequestParam String appId,
+                                                                           @PathVariable String eventName) {
+        return CommonResponse.ofSuccess(metaFacade.getMetaEventAttributes(appId, eventName, pageNum, pageSize));
     }
 
     @ApiOperation(value = "启用元事件")
@@ -66,6 +77,4 @@ public class MetaEventController {
         metaEventService.disableMetaEvent(appId, eventName);
         return CommonResponse.ofSuccess();
     }
-
-
 }

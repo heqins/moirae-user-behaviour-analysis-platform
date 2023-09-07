@@ -3,7 +3,7 @@ package com.api.common.vo;
 import lombok.Data;
 
 @Data
-public class BasePageVo {
+public class PageVo<T> {
 
     private Integer currentNum;
 
@@ -13,4 +13,5 @@ public class BasePageVo {
 
     private Boolean hasNext;
 
+    private T data;
 }

@@ -4,6 +4,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.vo.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +12,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @Slf4j
 public class ErrorInterceptor {
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
+    public CommonResponse<Void> handlerException(MethodArgumentNotValidException e) {
+        log.warn("ErrorInterceptor valid param error", e);
+
+        CommonResponse<Void> response = new CommonResponse<>();
+        response.setCode(ResponseStatusEnum.PARAM_ERROR.getCode());
+        response.setMsg(ResponseStatusEnum.PARAM_ERROR.getMsg());
+
+        return response;
+    }
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
@@ -27,7 +40,7 @@ public class ErrorInterceptor {
     @ExceptionHandler(value = NotLoginException.class)
     @ResponseBody
     public CommonResponse<Void> handleException(NotLoginException e) {
-        log.error("ErrorInterceptor NotLoginException error", e);
+        log.warn("ErrorInterceptor NotLoginException error", e);
 
         CommonResponse<Void> response = new CommonResponse<>();
         response.setCode(ResponseStatusEnum.UNAUTHORIZED.getCode());

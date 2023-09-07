@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .title("Admin 管理端 API")
                 .description("埋点平台")
                 .contact(new Contact("埋点平台", "http://localhost:8778", ""))
-                .version("1.0")
+                .version("0.1-SNAPSHOT")
                 .build();
     }
 }

@@ -4,10 +4,12 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.admin.server.dao.AppDao;
 import com.admin.server.service.IAppService;
 import com.admin.server.util.KeyUtil;
+import com.admin.server.util.MyPageUtil;
 import com.api.common.bo.App;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.error.ResponseException;
 import com.api.common.param.admin.CreateAppParam;
+import com.api.common.vo.PageVo;
 import com.api.common.vo.admin.AppPageVo;
 import com.api.common.vo.admin.AppVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -70,7 +72,7 @@ public class AppServiceImpl implements IAppService {
     }
 
     @Override
-    public AppPageVo getAvailableApps(Integer pageNum, Integer pageSize) {
+    public PageVo<AppPageVo> getAvailableApps(Integer pageNum, Integer pageSize) {
         if (!StpUtil.isLogin()) {
             throw new ResponseException(ResponseStatusEnum.UNAUTHORIZED);
         }
@@ -79,18 +81,14 @@ public class AppServiceImpl implements IAppService {
         IPage<App> pageResult = appDao.selectPageByUser(userId, pageNum, pageSize);
 
         AppPageVo appPageVo = new AppPageVo();
-        appPageVo.setTotal(pageResult.getTotal());
-        appPageVo.setPageSize(pageSize);
-        appPageVo.setCurrentNum(pageNum);
-
         if (CollectionUtils.isEmpty(pageResult.getRecords())) {
             appPageVo.setApps(Collections.emptyList());
-            return appPageVo;
+            return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), null, appPageVo);
         }
 
         List<AppVo> appVoList = AppVo.transferFromAppBo(pageResult.getRecords());
         appPageVo.setApps(appVoList);
 
-        return appPageVo;
+        return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), null, appPageVo);
     }
 }

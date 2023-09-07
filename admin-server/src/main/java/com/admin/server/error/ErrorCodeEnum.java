@@ -3,6 +3,7 @@ package com.admin.server.error;
 public enum ErrorCodeEnum {
 
     META_EVENT_EXIST(1001, "元事件已存在"),
+    META_EVENT_NOT_EXIST(1002, "元事件不存在"),
 
     ;
 

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @ApiModel(description = "创建元事件属性参数")
@@ -20,5 +21,7 @@ public class CreateMetaEventAttributeParam {
 
     @ApiParam(value = "显示名称")
     private String showName;
+
+    private List<AttributeParam> attributes;
 
 }

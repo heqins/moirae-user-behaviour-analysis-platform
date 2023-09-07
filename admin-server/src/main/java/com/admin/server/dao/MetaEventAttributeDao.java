@@ -19,4 +19,12 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
     @Resource
     private MetaEventAttributeMapper metaEventAttributeMapper;
 
+    public IPage<MetaEventAttribute> queryMetaEventAttributes(String appId, String eventName, Integer pageNum, Integer pageSize) {
+        Page<MetaEventAttribute> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<MetaEventAttribute> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MetaEventAttribute::getAppId, appId);
+        wrapper.eq(MetaEventAttribute::getEventName, eventName);
+
+        return metaEventAttributeMapper.selectPage(page, wrapper);
+    }
 }
