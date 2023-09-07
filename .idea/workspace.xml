@@ -4,19 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加Flume收集配置">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysUserMapper.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加登录接口">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysRoleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysRoleMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IRoleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/DateTimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/UserTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/KeyUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/KeyUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/UserLoginParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/UserLoginParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppPageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppPageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +56,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../repo/cn/hutool/hutool-all/5.8.18/hutool-all-5.8.18-sources.jar!/cn/hutool/crypto/digest/Digester.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../repo/cn/hutool/hutool-all/5.8.18/hutool-all-5.8.18-sources.jar!/cn/hutool/json/JSONUtil.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -125,11 +137,11 @@
       <recent name="$PROJECT_DIR$/report-server/lua" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.api.common.param.admin" />
-      <recent name="com.api.common.bo" />
       <recent name="com.admin.server.service.impl" />
-      <recent name="com.admin.server.controller" />
-      <recent name="com.admin.server.helper" />
+      <recent name="com.admin.server.service" />
+      <recent name="com.admin.server.dao" />
+      <recent name="com.admin.server.mapper" />
+      <recent name="com.api.common.param.admin" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AdminMain">
@@ -146,38 +158,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
-      <module name="init-datasource" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.init.datasource.task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MysqlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.MysqlTask" />
       <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.init.datasource.task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ReportEventsToDorisHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.ReportEventsToDorisHandler" />
-      <module name="sink-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -201,6 +187,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserTest.createUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.admin.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.admin.server" />
+      <option name="MAIN_CLASS_NAME" value="com.admin.server.UserTest" />
+      <option name="METHOD_NAME" value="createUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserTest.testGenerateKey" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.admin.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.admin.server" />
+      <option name="MAIN_CLASS_NAME" value="com.admin.server.UserTest" />
+      <option name="METHOD_NAME" value="testGenerateKey" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AdminMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="admin-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.admin.server.AdminMain" />
@@ -217,11 +235,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserTest.createUser" />
         <item itemvalue="Application.MysqlTask" />
+        <item itemvalue="JUnit.UserTest.testGenerateKey" />
         <item itemvalue="Application.DorisHelper" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
-        <item itemvalue="Application.DorisTask" />
-        <item itemvalue="Application.ReportEventsToDorisHandler" />
       </list>
     </recent_temporary>
   </component>
@@ -490,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693991630819</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="feat: 增加登录接口">
+      <created>1693994473698</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1693994473698</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +533,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 初始化flink的读取任务" />
     <MESSAGE value="feat: 更改标题" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql" />
     <MESSAGE value="feat: 初始化pv数据sink到mysql，任务启动类" />
@@ -533,6 +557,18 @@
     <MESSAGE value="feat: 增加adminServer元数据查询接口" />
     <MESSAGE value="feat: 增加adminServer应用创建接口" />
     <MESSAGE value="feat: 更新异常处理类" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新异常处理类" />
+    <MESSAGE value="feat: 增加登录接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加登录接口" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppVo.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

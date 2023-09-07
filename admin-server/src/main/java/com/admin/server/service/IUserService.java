@@ -6,4 +6,6 @@ public interface IUserService {
 
     void doLogin(UserLoginParam userLoginParam);
 
+    void doLogout();
+
 }

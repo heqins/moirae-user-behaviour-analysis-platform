@@ -20,7 +20,7 @@ public class KeyUtil {
             Security.addProvider(provider);
             SecureRandom random = new SecureRandom();
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", provider);
-            generator.initialize(1024,random);
+            generator.initialize(1024, random);
             return generator.generateKeyPair();
         } catch(Exception e) {
             throw new RuntimeException(e);
@@ -42,14 +42,17 @@ public class KeyUtil {
         }
     }
 
-
     public static String decryptBase64(String string) {
-        return new String(decrypt(Base64.decodeBase64(string.getBytes())));
+        //return new String(decrypt(Base64.decodeBase64(string.getBytes())));
+
+        return null;
     }
 
     public static String generateBase64PublicKey() {
         PublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        return new String(Base64.encodeBase64(publicKey.getEncoded()));
+        //return new String(Base64.encodeBase64(publicKey.getEncoded()));
+
+        return null;
     }
 
     public static UUID generateAppId() {
@@ -58,6 +61,7 @@ public class KeyUtil {
 
     public static String generateAppKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+
         // 使用 AES-256 位密钥
         keyGenerator.init(256);
         SecretKey secretKey = keyGenerator.generateKey();

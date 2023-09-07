@@ -18,7 +18,6 @@ import javax.annotation.Resource;
 @RequestMapping(value = ApiConstants.ADMIN_SERVER_API_PREFIX + "/app")
 @Api(tags = "应用管理")
 public class AppController {
-
     @Resource
     private IAppService appService;
 
@@ -31,7 +30,8 @@ public class AppController {
 
     @ApiOperation(value = "获取应用列表")
     @GetMapping("/available-app")
-    public CommonResponse<AppPageVo> getAvailableApps() {
-        return null;
+    public CommonResponse<AppPageVo> getAvailableApps(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                      @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        return CommonResponse.ofSuccess(appService.getAvailableApps(pageNum, pageSize));
     }
 }

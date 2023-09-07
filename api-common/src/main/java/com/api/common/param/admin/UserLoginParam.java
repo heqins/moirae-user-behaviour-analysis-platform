@@ -12,7 +12,7 @@ public class UserLoginParam {
 
     @ApiParam(value = "用户名", required = true)
     @NotBlank
-    private String userName;
+    private String username;
 
     @ApiParam(value = "密码", required = true)
     @NotBlank

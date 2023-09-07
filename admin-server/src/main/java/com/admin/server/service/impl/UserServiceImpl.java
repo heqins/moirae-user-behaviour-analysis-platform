@@ -49,11 +49,29 @@ public class UserServiceImpl implements IUserService {
         }
 
         String passwordSalt = md5Digester.digestHex(userLoginParam.getPassword());
-        SysUser user = sysUserDao.getUser(userLoginParam.getUserName(), passwordSalt);
+        SysUser user = sysUserDao.getUser(userLoginParam.getUsername(), passwordSalt);
         if (Objects.isNull(user)) {
             throw new ResponseException(ResponseStatusEnum.FORBIDDEN);
         }
 
-        StpUtil.login(userLoginParam.getUserName());
+        if (!Objects.equals(passwordSalt, user.getPassword())) {
+            throw new ResponseException(ResponseStatusEnum.UNAUTHORIZED);
+        }
+
+        // 登录成功
+        StpUtil.login(userLoginParam.getUsername());
+    }
+
+    @Override
+    public void doLogout() {
+        if (!StpUtil.isLogin()) {
+            return;
+        }
+
+        StpUtil.logout();
+    }
+
+    public String encryptMd5(String text) {
+        return md5Digester.digestHex(text);
     }
 }

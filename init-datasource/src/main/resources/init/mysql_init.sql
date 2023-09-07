@@ -5,17 +5,15 @@ CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `app_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                 `create_by` int(11) NULL DEFAULT NULL,
+                                 `create_user` varchar(64) NOT NULL,
                                  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                 `update_by` int(11) NULL DEFAULT 0,
-                                 `app_manager` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                  `status` tinyint(4) NULL DEFAULT 0 COMMENT '是否关闭 0 - false 1 - true',
                                  `save_month` int(11) NULL DEFAULT 1 COMMENT '保存n个月',
                                  PRIMARY KEY (`id`) USING BTREE,
                                  UNIQUE INDEX `app_name`(`app_name`) USING BTREE,
                                  UNIQUE INDEX `app_id`(`app_id`) USING BTREE,
-                                 INDEX `app_create_by`(`create_by`, `app_name`, `status`) USING BTREE,
+                                 INDEX `app_create_by`(`create_user`, `app_name`, `status`) USING BTREE,
                                  INDEX `app_isclose`(`status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 

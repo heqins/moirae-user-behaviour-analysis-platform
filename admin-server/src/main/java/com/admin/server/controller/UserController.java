@@ -36,7 +36,7 @@ public class UserController {
     @ApiOperation(value = "登出系统")
     @GetMapping("/doLogout")
     public CommonResponse<Void> doLogout() {
-
+        userService.doLogout();
         return CommonResponse.ofSuccess();
     }
 }

@@ -27,17 +27,13 @@ public class App {
 
     private String appKey;
 
-    private Integer createBy;
+    private String createUser;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
-    private Integer updateBy;
-
-    private String appManager;
-
-    private Boolean closed;
+    private Integer status;
 
     private Integer saveMonth;
 
