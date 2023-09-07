@@ -4,10 +4,12 @@ import com.admin.server.dao.MetaEventDao;
 import com.admin.server.error.ErrorCodeEnum;
 import com.admin.server.service.ICacheService;
 import com.admin.server.service.IMetaEventService;
+import com.admin.server.util.MyPageUtil;
 import com.api.common.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.error.ResponseException;
 import com.api.common.param.admin.CreateMetaEventParam;
+import com.api.common.vo.PageVo;
 import com.api.common.vo.admin.MetaEventVo;
 import com.api.common.vo.admin.MetaEventsPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -34,7 +36,7 @@ public class MetaEventServiceImpl implements IMetaEventService {
     private ICacheService redisCache;
 
     @Override
-    public MetaEventsPageVo queryMetaEventsByPage(Integer pageNum, Integer pageSize, String appId) {
+    public PageVo<MetaEventsPageVo> queryMetaEventsByPage(Integer pageNum, Integer pageSize, String appId) {
         if (StringUtils.isBlank(appId)) {
             return null;
         }
@@ -42,19 +44,16 @@ public class MetaEventServiceImpl implements IMetaEventService {
         IPage<MetaEvent> metaEventPage = metaEventDao.selectPageByAppId(appId, pageNum, pageSize);
 
         MetaEventsPageVo resultVo = new MetaEventsPageVo();
-        resultVo.setCurrentNum(pageNum);
-        resultVo.setPageSize(pageSize);
-        resultVo.setTotal(metaEventPage.getTotal());
         resultVo.setAppId(appId);
 
         if (CollectionUtils.isEmpty(metaEventPage.getRecords())) {
-            return resultVo;
+            return MyPageUtil.constructPageVo(pageNum, pageSize, 0L, resultVo);
         }
 
         List<MetaEventVo> metaEventVos = MetaEventVo.transferFromEventBo(metaEventPage.getRecords());
         resultVo.setEvents(metaEventVos);
 
-        return resultVo;
+        return MyPageUtil.constructPageVo(pageNum, pageSize, metaEventPage.getTotal(), resultVo);
     }
 
     @Override

@@ -38,6 +38,6 @@ public enum AttributeDataTypeEnum {
                 break;
         }
 
-        return null;
+        return type;
     }
 }

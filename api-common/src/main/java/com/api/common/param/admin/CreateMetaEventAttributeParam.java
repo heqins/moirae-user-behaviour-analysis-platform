@@ -19,9 +19,6 @@ public class CreateMetaEventAttributeParam {
     @NotBlank
     private String eventName;
 
-    @ApiParam(value = "显示名称")
-    private String showName;
-
     private List<AttributeParam> attributes;
 
 }

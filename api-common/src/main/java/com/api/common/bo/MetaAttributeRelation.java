@@ -8,7 +8,7 @@ import lombok.Data;
  * @author heqin
  */
 @Data
-public class MetaEventAttribute {
+public class MetaAttributeRelation {
 
     @TableId(type = IdType.AUTO)
     private Long id;

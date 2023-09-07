@@ -16,6 +16,11 @@ public class AttributeParam {
     @NotBlank
     private String dataType;
 
-    private Integer attributeSource;
+    private Integer length;
+
+    private Integer limit;
+
+    @ApiParam(value = "显示名称")
+    private String showName;
 
 }

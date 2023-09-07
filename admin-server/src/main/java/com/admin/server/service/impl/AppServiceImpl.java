@@ -83,12 +83,12 @@ public class AppServiceImpl implements IAppService {
         AppPageVo appPageVo = new AppPageVo();
         if (CollectionUtils.isEmpty(pageResult.getRecords())) {
             appPageVo.setApps(Collections.emptyList());
-            return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), null, appPageVo);
+            return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), appPageVo);
         }
 
         List<AppVo> appVoList = AppVo.transferFromAppBo(pageResult.getRecords());
         appPageVo.setApps(appVoList);
 
-        return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), null, appPageVo);
+        return MyPageUtil.constructPageVo(pageNum, pageSize, pageResult.getTotal(), appPageVo);
     }
 }

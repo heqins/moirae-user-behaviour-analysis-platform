@@ -8,4 +8,6 @@ public interface IAttributeService {
 
     List<Attribute> queryByName(List<String> attributeNames, String appId);
 
+    void batchInsertAttributes(List<Attribute> attributes);
+
 }

@@ -4,6 +4,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.vo.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +21,7 @@ public class ErrorInterceptor {
 
         CommonResponse<Void> response = new CommonResponse<>();
         response.setCode(ResponseStatusEnum.PARAM_ERROR.getCode());
-        response.setMsg(ResponseStatusEnum.PARAM_ERROR.getMsg());
+        response.setMsg(e.getMessage());
 
         return response;
     }

@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
 import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaEventAttribute;
+import com.api.common.bo.MetaAttributeRelation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -41,8 +41,8 @@ public class MySqlHelper {
         }
     }
 
-    public void insertMetaAttributeEvent(List<MetaEventAttribute> metaEventAttributeList) {
-        for (MetaEventAttribute event: metaEventAttributeList) {
+    public void insertMetaAttributeEvent(List<MetaAttributeRelation> metaAttributeRelationList) {
+        for (MetaAttributeRelation event: metaAttributeRelationList) {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);
 

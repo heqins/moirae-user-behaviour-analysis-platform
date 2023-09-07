@@ -23,8 +23,6 @@ public class Attribute {
 
     private Integer attributeType;
 
-    private Integer attributeSource;
-
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;

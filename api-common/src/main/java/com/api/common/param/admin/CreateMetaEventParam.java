@@ -11,11 +11,11 @@ import javax.validation.constraints.NotBlank;
 public class CreateMetaEventParam {
 
     @ApiParam(value = "应用id", required = true)
-    @NotBlank
+    @NotBlank(message = "应用id不能为空")
     private String appId;
 
-    @ApiParam(value = "事件名称")
-    @NotBlank
+    @ApiParam(value = "事件名称", required = true)
+    @NotBlank(message = "事件名称不能为空")
     private String eventName;
 
     @ApiParam(value = "显示名称")
