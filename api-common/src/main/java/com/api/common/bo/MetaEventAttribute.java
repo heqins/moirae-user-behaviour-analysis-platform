@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @author heqin
  */
 @Data
-public class Attribute {
+public class MetaEventAttribute {
 
     @TableId(type = IdType.AUTO)
     private Long id;

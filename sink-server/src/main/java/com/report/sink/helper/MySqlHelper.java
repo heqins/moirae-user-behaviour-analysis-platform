@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
 import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaAttributeRelation;
+import com.api.common.bo.MetaEventAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ public class MySqlHelper {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);
 
-                String metaEventInsertSql = "insert into meta_event(appid, event_name) values (?, ?);";
+                String metaEventInsertSql = "insert ignore into meta_event(appid, event_name) values (?, ?);";
                 try (PreparedStatement statement = connection.prepareStatement(metaEventInsertSql)){
                     statement.setString(1, event.getAppId());
                     statement.setString(2, event.getEventName());
@@ -41,16 +41,16 @@ public class MySqlHelper {
         }
     }
 
-    public void insertMetaAttributeEvent(List<MetaAttributeRelation> metaAttributeRelationList) {
-        for (MetaAttributeRelation event: metaAttributeRelationList) {
+    public void insertMetaAttributeEvent(List<MetaEventAttribute> metaAttributeRelationList) {
+        for (MetaEventAttribute event: metaAttributeRelationList) {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);
 
-                String metaAttributeInsertSql = "insert into meta_attr_relation(app_id, event_name, event_attr) values (?, ?, ?);";
+                String metaAttributeInsertSql = "insert ignore into meta_event_attribute(app_id, event_name, event_attribute) values (?, ?, ?);";
                 try (PreparedStatement statement = connection.prepareStatement(metaAttributeInsertSql)){
                     statement.setString(1, event.getAppId());
-                    statement.setString(2, event.getEventName());
-                    statement.setString(3, event.getEventAttribute());
+                    statement.setString(2, event.getShowName());
+                    statement.setString(3, event.getAttributeName());
 
                     statement.execute();
                 }catch (SQLException e) {

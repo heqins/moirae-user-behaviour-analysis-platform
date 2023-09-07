@@ -50,4 +50,8 @@ public class RedisHelper {
     public void hashSet(String key, Map<String, String> values) {
 
     }
+
+    public List<String> multiGet(List<String> keyList) {
+        return redisTemplate.opsForValue().multiGet(keyList);
+    }
 }

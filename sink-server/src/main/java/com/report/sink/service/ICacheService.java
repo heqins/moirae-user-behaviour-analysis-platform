@@ -30,4 +30,6 @@ public interface ICacheService {
 
     List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName);
 
+    List<MetaEventAttributeDTO> multiGetMetaEventAttributeCache(List<String> keys);
+
 }

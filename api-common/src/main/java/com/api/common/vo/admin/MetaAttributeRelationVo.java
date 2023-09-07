@@ -1,6 +1,6 @@
 package com.api.common.vo.admin;
 
-import com.api.common.bo.Attribute;
+import com.api.common.bo.MetaEventAttribute;
 import com.api.common.util.DateTimeUtil;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -37,12 +37,12 @@ public class MetaAttributeRelationVo {
     private Long updateTime;
 
 
-    public static List<MetaAttributeRelationVo> transferFromAttributeBo(List<Attribute> attributes) {
-        if (CollectionUtils.isEmpty(attributes)) {
+    public static List<MetaAttributeRelationVo> transferFromAttributeBo(List<MetaEventAttribute> metaEventAttributes) {
+        if (CollectionUtils.isEmpty(metaEventAttributes)) {
             return Collections.emptyList();
         }
 
-        return attributes.stream().map(attribute -> {
+        return metaEventAttributes.stream().map(attribute -> {
             MetaAttributeRelationVo vo = new MetaAttributeRelationVo();
             BeanUtils.copyProperties(attribute, vo);
 

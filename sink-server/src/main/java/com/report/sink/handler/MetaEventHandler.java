@@ -2,7 +2,7 @@ package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaAttributeRelation;
+import com.api.common.bo.MetaEventAttribute;
 import com.report.sink.dao.MetaEventDao;
 import com.report.sink.helper.MySqlHelper;
 import com.report.sink.service.ICacheService;
@@ -28,7 +28,7 @@ public class MetaEventHandler implements EventsHandler{
 
     private List<MetaEvent> metaEventsBuffers;
 
-    private List<MetaAttributeRelation> metaAttributeRelationBuffers;
+    private List<MetaEventAttribute> metaEventAttributeBuffers;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -45,7 +45,7 @@ public class MetaEventHandler implements EventsHandler{
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
 
         metaEventsBuffers = new ArrayList<>(capacity);
-        metaAttributeRelationBuffers = new ArrayList<>(capacity);
+        metaEventAttributeBuffers = new ArrayList<>(capacity);
 
         runSchedule();
     }
@@ -90,11 +90,11 @@ public class MetaEventHandler implements EventsHandler{
         return metaEvents.stream().map(MetaEvent::getEventName).collect(Collectors.toSet());
     }
 
-    public void addMetaAttributeEvents(List<MetaAttributeRelation> metaAttributeEvents) {
+    public void addMetaAttributeEvents(List<MetaEventAttribute> metaAttributeEvents) {
         if (!CollectionUtils.isEmpty(metaAttributeEvents)) {
 
 
-            metaAttributeRelationBuffers.addAll(metaAttributeEvents);
+            metaEventAttributeBuffers.addAll(metaAttributeEvents);
         }
     }
 
@@ -112,10 +112,10 @@ public class MetaEventHandler implements EventsHandler{
                 metaEventsBuffers.clear();
             }
 
-            if (!CollectionUtils.isEmpty(metaAttributeRelationBuffers)) {
-                mySqlHelper.insertMetaAttributeEvent(metaAttributeRelationBuffers);
+            if (!CollectionUtils.isEmpty(metaEventAttributeBuffers)) {
+                mySqlHelper.insertMetaAttributeEvent(metaEventAttributeBuffers);
 
-                metaAttributeRelationBuffers.clear();
+                metaEventAttributeBuffers.clear();
             }
         }finally {
             lock.unlock();

@@ -1,13 +1,11 @@
 package com.admin.server.facade;
 
 import com.admin.server.error.ErrorCodeEnum;
-import com.admin.server.service.IAttributeService;
-import com.admin.server.service.IMetaAttributeRelationService;
+import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.service.IMetaEventService;
 import com.admin.server.util.MyPageUtil;
-import com.api.common.bo.Attribute;
+import com.api.common.bo.MetaEventAttribute;
 import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaAttributeRelation;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.error.ResponseException;
@@ -35,10 +33,7 @@ public class MetaFacade {
     private IMetaEventService metaEventService;
 
     @Resource
-    private IMetaAttributeRelationService metaAttributeRelationService;
-
-    @Resource
-    private IAttributeService attributeService;
+    private IMetaEventAttributeService metaEventAttributeService;
 
     @Transactional(rollbackFor = Exception.class)
     public void createMetaEventAttribute(CreateMetaEventAttributeParam param) {
@@ -47,42 +42,27 @@ public class MetaFacade {
             throw new ResponseException(ErrorCodeEnum.META_EVENT_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_NOT_EXIST.getMsg());
         }
 
-        List<Attribute> attributes = param.getAttributes()
+        List<MetaEventAttribute> metaEventAttributes = param.getAttributes()
                 .stream()
                 .map(value -> transferFromAttributeParam(param.getAppId(), value))
                 .collect(Collectors.toList());
 
-        List<MetaAttributeRelation> eventAttributeRelation = param.getAttributes()
-                .stream()
-                .map(value -> transferFromAttributeParam(param.getAppId(), param.getEventName(), value.getAttributeName()))
-                .collect(Collectors.toList());
-
-        metaAttributeRelationService.batchInsertAttributes(eventAttributeRelation);
-        attributeService.batchInsertAttributes(attributes);
+        metaEventAttributeService.batchInsertAttributes(metaEventAttributes);
     }
 
-    private Attribute transferFromAttributeParam(String appId, AttributeParam attributeParam) {
-        Attribute attribute = new Attribute();
+    private MetaEventAttribute transferFromAttributeParam(String appId, AttributeParam attributeParam) {
+        MetaEventAttribute metaEventAttribute = new MetaEventAttribute();
 
         String dataType = AttributeDataTypeEnum.generateDorisTypeWithLength(attributeParam.getDataType(),
                 attributeParam.getLength(), attributeParam.getLimit());
 
-        attribute.setDataType(dataType);
-        attribute.setAttributeName(attributeParam.getAttributeName());
-        attribute.setAppId(appId);
-        attribute.setShowName(attributeParam.getShowName());
-        attribute.setAttributeType(AttributeTypeEnum.USER_CUSTOM.getStatus());
+        metaEventAttribute.setDataType(dataType);
+        metaEventAttribute.setAttributeName(attributeParam.getAttributeName());
+        metaEventAttribute.setAppId(appId);
+        metaEventAttribute.setShowName(attributeParam.getShowName());
+        metaEventAttribute.setAttributeType(AttributeTypeEnum.USER_CUSTOM.getStatus());
 
-        return attribute;
-    }
-
-    private MetaAttributeRelation transferFromAttributeParam(String appId, String eventName, String attributeName) {
-        MetaAttributeRelation metaAttributeRelation = new MetaAttributeRelation();
-        metaAttributeRelation.setEventName(eventName);
-        metaAttributeRelation.setEventAttribute(attributeName);
-        metaAttributeRelation.setAppId(appId);
-
-        return metaAttributeRelation;
+        return metaEventAttribute;
     }
 
     public PageVo<MetaAttributeRelationPageVo> getMetaEventAttributes(String appId, String eventName, Integer pageNum, Integer pageSize) {
@@ -94,11 +74,11 @@ public class MetaFacade {
         List<MetaAttributeRelation> metaAttributeRelations = metaEventAttributePage.getRecords();
         List<String> attributeNames = metaAttributeRelations.stream().map(MetaAttributeRelation::getEventAttribute).collect(Collectors.toList());
 
-        List<Attribute> attributes = attributeService.queryByName(attributeNames, appId);
+        List<MetaEventAttribute> metaEventAttributes = metaEventAttributeService.queryByName(attributeNames, appId);
         MetaAttributeRelationPageVo resVo = new MetaAttributeRelationPageVo();
         resVo.setEventName(eventName);
 
-        List<MetaAttributeRelationVo> metaAttributeRelationVos = MetaAttributeRelationVo.transferFromAttributeBo(attributes);
+        List<MetaAttributeRelationVo> metaAttributeRelationVos = MetaAttributeRelationVo.transferFromAttributeBo(metaEventAttributes);
         resVo.setAttributes(metaAttributeRelationVos);
 
         return MyPageUtil.constructPageVo(pageNum, pageSize, metaEventAttributePage.getTotal(), resVo);

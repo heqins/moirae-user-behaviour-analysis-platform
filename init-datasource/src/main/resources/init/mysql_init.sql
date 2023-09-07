@@ -17,19 +17,20 @@ CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  INDEX `app_isclose`(`status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `user_behaviour_analysis`.`attribute`;
-CREATE TABLE `user_behaviour_analysis`.`attribute`  (
+DROP TABLE IF EXISTS `user_behaviour_analysis`.`metaEventAttribute`;
+CREATE TABLE `user_behaviour_analysis`.`metaEventAttribute`  (
                                        `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                       `attribute_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '属性名',
-                                       `show_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '显示名',
-                                       `data_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '数据类型',
+                                       `attribute_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '属性名',
+                                       `show_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '显示名',
+                                       `data_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '数据类型',
                                        `attribute_type` tinyint DEFAULT 1 COMMENT '默认为1 （1为预置属性，2为自定义属性）',
                                        `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                        `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                                        `app_id` varchar(255) NULL DEFAULT '' COMMENT 'app_id',
                                        `status` tinyint NOT NULL DEFAULT 1 COMMENT '是否开启属性 1 - 开启 0 - 关闭',
+                                       `event_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '显示名',
                                        PRIMARY KEY (`id`) USING BTREE,
-                                       UNIQUE INDEX `attribute_name`(`attribute_name`, `app_id`) USING BTREE
+                                       UNIQUE INDEX `attribute_name`(`app_id`, `event_name`, `attribute_name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`debug_device`;
@@ -44,23 +45,6 @@ CREATE TABLE `user_behaviour_analysis`.`debug_device`  (
                                           UNIQUE INDEX `debug_device_uq`(`app_id`, `device_id`) USING BTREE,
                                           INDEX `debug_device_appid_createby`(`app_id`, `create_by`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
--- DROP TABLE IF EXISTS `user_behaviour_analysis`.`gm_operator_log`;
--- CREATE TABLE `user_behaviour_analysis`.`gm_operator_log`  (
---                                              `id` int(11) NOT NULL AUTO_INCREMENT,
---                                              `operator_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作者名字',
---                                              `operator_id` int(11) NULL DEFAULT 0 COMMENT '操作者id',
---                                              `operator_action` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求路由',
---                                              `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
---                                              `method` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方法',
---                                              `body` blob NOT NULL COMMENT '请求body',
---                                              `operator_role_id` int(11) NOT NULL,
---                                              PRIMARY KEY (`id`) USING BTREE,
---                                              INDEX `operator_action`(`operator_action`) USING BTREE,
---                                              INDEX `operator_id`(`operator_id`) USING BTREE,
---                                              INDEX `operator_role_id`(`operator_role_id`) USING BTREE,
---                                              INDEX `operator_id_act_role`(`operator_action`, `operator_id`, `operator_role_id`) USING BTREE
--- ) ENGINE = InnoDB AUTO_INCREMENT = 2940 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`sys_role`;
 CREATE TABLE `user_behaviour_analysis`.`sys_role`  (
@@ -88,18 +72,6 @@ CREATE TABLE `user_behaviour_analysis`.`sys_user`  (
                                      UNIQUE INDEX `sys_user_username`(`username`) USING BTREE COMMENT '角色名唯一索引',
                                      INDEX `sys_user_username_pwd`(`username`, `password`, `status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
-DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_attribute_relation`;
-CREATE TABLE `user_behaviour_analysis`.`meta_attribute_relation`  (
-                                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                                `app_id` varchar(255) NULL DEFAULT 0,
-                                                `event_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-                                                `event_attribute` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-                                                PRIMARY KEY (`id`) USING BTREE,
-                                                UNIQUE INDEX `event_name_event_attr`(`app_id`, `event_name`, `event_attribute`) USING BTREE,
-                                                INDEX `event_name_event_attr1`(`app_id`, `event_name`) USING BTREE,
-                                                INDEX `event_name_event_attr2`(`app_id`, `event_attribute`) USING BTREE
-) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_event`;
 CREATE TABLE `user_behaviour_analysis`.`meta_event`  (

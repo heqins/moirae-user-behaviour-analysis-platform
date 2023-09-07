@@ -12,7 +12,7 @@ public class AppDTO {
 
     private String appName;
 
-    private String describe;
+    private String description;
 
     private String appId;
 
@@ -22,9 +22,7 @@ public class AppDTO {
 
     private LocalDateTime updateTime;
 
-    private String appManager;
-
-    private Boolean closed;
+    private Integer status;
 
     private Integer saveMonth;
 }

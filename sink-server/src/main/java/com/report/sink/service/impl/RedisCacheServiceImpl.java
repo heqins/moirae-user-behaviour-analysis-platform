@@ -13,9 +13,12 @@ import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author heqin
@@ -84,5 +87,15 @@ public class RedisCacheServiceImpl implements ICacheService {
     @Override
     public List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName) {
         return null;
+    }
+
+    @Override
+    public List<MetaEventAttributeDTO> multiGetMetaEventAttributeCache(List<String> keys) {
+        List<String> values = redisHelper.multiGet(keys);
+        if (CollectionUtils.isEmpty(values)) {
+            return Collections.emptyList();
+        }
+
+        return values.stream().map(value -> JSONUtil.toBean(value, MetaEventAttributeDTO.class)).collect(Collectors.toList());
     }
 }

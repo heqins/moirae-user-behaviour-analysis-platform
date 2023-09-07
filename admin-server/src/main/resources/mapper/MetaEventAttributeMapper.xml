@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.admin.server.mapper.AttributeMapper">
+<mapper namespace="com.admin.server.mapper.MetaEventAttributeMapper">
     <insert id="batchInsertAttributes" parameterType="java.util.List">
-        INSERT IGNORE INTO attribute (attribute_name, show_name, data_type, attribute_type, app_id)
+        INSERT IGNORE INTO metaEventAttribute (attribute_name, show_name, data_type, attribute_type, app_id)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.attributeName}, #{item.showName}, #{item.dataType}, #{item.attributeType}, #{item.appId})

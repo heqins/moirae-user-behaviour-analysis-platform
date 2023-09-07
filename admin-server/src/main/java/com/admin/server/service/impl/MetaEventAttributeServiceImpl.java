@@ -1,8 +1,9 @@
 package com.admin.server.service.impl;
 
 import com.admin.server.dao.AttributeDao;
-import com.admin.server.service.IAttributeService;
-import com.api.common.bo.Attribute;
+import com.admin.server.service.IMetaEventAttributeService;
+import com.api.common.bo.MetaEventAttribute;
+import com.api.common.param.admin.UpdateMetaEventAttributeParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -17,13 +18,13 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class AttributeServiceImpl implements IAttributeService {
+public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService {
 
     @Resource
     private AttributeDao attributeDao;
 
     @Override
-    public List<Attribute> queryByName(List<String> attributeNames, String appId) {
+    public List<MetaEventAttribute> queryByName(List<String> attributeNames, String appId) {
         if (StringUtils.isEmpty(appId) || CollectionUtils.isEmpty(attributeNames)) {
             return Collections.emptyList();
         }
@@ -32,7 +33,12 @@ public class AttributeServiceImpl implements IAttributeService {
     }
 
     @Override
-    public void batchInsertAttributes(List<Attribute> attributes) {
-        attributeDao.batchInsertAttributes(attributes);
+    public void batchInsertAttributes(List<MetaEventAttribute> metaEventAttributes) {
+        attributeDao.batchInsertAttributes(metaEventAttributes);
+    }
+
+    @Override
+    public void updateMetaEventAttribute(UpdateMetaEventAttributeParam attributeParam) {
+
     }
 }

@@ -65,4 +65,9 @@ public class LocalCacheServiceImpl implements ICacheService {
     public List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName) {
         return null;
     }
+
+    @Override
+    public List<MetaEventAttributeDTO> multiGetMetaEventAttributeCache(List<String> keys) {
+        return null;
+    }
 }

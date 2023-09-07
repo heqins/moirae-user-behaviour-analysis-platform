@@ -5,11 +5,13 @@ import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.dto.sink.LogEventDTO;
+import com.api.common.dto.sink.MetaEventAttributeDTO;
 import com.api.common.dto.sink.TableColumnDTO;
 import com.api.common.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.helper.DorisHelper;
+import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -62,6 +64,9 @@ public class DorisHandler implements EventsHandler{
 
     @Resource
     private MetaEventHandler metaEventHandler;
+
+    @Resource(name = "redisCacheService")
+    private ICacheService redisCache;
 
     public void runSchedule() {
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
@@ -128,6 +133,10 @@ public class DorisHandler implements EventsHandler{
             return;
         }
 
+        if (!checkAttributeStatusValid(jsonObject)) {
+            return;
+        }
+
         try {
             alterTableColumn(jsonObject, dbName, tableName);
         }catch (IllegalArgumentException | IllegalStateException ia) {
@@ -136,6 +145,20 @@ public class DorisHandler implements EventsHandler{
         }
 
         insertTableData(jsonObject, dbName, tableName);
+    }
+
+    private boolean checkAttributeStatusValid(JSONObject jsonObject) {
+        Set<String> attributeSets = jsonObject.keySet();
+        if (CollectionUtils.isEmpty(attributeSets)) {
+            return false;
+        }
+
+        List<MetaEventAttributeDTO> attributeCache = redisCache.multiGetMetaEventAttributeCache(new ArrayList<>(attributeSets));
+        if (CollectionUtils.isEmpty(attributeSets)) {
+            return true;
+        }
+
+        return attributeCache.stream().allMatch(value -> value.getStatus().equals(1));
     }
 
     private void insertTableData(JSONObject jsonObject, String dbName, String tableName) {

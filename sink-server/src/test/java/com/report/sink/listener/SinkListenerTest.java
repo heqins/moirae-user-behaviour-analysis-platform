@@ -33,7 +33,7 @@ public class SinkListenerTest {
         jsonObject.set("event_name", "测试");
         jsonObject.set("event_type", "测试");
         jsonObject.set("event_time", System.currentTimeMillis());
-        jsonObject.set("app_id", "test_app");
+        jsonObject.set("app_id", "f67b5cd6-a12e-442c-9dba-833e9d6a04f2");
         jsonObject.set("app_version", "3.14.0");
         jsonObject.set("unique_id", MD5.create().digestHex("test"));
 
