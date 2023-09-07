@@ -27,7 +27,7 @@ CREATE TABLE `user_behaviour_analysis`.`attribute`  (
                                        `attribute_source` tinyint(4) NULL DEFAULT 1 COMMENT '默认为1 （1为用户属性，2为事件属性）',
                                        `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                        `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-                                       `app_id` varchar(64) NULL DEFAULT 0 COMMENT 'app_id',
+                                       `app_id` varchar(255) NULL DEFAULT 0 COMMENT 'app_id',
                                        `status` tinyint(4) NULL DEFAULT 0 COMMENT '是否显示 0为不显示 1为显示 默认不显示',
                                        PRIMARY KEY (`id`) USING BTREE,
                                        UNIQUE INDEX `attribute_name_attribute_source`(`attribute_name`, `attribute_source`, `app_id`) USING BTREE,
@@ -37,7 +37,7 @@ CREATE TABLE `user_behaviour_analysis`.`attribute`  (
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`debug_device`;
 CREATE TABLE `user_behaviour_analysis`.`debug_device`  (
                                           `id` int(11) NOT NULL AUTO_INCREMENT,
-                                          `app_id` varchar(64) NULL DEFAULT 0,
+                                          `app_id` varchar(255) NULL DEFAULT 0,
                                           `device_id` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                           `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                           `create_by` int(11) NULL DEFAULT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `user_behaviour_analysis`.`sys_user`  (
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_attribute_relation`;
 CREATE TABLE `user_behaviour_analysis`.`meta_attribute_relation`  (
                                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                                `app_id` varchar(64) NULL DEFAULT 0,
+                                                `app_id` varchar(255) NULL DEFAULT 0,
                                                 `event_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                                 `event_attr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                                 PRIMARY KEY (`id`) USING BTREE,
@@ -106,7 +106,7 @@ CREATE TABLE `user_behaviour_analysis`.`meta_attribute_relation`  (
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_event`;
 CREATE TABLE `user_behaviour_analysis`.`meta_event`  (
                                         `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                        `app_id` varchar(64) NULL DEFAULT NULL,
+                                        `app_id` varchar(255) NULL DEFAULT NULL,
                                         `event_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                         `show_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                         `yesterday_count` int(11) NULL DEFAULT 0,
@@ -139,7 +139,7 @@ CREATE TABLE `user_behaviour_analysis`.`panel_folder`  (
                                            `create_by` int(11) NULL DEFAULT 0,
                                            `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                            `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                           `app_id` varchar(64) NULL DEFAULT 0,
+                                           `app_id` varchar(255) NULL DEFAULT 0,
                                            PRIMARY KEY (`id`) USING BTREE,
                                            UNIQUE INDEX `panel_folder_unique`(`folder_name`, `create_by`, `app_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -147,7 +147,7 @@ CREATE TABLE `user_behaviour_analysis`.`panel_folder`  (
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`report_table`;
 CREATE TABLE `user_behaviour_analysis`.`report_table`  (
                                           `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                          `app_id` varchar(64) NULL DEFAULT NULL,
+                                          `app_id` varchar(255) NULL DEFAULT NULL,
                                           `user_id` int(11) NULL DEFAULT NULL,
                                           `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                           `rt_type` tinyint(8) NULL DEFAULT 0,
@@ -171,7 +171,7 @@ CREATE TABLE `user_behaviour_analysis`.`user_group` (
                                        `user_list` blob NOT NULL,
                                        `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                        `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                       `app_id` varchar(64) DEFAULT '0',
+                                       `app_id` varchar(255) DEFAULT '0',
                                        PRIMARY KEY (`id`),
                                        UNIQUE KEY `user_group_name` (`group_name`,`app_id`) USING BTREE,
                                        KEY `user_group_appid` (`id`,`app_id`) USING BTREE

@@ -21,4 +21,6 @@ public interface ICacheService {
 
     AppDTO getAppInfoCache(String appId);
 
+    Integer getMetaEventStatusCache(String appId, String eventName);
+
 }

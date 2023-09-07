@@ -44,4 +44,9 @@ public class LocalCacheServiceImpl implements ICacheService {
     public AppDTO getAppInfoCache(String appId) {
         return null;
     }
+
+    @Override
+    public Integer getMetaEventStatusCache(String appId, String eventName) {
+        return null;
+    }
 }

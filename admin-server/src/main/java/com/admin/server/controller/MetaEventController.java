@@ -23,15 +23,17 @@ public class MetaEventController {
     private IMetaEventService metaEventService;
 
     @ApiOperation(value = "分页查询当前应用下的所有元事件")
-    @GetMapping("/events/{appId}")
+    @GetMapping("/{appId}/events")
     public CommonResponse<MetaEventsPageVo> pageQueryMetaEvents(@ApiParam(value = "test") @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                                                 @PathVariable String appId) {
         return CommonResponse.ofSuccess(metaEventService.queryMetaEventsByPage(pageNum, pageSize, appId));
     }
 
+
+
     @ApiOperation(value = "启用应用元事件")
-    @PostMapping("/event/{appId}/{eventName}")
+    @PostMapping("/{appId}/event/{eventName}")
     public CommonResponse<Void> enableMetaEvent(@PathVariable String appId,
                                           @PathVariable String eventName) {
         metaEventService.enableMetaEvent(appId, eventName);
@@ -39,7 +41,7 @@ public class MetaEventController {
     }
 
     @ApiOperation(value = "关闭应用元事件")
-    @DeleteMapping("/event/{appId}/{eventName}")
+    @DeleteMapping("/{appId}/event/{eventName}")
     public CommonResponse<Void> disableMetaEvent(@PathVariable String appId,
                                                  @PathVariable String eventName) {
         metaEventService.disableMetaEvent(appId, eventName);

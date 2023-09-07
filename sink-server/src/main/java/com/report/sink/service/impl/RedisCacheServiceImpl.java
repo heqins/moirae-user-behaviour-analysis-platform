@@ -1,6 +1,8 @@
 package com.report.sink.service.impl;
 
 
+import cn.hutool.core.util.NumberUtil;
+import com.api.common.constant.RedisCacheConstants;
 import com.api.common.dto.admin.AppDTO;
 import com.api.common.dto.sink.TableColumnDTO;
 import com.api.common.bo.MetaEvent;
@@ -44,7 +46,17 @@ public class RedisCacheServiceImpl implements ICacheService {
 
     @Override
     public AppDTO getAppInfoCache(String appId) {
-
         return null;
+    }
+
+    @Override
+    public Integer getMetaEventStatusCache(String appId, String eventName) {
+        String cacheKey = RedisCacheConstants.getMetaEventCacheKey(appId, eventName);
+        String value = redisHelper.getValue(cacheKey);
+        if (!NumberUtil.isNumber(value)) {
+            return null;
+        }
+
+        return Integer.parseInt(value);
     }
 }

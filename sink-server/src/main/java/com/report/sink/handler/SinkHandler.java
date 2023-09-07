@@ -4,9 +4,11 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.dto.admin.AppDTO;
 import com.api.common.dto.sink.EventLogDTO;
+import com.api.common.enums.MetaEventStatusEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
+import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author heqin
@@ -35,6 +38,9 @@ public class SinkHandler {
 
     @Resource
     private IAppService appService;
+
+    @Resource(name = "redisCacheService")
+    private ICacheService redisCache;
 
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
@@ -62,6 +68,16 @@ public class SinkHandler {
                 continue;
             }
 
+            String eventName = jsonObject.getStr("event_name");
+            if (eventName == null) {
+                log.warn("SinkHandler jsonObject not found eventName:{}", JSONUtil.toJsonStr(jsonObject));
+                continue;
+            }
+
+            if (!checkIfEventEnabled(appId, eventName)) {
+                continue;
+            }
+
             String tableName = generateTableName(jsonObject, appId);
 
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
@@ -69,6 +85,11 @@ public class SinkHandler {
 
             reportEventsToDorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
         }
+    }
+
+    private Boolean checkIfEventEnabled(String appId, String eventName) {
+        Integer eventStatus = redisCache.getMetaEventStatusCache(appId, eventName);
+        return Objects.equals(MetaEventStatusEnum.ENABLE.getStatus(), eventStatus);
     }
 
     private String generateTableName(JSONObject jsonObject, String appId) {
