@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author heqin
@@ -26,7 +27,7 @@ public class RoleController {
 
     @ApiOperation(value = "创建角色")
     @PostMapping("")
-    public CommonResponse<Void> createApp(@RequestBody CreateAppParam createAppParam) {
+    public CommonResponse<Void> createApp(@RequestBody @Valid CreateAppParam createAppParam) {
         appService.createApp(createAppParam);
         return CommonResponse.ofSuccess();
     }

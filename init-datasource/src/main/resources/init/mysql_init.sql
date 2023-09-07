@@ -96,11 +96,11 @@ CREATE TABLE `user_behaviour_analysis`.`meta_attribute_relation`  (
                                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                                 `app_id` varchar(255) NULL DEFAULT 0,
                                                 `event_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-                                                `event_attr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
+                                                `event_attribute` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
                                                 PRIMARY KEY (`id`) USING BTREE,
-                                                UNIQUE INDEX `event_name_event_attr`(`app_id`, `event_name`, `event_attr`) USING BTREE,
+                                                UNIQUE INDEX `event_name_event_attr`(`app_id`, `event_name`, `event_attribute`) USING BTREE,
                                                 INDEX `event_name_event_attr1`(`app_id`, `event_name`) USING BTREE,
-                                                INDEX `event_name_event_attr2`(`app_id`, `event_attr`) USING BTREE
+                                                INDEX `event_name_event_attr2`(`app_id`, `event_attribute`) USING BTREE
 ) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_event`;

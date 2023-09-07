@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author heqin
@@ -23,7 +24,7 @@ public class AppController {
 
     @ApiOperation(value = "创建应用")
     @PostMapping("")
-    public CommonResponse<Void> createApp(@RequestBody CreateAppParam createAppParam) {
+    public CommonResponse<Void> createApp(@RequestBody @Valid CreateAppParam createAppParam) {
         appService.createApp(createAppParam);
         return CommonResponse.ofSuccess();
     }

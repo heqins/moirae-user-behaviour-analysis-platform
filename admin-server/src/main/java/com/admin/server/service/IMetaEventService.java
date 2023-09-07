@@ -1,5 +1,6 @@
 package com.admin.server.service;
 
+import com.api.common.param.admin.CreateMetaEventParam;
 import com.api.common.vo.admin.MetaEventsPageVo;
 
 public interface IMetaEventService {
@@ -9,5 +10,7 @@ public interface IMetaEventService {
     void enableMetaEvent(String appId, String eventName);
 
     void disableMetaEvent(String appId, String eventName);
+
+    void createMetaEvent(CreateMetaEventParam createMetaEventParam);
 
 }

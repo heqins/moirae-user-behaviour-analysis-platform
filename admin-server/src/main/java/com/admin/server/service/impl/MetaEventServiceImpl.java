@@ -1,10 +1,13 @@
 package com.admin.server.service.impl;
 
 import com.admin.server.dao.MetaEventDao;
+import com.admin.server.error.ErrorCodeEnum;
 import com.admin.server.service.ICacheService;
 import com.admin.server.service.IMetaEventService;
 import com.api.common.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
+import com.api.common.error.ResponseException;
+import com.api.common.param.admin.CreateMetaEventParam;
 import com.api.common.vo.admin.MetaEventVo;
 import com.api.common.vo.admin.MetaEventsPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author heqin
@@ -71,5 +75,29 @@ public class MetaEventServiceImpl implements IMetaEventService {
 
         metaEventDao.changeMetaEventStatus(appId, eventName, MetaEventStatusEnum.DISABLE.getStatus());
         redisCache.setMetaEventCache(appId, eventName, MetaEventStatusEnum.DISABLE.getStatus());
+    }
+
+    @Override
+    public void createMetaEvent(CreateMetaEventParam createMetaEventParam) {
+        MetaEvent existMetaEvent = metaEventDao.selectByName(createMetaEventParam.getAppId(), createMetaEventParam.getEventName());
+        if (Objects.nonNull(existMetaEvent)) {
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_EXIST.getMsg());
+        }
+
+        MetaEvent metaEvent = transferFromCreateParam(createMetaEventParam);
+        metaEventDao.save(metaEvent);
+    }
+
+    private MetaEvent transferFromCreateParam(CreateMetaEventParam param) {
+        if (Objects.isNull(param)) {
+            return null;
+        }
+
+        MetaEvent metaEvent = new MetaEvent();
+        metaEvent.setAppId(param.getAppId().trim());
+        metaEvent.setEventName(param.getEventName().trim());
+        metaEvent.setShowName(param.getShowName());
+
+        return metaEvent;
     }
 }

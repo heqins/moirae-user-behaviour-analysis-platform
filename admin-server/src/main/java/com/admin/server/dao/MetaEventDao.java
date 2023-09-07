@@ -6,13 +6,14 @@ import com.api.common.enums.MetaEventStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Component
-public class MetaEventDao {
+public class MetaEventDao extends ServiceImpl<MetaEventMapper, MetaEvent> {
 
     @Resource
     private MetaEventMapper metaEventMapper;
@@ -35,5 +36,14 @@ public class MetaEventDao {
         update.setStatus(status);
 
         metaEventMapper.update(update, queryWrapper);
+    }
+
+    public MetaEvent selectByName(String appId, String eventName) {
+        LambdaQueryWrapper<MetaEvent> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MetaEvent::getAppId, appId);
+        queryWrapper.eq(MetaEvent::getEventName, eventName);
+        queryWrapper.eq(MetaEvent::getStatus, MetaEventStatusEnum.ENABLE.getStatus());
+
+        return metaEventMapper.selectOne(queryWrapper);
     }
 }
