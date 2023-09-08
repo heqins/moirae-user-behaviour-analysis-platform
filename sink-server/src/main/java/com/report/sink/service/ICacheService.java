@@ -1,8 +1,8 @@
 package com.report.sink.service;
 
-import com.api.common.dto.admin.AppDTO;
-import com.api.common.dto.sink.MetaEventAttributeDTO;
-import com.api.common.dto.sink.TableColumnDTO;
+import com.api.common.model.dto.admin.AppDTO;
+import com.api.common.model.dto.sink.MetaEventAttributeDTO;
+import com.api.common.model.dto.sink.TableColumnDTO;
 import com.api.common.bo.MetaEvent;
 
 import java.util.List;

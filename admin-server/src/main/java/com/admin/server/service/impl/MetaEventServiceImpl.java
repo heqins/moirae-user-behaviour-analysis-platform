@@ -2,16 +2,17 @@ package com.admin.server.service.impl;
 
 import com.admin.server.dao.MetaEventDao;
 import com.admin.server.error.ErrorCodeEnum;
+import com.admin.server.model.domain.MetaEventUtil;
 import com.admin.server.service.ICacheService;
 import com.admin.server.service.IMetaEventService;
 import com.admin.server.util.MyPageUtil;
-import com.api.common.bo.MetaEvent;
+import com.admin.server.model.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.error.ResponseException;
-import com.api.common.param.admin.CreateMetaEventParam;
-import com.api.common.vo.PageVo;
-import com.api.common.vo.admin.MetaEventVo;
-import com.api.common.vo.admin.MetaEventsPageVo;
+import com.api.common.model.param.admin.CreateMetaEventParam;
+import com.api.common.model.vo.PageVo;
+import com.api.common.model.vo.admin.MetaEventVo;
+import com.api.common.model.vo.admin.MetaEventsPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +51,7 @@ public class MetaEventServiceImpl implements IMetaEventService {
             return MyPageUtil.constructPageVo(pageNum, pageSize, 0L, resultVo);
         }
 
-        List<MetaEventVo> metaEventVos = MetaEventVo.transferFromEventBo(metaEventPage.getRecords());
+        List<MetaEventVo> metaEventVos = MetaEventUtil.transferFromEventBo(metaEventPage.getRecords());
         resultVo.setEvents(metaEventVos);
 
         return MyPageUtil.constructPageVo(pageNum, pageSize, metaEventPage.getTotal(), resultVo);

@@ -1,7 +1,8 @@
 package com.admin.server.dao;
 
 import com.admin.server.mapper.AppMapper;
-import com.api.common.bo.App;
+import com.admin.server.model.bo.App;
+import com.api.common.enums.AppStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,7 +27,7 @@ public class AppDao extends ServiceImpl<AppMapper, App> {
     public List<App> selectByUser(String username) {
         LambdaQueryWrapper<App> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(App::getCreateUser, username);
-        queryWrapper.eq(App::getStatus, 1);
+        queryWrapper.eq(App::getStatus, AppStatusEnum.ENABLE.getStatus());
 
         return appMapper.selectList(queryWrapper);
     }
@@ -35,8 +36,24 @@ public class AppDao extends ServiceImpl<AppMapper, App> {
         Page<App> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<App> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(App::getCreateUser, username);
-        queryWrapper.eq(App::getStatus, 0);
+        queryWrapper.eq(App::getStatus, AppStatusEnum.ENABLE.getStatus());
 
         return appMapper.selectPage(page, queryWrapper);
+    }
+
+    public List<App> selectByAppName(String appName) {
+        LambdaQueryWrapper<App> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(App::getAppName, appName);
+        queryWrapper.eq(App::getStatus, AppStatusEnum.ENABLE.getStatus());
+
+        return appMapper.selectList(queryWrapper);
+    }
+
+    public App selectByAppId(String appId) {
+        LambdaQueryWrapper<App> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(App::getAppId, appId);
+        queryWrapper.eq(App::getStatus, AppStatusEnum.ENABLE.getStatus());
+
+        return appMapper.selectOne(queryWrapper);
     }
 }

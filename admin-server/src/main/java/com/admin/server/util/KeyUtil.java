@@ -1,5 +1,6 @@
 package com.admin.server.util;
 
+import cn.hutool.core.util.RandomUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
@@ -55,8 +56,8 @@ public class KeyUtil {
         return null;
     }
 
-    public static UUID generateAppId() {
-        return UUID.randomUUID();
+    public static String generateAppId() {
+        return RandomUtil.randomString(8);
     }
 
     public static String generateAppKey() throws NoSuchAlgorithmException {

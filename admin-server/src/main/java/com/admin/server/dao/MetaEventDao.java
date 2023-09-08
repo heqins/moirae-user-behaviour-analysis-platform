@@ -1,7 +1,7 @@
 package com.admin.server.dao;
 
 import com.admin.server.mapper.MetaEventMapper;
-import com.api.common.bo.MetaEvent;
+import com.admin.server.model.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Component
 public class MetaEventDao extends ServiceImpl<MetaEventMapper, MetaEvent> {

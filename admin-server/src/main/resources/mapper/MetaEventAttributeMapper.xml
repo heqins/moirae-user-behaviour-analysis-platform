@@ -3,10 +3,10 @@
 
 <mapper namespace="com.admin.server.mapper.MetaEventAttributeMapper">
     <insert id="batchInsertAttributes" parameterType="java.util.List">
-        INSERT IGNORE INTO metaEventAttribute (attribute_name, show_name, data_type, attribute_type, app_id)
+        INSERT IGNORE INTO meta_event_attribute (attribute_name, show_name, data_type, attribute_type, event_name, app_id)
         VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.attributeName}, #{item.showName}, #{item.dataType}, #{item.attributeType}, #{item.appId})
+            (#{item.attributeName}, #{item.showName}, #{item.dataType}, #{item.attributeType}, #{item.eventName}, #{item.appId})
         </foreach>
     </insert>
 </mapper>

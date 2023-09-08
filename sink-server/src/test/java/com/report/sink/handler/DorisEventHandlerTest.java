@@ -1,6 +1,6 @@
 package com.report.sink.handler;
 
-import com.api.common.dto.sink.EventLogDTO;
+import com.api.common.model.dto.sink.EventLogDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -6,7 +6,6 @@ import com.report.sink.dao.MetaEventDao;
 import com.report.sink.service.ICacheService;
 import com.report.sink.service.IMetaEventService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

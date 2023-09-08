@@ -2,6 +2,8 @@ package com.admin.server.helper;
 
 import com.admin.server.properties.DorisProrperties;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -11,10 +13,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
-@Slf4j
 public class DorisHelper {
 
     private final String CHANGE_COLUMN_TYPE_SQL = "ALTER TABLE %s.%s MODIFY COLUMN %s %s";
+
+    private final Logger logger = LoggerFactory.getLogger(DorisHelper.class);
 
     @Resource
     private DorisProrperties dorisProrperties;
@@ -36,7 +39,7 @@ public class DorisHelper {
             statement.close();
             connection.close();
 
-            System.out.println("表字段类型已更改成功！");
+            logger.info("alterTableColumn 表字段类型更改成功 tableName: {}, columnName: {}, type: {}", tableName, columnName, type);
         } catch (SQLException e) {
             e.printStackTrace();
         }

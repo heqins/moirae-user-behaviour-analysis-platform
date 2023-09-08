@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.sink.GeoIpDTO;
+import com.api.common.model.dto.sink.GeoIpDTO;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CountryResponse;

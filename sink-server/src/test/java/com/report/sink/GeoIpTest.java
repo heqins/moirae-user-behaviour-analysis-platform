@@ -1,7 +1,7 @@
 package com.report.sink;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.sink.GeoIpDTO;
+import com.api.common.model.dto.sink.GeoIpDTO;
 import com.report.sink.helper.GeoIpHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,9 +1,9 @@
 package com.admin.server.service;
 
-import com.api.common.bo.MetaEvent;
-import com.api.common.param.admin.CreateMetaEventParam;
-import com.api.common.vo.PageVo;
-import com.api.common.vo.admin.MetaEventsPageVo;
+import com.admin.server.model.bo.MetaEvent;
+import com.api.common.model.param.admin.CreateMetaEventParam;
+import com.api.common.model.vo.PageVo;
+import com.api.common.model.vo.admin.MetaEventsPageVo;
 
 public interface IMetaEventService {
 

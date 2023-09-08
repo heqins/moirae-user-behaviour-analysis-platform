@@ -1,7 +1,7 @@
 package com.flink.job.task;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.dto.sink.EventLogDTO;
+import com.api.common.model.dto.sink.EventLogDTO;
 import com.flink.job.model.entity.EventLogPv;
 import com.flink.job.config.Config;
 import com.api.common.constant.ConfigConstant;

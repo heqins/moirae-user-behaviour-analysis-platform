@@ -1,6 +1,6 @@
 package com.report.sink.service.impl;
 
-import com.api.common.dto.admin.AppDTO;
+import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.bo.App;
 import com.report.sink.dao.AppDao;
 import com.report.sink.service.IAppService;

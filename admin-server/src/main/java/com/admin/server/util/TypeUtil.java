@@ -17,6 +17,7 @@ public class TypeUtil {
 
         // 创建 Matcher 对象，并在文本中查找匹配项
         Matcher matcher = regex.matcher(text);
+
         // 查找匹配项并提取数字
         if (matcher.find()) {
 

@@ -13,6 +13,7 @@ spring:
       username: root
       password: 5323105
       driver-class-name: com.doris.Doris
+      db-name: user_behaviour_analysis
 
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为master

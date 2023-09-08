@@ -4,12 +4,104 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新metaEventAttribute接口增加">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/TypeUtil.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新alterColumn判断">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/MybatisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/AppUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/MetaEventAttributeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/MetaEventUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AppStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/CreateAppParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/model/bo/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/model/bo/MetaEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/MetaEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventAttributeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventAttributeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysRoleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysRoleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/error/ErrorCodeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/error/ErrorCodeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/MetaFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/MetaFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/interceptor/ErrorInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/interceptor/ErrorInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/AppMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/AppMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventAttributeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventAttributeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysRoleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/properties/DorisProrperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/properties/DorisProrperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventAttributeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventAttributeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IMetaEventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IRoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventAttributeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/KeyUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/KeyUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/MyPageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/MyPageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/TypeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/util/TypeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/mapper/MetaAttributeRelationMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/mapper/MetaEventAttributeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/mapper/MetaEventAttributeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/MetaEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/MetaEventAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/MetaEventAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/SysRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/bo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/admin/AppDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/admin/AppDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/EventLogDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/EventLogDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/GeoIpDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/GeoIpDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/LogEventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/LogEventDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/MetaEventAttributeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/MetaEventAttributeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/dto/sink/TableColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/TableColumnDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AttributeDataTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AttributeDataTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/AttributeParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AttributeParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateAppParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateMetaEventAttributeParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/CreateMetaEventAttributeParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/CreateMetaEventParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/CreateMetaEventParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/UpdateMetaEventAttributeParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/UpdateMetaEventAttributeParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/param/admin/UserLoginParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/UserLoginParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/CommonResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/CommonResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/PageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/PageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppPageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/AppPageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/AppVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/AppVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaAttributeRelationPageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/MetaEventAttributePageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaAttributeRelationVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/MetaEventAttributeVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaEventVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/MetaEventVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/vo/admin/MetaEventsPageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/vo/admin/MetaEventsPageVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/LogPvWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/window/watermark/LogPvWatermarkAssigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/mysql_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/LocalCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/LocalCacheConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/GeoIpHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/mysql/AppMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/mysql/AppMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/mysql/MetaEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/mapper/mysql/MetaEventMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/IAppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/MetaEventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/MetaEventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/GeoIpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +115,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -74,39 +166,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ToolWindowBuild.ShowToolbar": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "jdk.selected.JAVA_MODULE": "temurin-11",
-    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/admin-server/src/main/resources/mapper",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.12227076",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ToolWindowBuild.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-11&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/heqin/workspace/java/user-behaviour-analysis/sink-server/src/main/java/com/report/sink/model/bo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.12227076&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;917492cd6eff15b225a41c36a5af4f92&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/model/bo" />
       <recent name="$PROJECT_DIR$/admin-server/src/main/resources/mapper" />
       <recent name="$PROJECT_DIR$/admin-server/src/main/resources" />
       <recent name="$PROJECT_DIR$/report-server" />
@@ -127,7 +220,7 @@
       <recent name="com.admin.server.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MysqlTask">
+  <component name="RunManager" selected="Spring Boot.AdminMain">
     <configuration name="MysqlTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.MysqlTask" />
       <module name="init-datasource" />
@@ -221,11 +314,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MysqlTask" />
+        <item itemvalue="JUnit.UserTest.testGenerateKey" />
+        <item itemvalue="JUnit.UserTest.createUser" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="JUnit.MetaEventServiceTest.testMetaEventGet" />
-        <item itemvalue="JUnit.UserTest.createUser" />
-        <item itemvalue="JUnit.UserTest.testGenerateKey" />
+        <item itemvalue="Application.MysqlTask" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +341,10 @@
       <workItem from="1693451906518" duration="1194000" />
       <workItem from="1693637499172" duration="19524000" />
       <workItem from="1693967336127" duration="11517000" />
-      <workItem from="1694073291572" duration="19788000" />
+      <workItem from="1694073291572" duration="25510000" />
+      <workItem from="1694140901261" duration="794000" />
+      <workItem from="1694141711598" duration="84000" />
+      <workItem from="1694141812133" duration="398000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -558,7 +654,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694094925852</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="feat: 更新alterColumn判断">
+      <created>1694097811622</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1694097811622</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -588,7 +691,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 初始化geoIp2查询国家接口" />
     <MESSAGE value="feat: 初始化swagger配置" />
     <MESSAGE value="feat: 初始化redis缓存处理" />
     <MESSAGE value="feat: 更新数据库连接池" />
@@ -613,7 +715,8 @@
     <MESSAGE value="feat: 更新cache配置" />
     <MESSAGE value="feat: 删除多余表" />
     <MESSAGE value="feat: 更新metaEventAttribute接口增加" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新metaEventAttribute接口增加" />
+    <MESSAGE value="feat: 更新alterColumn判断" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新alterColumn判断" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

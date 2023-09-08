@@ -1,6 +1,6 @@
 package com.flink.job.window.watermark;
 
-import com.api.common.dto.sink.EventLogDTO;
+import com.api.common.model.dto.sink.EventLogDTO;
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;
 

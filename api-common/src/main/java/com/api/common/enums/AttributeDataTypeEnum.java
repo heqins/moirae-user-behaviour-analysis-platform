@@ -47,6 +47,16 @@ public enum AttributeDataTypeEnum {
         return false;
     }
 
+    public static String getDataTypeDescription(String type) {
+        for (AttributeDataTypeEnum dataTypeEnum : AttributeDataTypeEnum.values()) {
+            if (dataTypeEnum.dorisType.startsWith(type)) {
+                return dataTypeEnum.description;
+            }
+        }
+
+        return "";
+    }
+
     public static String generateDorisTypeWithLength(String type, Integer length, Integer limit) {
         if (!containType(type)) {
             return null;

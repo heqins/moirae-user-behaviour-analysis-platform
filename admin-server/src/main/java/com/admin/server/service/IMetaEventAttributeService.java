@@ -1,7 +1,8 @@
 package com.admin.server.service;
 
-import com.api.common.bo.MetaEventAttribute;
-import com.api.common.param.admin.UpdateMetaEventAttributeParam;
+import com.admin.server.model.bo.MetaEventAttribute;
+import com.api.common.model.param.admin.UpdateMetaEventAttributeParam;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface IMetaEventAttributeService {
 
     void updateMetaEventAttribute(UpdateMetaEventAttributeParam attributeParam);
 
+    IPage<MetaEventAttribute> pageQueryByName(String appId, String eventName, String attributeName, Integer pageNum, Integer pageSize);
 }

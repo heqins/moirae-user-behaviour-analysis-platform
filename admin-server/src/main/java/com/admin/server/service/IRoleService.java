@@ -1,7 +1,6 @@
 package com.admin.server.service;
 
-import com.api.common.bo.SysRole;
-import com.api.common.param.admin.UserLoginParam;
+import com.admin.server.model.bo.SysRole;
 
 public interface IRoleService {
 

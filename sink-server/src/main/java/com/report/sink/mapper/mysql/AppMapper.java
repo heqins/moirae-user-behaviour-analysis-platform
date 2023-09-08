@@ -1,7 +1,7 @@
 package com.report.sink.mapper.mysql;
 
-import com.api.common.bo.App;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.report.sink.model.bo.App;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

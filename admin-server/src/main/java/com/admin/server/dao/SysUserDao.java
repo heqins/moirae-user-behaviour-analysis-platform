@@ -1,10 +1,9 @@
 package com.admin.server.dao;
 
 import com.admin.server.mapper.SysUserMapper;
-import com.api.common.bo.SysUser;
+import com.admin.server.model.bo.SysUser;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -31,9 +30,11 @@ public class SysUserDao extends ServiceImpl<SysUserMapper, SysUser> {
             return;
         }
 
-        List<List<SysUser>> partition = Lists.partition(sysUserList, 50);
-        for (List<SysUser> partitionList : partition) {
-            saveBatch(partitionList);
-        }
+        // todo: 分批
+        saveBatch(sysUserList);
+//        List<List<SysUser>> partition = Lists.partition(sysUserList, 50);
+//        for (List<SysUser> partitionList : partition) {
+//            saveBatch(partitionList);
+//        }
     }
 }

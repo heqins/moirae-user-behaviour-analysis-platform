@@ -1,11 +1,11 @@
 package com.report.sink.service.impl;
 
-import com.api.common.dto.admin.AppDTO;
-import com.api.common.dto.sink.MetaEventAttributeDTO;
-import com.api.common.dto.sink.TableColumnDTO;
+import com.api.common.model.dto.admin.AppDTO;
+import com.api.common.model.dto.sink.MetaEventAttributeDTO;
+import com.api.common.model.dto.sink.TableColumnDTO;
 import com.api.common.bo.MetaEvent;
 import com.github.benmanes.caffeine.cache.Cache;
-import com.report.sink.constants.CacheConstants;
+import com.api.common.constant.LocalCacheConstants;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class LocalCacheServiceImpl implements ICacheService {
 
     @Override
     public List<TableColumnDTO> getColumnCache(String dbName, String tableName) {
-        String columnLocalCacheKey = CacheConstants.getColumnLocalCacheKey(dbName, tableName);
+        String columnLocalCacheKey = LocalCacheConstants.getColumnLocalCacheKey(dbName, tableName);
         return columnLocalCache.getIfPresent(columnLocalCacheKey);
     }
 

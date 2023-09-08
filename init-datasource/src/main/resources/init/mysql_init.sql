@@ -6,19 +6,19 @@ CREATE TABLE `user_behaviour_analysis`.`app`  (
                                  `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `app_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
                                  `create_user` varchar(64) NOT NULL,
-                                 `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                                 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                 `status` tinyint(4) NULL DEFAULT 0 COMMENT '是否关闭 0 - false 1 - true',
-                                 `save_month` int(11) NULL DEFAULT 1 COMMENT '保存n个月',
+                                 `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
+                                 `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                 `status` tinyint DEFAULT 1 NOT NULL COMMENT '是否启用 0 - 否 1 - 是',
+                                 `save_month` int(11) DEFAULT 1 COMMENT '保存n个月',
                                  PRIMARY KEY (`id`) USING BTREE,
                                  UNIQUE INDEX `app_name`(`app_name`) USING BTREE,
                                  UNIQUE INDEX `app_id`(`app_id`) USING BTREE,
                                  INDEX `app_create_by`(`create_user`, `app_name`, `status`) USING BTREE,
-                                 INDEX `app_isclose`(`status`) USING BTREE
+                                 INDEX `app_status`(`status`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `user_behaviour_analysis`.`metaEventAttribute`;
-CREATE TABLE `user_behaviour_analysis`.`metaEventAttribute`  (
+DROP TABLE IF EXISTS `user_behaviour_analysis`.`meta_event_attribute`;
+CREATE TABLE `user_behaviour_analysis`.`meta_event_attribute`  (
                                        `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                        `attribute_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '属性名',
                                        `show_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '显示名',
@@ -82,7 +82,7 @@ CREATE TABLE `user_behaviour_analysis`.`meta_event`  (
                                         `yesterday_count` int(11) NULL DEFAULT 0,
                                         `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                         `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                        `status` tinyint DEFAULT 1 COMMENT "启动状态 1-启用 0-关闭",
+                                        `status` tinyint DEFAULT 1 COMMENT '启动状态 1-启用 0-关闭',
                                         PRIMARY KEY (`id`) USING BTREE,
                                         UNIQUE INDEX `meta_event_appid_event_name`(`app_id`, `event_name`) USING BTREE,
                                         INDEX `meta_event_appid`(`app_id`) USING BTREE

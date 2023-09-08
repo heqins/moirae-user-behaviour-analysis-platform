@@ -6,11 +6,12 @@ import com.admin.server.error.ErrorCodeEnum;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.util.TypeUtil;
-import com.api.common.bo.MetaEventAttribute;
+import com.admin.server.model.bo.MetaEventAttribute;
 import com.api.common.constant.ConfigConstant;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.error.ResponseException;
-import com.api.common.param.admin.UpdateMetaEventAttributeParam;
+import com.api.common.model.param.admin.UpdateMetaEventAttributeParam;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -55,47 +56,74 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
     public void updateMetaEventAttribute(UpdateMetaEventAttributeParam attributeParam) {
         MetaEventAttribute metaEventAttribute = metaEventAttributeDao.selectByEventAndAttributeName(attributeParam.getAppId(), attributeParam.getEventName(), attributeParam.getAttributeName());
         if (metaEventAttribute == null) {
-            // todo:
-            throw new ResponseException(ErrorCodeEnum.META_EVENT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_EXIST.getMsg());
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_ATTRIBUTE_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_ATTRIBUTE_NOT_EXIST.getMsg());
         }
 
         String tableName = ConfigConstant.generateTableName(attributeParam.getAppId());
 
         Boolean ifCanChangeColumn = ifCanChangeTableColumn(metaEventAttribute.getDataType(), attributeParam.getDataType(), attributeParam.getLength(), attributeParam.getLimit());
-
-        if (ifCanChangeColumn) {
-
-            String newDataType = generateDataType(attributeParam.getDataType(), attributeParam.getLength(), attributeParam.getLimit());
-
-            dorisHelper.alterTableColumn(dorisDbName, tableName, attributeParam.getAttributeName(), newDataType);
-
-            metaEventAttributeDao.updateAttributeByAppIdAndName(attributeParam.getAppId(),
-                    attributeParam.getEventName(), attributeParam.getAttributeName());
-
+        if (!ifCanChangeColumn) {
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_ATTRIBUTE_UPDATE_FORBID.getCode(), ErrorCodeEnum.META_EVENT_ATTRIBUTE_UPDATE_FORBID.getMsg());
         }
+
+        String newDataType = generateDataType(attributeParam.getDataType(), attributeParam.getLength(), attributeParam.getLimit());
+
+        dorisHelper.alterTableColumn(dorisDbName, tableName, attributeParam.getAttributeName(), newDataType);
+
+        metaEventAttributeDao.updateAttributeByAppIdAndName(attributeParam.getAppId(),
+                    attributeParam.getEventName(), attributeParam.getAttributeName());
     }
 
-    private Boolean ifCanChangeTableColumn(String oldColumnType, String dataType, Integer length, Integer limit) {
-        if (oldColumnType.startsWith(AttributeDataTypeEnum.VARCHAR.getDorisType())) {
-            Pair<Integer, Integer> newPair = TypeUtil.parseTypeNumber(TypeUtil.VARCHAR_PATTERN, dataType);
-            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.VARCHAR_PATTERN, oldColumnType);
-
-            if (newPair == null || oldPair == null) {
-                return false;
-            }
-
-            return newPair.getKey() >= oldPair.getKey();
+    @Override
+    public IPage<MetaEventAttribute> pageQueryByName(String appId, String eventName, String attributeName, Integer pageNum, Integer pageSize) {
+        if (StringUtils.isEmpty(appId)) {
+            return null;
         }
 
-        if (oldColumnType.startsWith(AttributeDataTypeEnum.DECIMAL.getDorisType())) {
-            Pair<Integer, Integer> newPair = TypeUtil.parseTypeNumber(TypeUtil.DECIMAL_PATTERN, dataType);
-            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.DECIMAL_PATTERN, oldColumnType);
+        if (pageNum <= 0) {
+            pageNum = 1;
+        }
 
-            if (newPair == null || oldPair == null) {
+        if (pageSize > 100 || pageSize <= 0) {
+            pageSize = 10;
+        }
+
+        return metaEventAttributeDao.pageQueryByName(appId, eventName, attributeName, pageNum, pageSize);
+    }
+
+    /**
+     *
+     * @param oldColumnType
+     * @param dataType
+     * @param length 如果是varchar则代表长度，如果是decimal则代表整数位
+     * @param limit decimal，代表小数位
+     * @return
+     */
+    private Boolean ifCanChangeTableColumn(String oldColumnType, String dataType, Integer length, Integer limit) {
+        if (!oldColumnType.startsWith(dataType)) {
+            return false;
+        }
+
+        // 如果是varchar，则pair第一个数代表长度
+        if (oldColumnType.startsWith(AttributeDataTypeEnum.VARCHAR.getDorisType())) {
+            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.VARCHAR_PATTERN, oldColumnType);
+
+            if (oldPair == null) {
                 return false;
             }
 
-            return newPair.getKey() >= oldPair.getKey() && newPair.getValue() >= oldPair.getValue();
+            return length >= oldPair.getKey();
+        }
+
+        // 如果是decimal，则pair第一个数代表整数位，第二个数代表小数位
+        if (oldColumnType.startsWith(AttributeDataTypeEnum.DECIMAL.getDorisType())) {
+            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.DECIMAL_PATTERN, oldColumnType);
+
+            if (oldPair == null) {
+                return false;
+            }
+
+            return length >= oldPair.getKey() && limit >= oldPair.getValue();
         }
 
         return false;

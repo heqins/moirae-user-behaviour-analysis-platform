@@ -1,6 +1,6 @@
 package com.admin.server.mapper;
 
-import com.api.common.bo.SysUser;
+import com.admin.server.model.bo.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
