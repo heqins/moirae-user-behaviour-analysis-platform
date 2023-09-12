@@ -7,8 +7,8 @@ import com.api.common.constant.RedisCacheConstants;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
-import com.api.common.bo.MetaEvent;
 import com.report.sink.helper.RedisHelper;
+import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -96,6 +97,6 @@ public class RedisCacheServiceImpl implements ICacheService {
             return Collections.emptyList();
         }
 
-        return values.stream().map(value -> JSONUtil.toBean(value, MetaEventAttributeDTO.class)).collect(Collectors.toList());
+        return values.stream().filter(Objects::nonNull).map(value -> JSONUtil.toBean(value, MetaEventAttributeDTO.class)).collect(Collectors.toList());
     }
 }

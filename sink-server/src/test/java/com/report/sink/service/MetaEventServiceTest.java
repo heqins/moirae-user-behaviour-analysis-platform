@@ -1,7 +1,7 @@
 package com.report.sink.service;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.bo.MetaEvent;
+import com.report.sink.model.bo.MetaEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Slf4j
 public class MetaEventServiceTest {
 
     @Resource
@@ -26,6 +25,6 @@ public class MetaEventServiceTest {
         MetaEvent metaEvent = metaEventService.getMetaEvent(appId, eventName);
         assert metaEvent != null;
 
-        log.info("metaEvent:{}", JSONUtil.toJsonStr(metaEvent));
+        //log.info("metaEvent:{}", JSONUtil.toJsonStr(metaEvent));
     }
 }

@@ -1,9 +1,9 @@
 package com.report.sink.dao;
 
-import com.api.common.bo.MetaEvent;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.report.sink.mapper.mysql.MetaEventMapper;
+import com.report.sink.model.bo.MetaEvent;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

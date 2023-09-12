@@ -3,7 +3,7 @@ package com.admin.server;
 import com.admin.server.dao.SysUserDao;
 import com.admin.server.service.IRoleService;
 import com.admin.server.service.impl.UserServiceImpl;
-import com.admin.server.util.KeyUtil;
+import com.admin.server.utils.KeyUtil;
 import com.admin.server.model.bo.SysRole;
 import com.admin.server.model.bo.SysUser;
 import org.junit.Test;
@@ -49,4 +49,6 @@ public class UserTest {
 
         sysUserDao.insertUsers(List.of(sysUser));
     }
+
+
 }

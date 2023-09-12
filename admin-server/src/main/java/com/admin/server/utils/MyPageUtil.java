@@ -1,4 +1,4 @@
-package com.admin.server.util;
+package com.admin.server.utils;
 
 import com.api.common.model.vo.PageVo;
 
@@ -12,7 +12,11 @@ public class MyPageUtil {
         res.setTotal(total);
         res.setData(data);
 
-        boolean hasNext = (long) currentNum * pageSize < total;
+        boolean hasNext = false;
+        if (currentNum != null && pageSize != null && total != null) {
+            hasNext = (long) currentNum * pageSize < total;
+        }
+
         res.setHasNext(hasNext);
 
         return res;

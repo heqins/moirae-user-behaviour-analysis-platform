@@ -3,7 +3,7 @@ package com.report.sink.service;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
-import com.api.common.bo.MetaEvent;
+import com.report.sink.model.bo.MetaEvent;
 
 import java.util.List;
 

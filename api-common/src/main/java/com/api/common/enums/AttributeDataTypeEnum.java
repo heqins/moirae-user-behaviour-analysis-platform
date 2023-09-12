@@ -64,8 +64,16 @@ public enum AttributeDataTypeEnum {
 
         switch (type) {
             case "VARCHAR":
+                if (length == null) {
+                    return null;
+                }
+
                 return "VARCHAR(" + length + ")";
             case "DECIMAL":
+                if (length == null || limit == null) {
+                    return null;
+                }
+
                 return "DECIMAL(" + length + "," + limit + ")";
             default:
                 break;

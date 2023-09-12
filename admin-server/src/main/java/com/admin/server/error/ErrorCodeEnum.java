@@ -10,6 +10,8 @@ public enum ErrorCodeEnum {
     META_EVENT_ATTRIBUTE_NOT_EXIST(3001, "元事件属性不存在"),
     META_EVENT_ATTRIBUTE_UPDATE_FORBID(3002, "元事件属性更改异常，请重新检查"),
 
+    META_EVENT_ATTRIBUTE_CREATE_PARAM_ERROR(3003, "元事件属性创建参数异常"),
+
     ;
 
     private Integer code;

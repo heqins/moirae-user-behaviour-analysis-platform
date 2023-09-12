@@ -2,6 +2,7 @@ package com.admin.server.dao;
 
 import com.admin.server.mapper.MetaEventAttributeMapper;
 import com.admin.server.model.bo.MetaEventAttribute;
+import com.api.common.enums.MetaEventAttributeStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,7 +23,7 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
         LambdaQueryWrapper<MetaEventAttribute> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(MetaEventAttribute::getAttributeName, attributeNames);
         queryWrapper.eq(MetaEventAttribute::getAppId, appId);
-        queryWrapper.eq(MetaEventAttribute::getStatus, 1);
+        queryWrapper.eq(MetaEventAttribute::getStatus, MetaEventAttributeStatusEnum.ENABLE.getStatus());
 
         return metaEventAttributeMapper.selectList(queryWrapper);
     }
@@ -31,7 +32,7 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
         LambdaQueryWrapper<MetaEventAttribute> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(MetaEventAttribute::getAttributeName, attributeName);
         queryWrapper.eq(MetaEventAttribute::getAppId, appId);
-        queryWrapper.eq(MetaEventAttribute::getStatus, 1);
+        queryWrapper.eq(MetaEventAttribute::getStatus, MetaEventAttributeStatusEnum.ENABLE.getStatus());
 
         return metaEventAttributeMapper.selectOne(queryWrapper);
     }
@@ -55,7 +56,7 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
         }
 
         queryWrapper.eq(MetaEventAttribute::getAppId, appId);
-        queryWrapper.eq(MetaEventAttribute::getStatus, 1);
+        queryWrapper.eq(MetaEventAttribute::getStatus, MetaEventAttributeStatusEnum.ENABLE.getStatus());
 
         return metaEventAttributeMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper);
     }

@@ -4,11 +4,11 @@ import com.admin.server.facade.MetaFacade;
 import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.service.IMetaEventService;
 import com.api.common.constant.ApiConstants;
-import com.api.common.model.param.admin.CreateMetaEventAttributeParam;
-import com.api.common.model.param.admin.CreateMetaEventParam;
-import com.api.common.model.param.admin.UpdateMetaEventAttributeParam;
+import com.api.common.model.param.admin.*;
 import com.api.common.model.vo.CommonResponse;
 import com.api.common.model.vo.PageVo;
+import com.api.common.model.vo.admin.EventAttributePropPageVo;
+import com.api.common.model.vo.admin.EventAttributeValuePageVo;
 import com.api.common.model.vo.admin.MetaEventAttributePageVo;
 import com.api.common.model.vo.admin.MetaEventsPageVo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,12 +66,27 @@ public class MetaEventController {
     }
 
     @Operation(description = "获取分页获取指定元事件下的所有属性")
-    @GetMapping("/event/{eventName}/attributes")
+    @PostMapping("/event/{eventName}/queryAttributes")
     public CommonResponse<PageVo<MetaEventAttributePageVo>> getMetaEventAttributes(@Parameter(description = "test") @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                                                    @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                                                                    @RequestParam(required = true) String appId,
                                                                                    @PathVariable String eventName) {
         return CommonResponse.ofSuccess(metaFacade.getMetaEventAttributes(appId, eventName, pageNum, pageSize));
+    }
+
+    @Operation(description = "分页查询元事件下属性值")
+    @PostMapping("/event/queryAttributeProperties")
+    public CommonResponse<PageVo<EventAttributePropPageVo>> pageQueryMetaEventAttributeProperties(@RequestBody @Valid PageEventAttributePropParam param) {
+
+        return CommonResponse.ofSuccess(metaFacade.pageQueryMetaEventAttributeProperties(param));
+    }
+
+
+    @Operation(description = "查询事件属性上报值")
+    @PostMapping("/event/queryEventReportValue")
+    public CommonResponse<PageVo<EventAttributeValuePageVo>> queryEventReportValue(@RequestBody @Valid PageEventAttributeValueParam param) {
+
+        return CommonResponse.ofSuccess(metaFacade.queryEventReportValue(param));
     }
 
     @Operation(description = "启用元事件")

@@ -5,7 +5,7 @@ import com.admin.server.error.ErrorCodeEnum;
 import com.admin.server.model.domain.MetaEventUtil;
 import com.admin.server.service.ICacheService;
 import com.admin.server.service.IMetaEventService;
-import com.admin.server.util.MyPageUtil;
+import com.admin.server.utils.MyPageUtil;
 import com.admin.server.model.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.error.ResponseException;

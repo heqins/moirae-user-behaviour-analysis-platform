@@ -1,12 +1,14 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaEventAttribute;
 import com.report.sink.dao.MetaEventDao;
 import com.report.sink.helper.MySqlHelper;
+import com.report.sink.model.bo.MetaEvent;
+import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -21,8 +23,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @Component
-@Slf4j
 public class MetaEventHandler implements EventsHandler{
+    
+    private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -39,7 +42,7 @@ public class MetaEventHandler implements EventsHandler{
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
                 .setNamePrefix("report-data-doris")
-                .setUncaughtExceptionHandler((value, ex) -> {log.error("");})
+                .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);

@@ -1,8 +1,8 @@
 package com.report.sink.service.impl;
 
 import com.api.common.model.dto.admin.AppDTO;
-import com.api.common.bo.App;
 import com.report.sink.dao.AppDao;
+import com.report.sink.model.bo.App;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.ICacheService;
 import org.apache.commons.lang3.StringUtils;

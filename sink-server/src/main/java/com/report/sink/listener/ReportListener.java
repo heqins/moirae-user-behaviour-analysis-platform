@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * @author heqin
  */
-@Slf4j
 @Component
 public class ReportListener {
 
@@ -26,7 +25,7 @@ public class ReportListener {
         try {
             sinkHandler.run(records);
         }catch (Exception e) {
-            log.error("report-main error", e);
+            //log.error("report-main error", e);
         }
 
         acknowledgment.acknowledge();

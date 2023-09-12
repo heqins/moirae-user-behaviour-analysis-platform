@@ -1,9 +1,9 @@
 package com.report.sink.dao;
 
-import com.api.common.bo.App;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.report.sink.mapper.mysql.AppMapper;
+import com.report.sink.model.bo.App;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

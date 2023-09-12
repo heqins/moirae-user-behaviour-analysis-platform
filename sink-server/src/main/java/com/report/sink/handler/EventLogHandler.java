@@ -5,6 +5,8 @@ import cn.hutool.json.JSONObject;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +29,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * 用于将event_log的数据作为日志记录到doris中，用以后台查看，数据以json的形式存在data字段
  */
 @Component
-@Slf4j
 public class EventLogHandler implements EventsHandler{
+
+    private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
     private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name," +
             " event_data, event_type, error_reason, error_handling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -56,7 +59,7 @@ public class EventLogHandler implements EventsHandler{
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
                 .setNamePrefix("report-data-doris")
-                .setUncaughtExceptionHandler((value, ex) -> {log.error("");})
+                .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
@@ -67,12 +70,12 @@ public class EventLogHandler implements EventsHandler{
 
     public EventLogDTO transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
         if (jsonObject == null) {
-            log.error("EventLogHandler");
+            logger.error("EventLogHandler");
             return null;
         }
 
         if (status == null || !EventStatusEnum.isStatusValid(status)) {
-            log.error("EventLogHandler");
+            logger.error("EventLogHandler");
             return null;
         }
 
@@ -117,7 +120,7 @@ public class EventLogHandler implements EventsHandler{
         try {
             acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
         }catch (InterruptedException e) {
-            log.error("EventLogHandler tryLock error", e);
+            logger.error("EventLogHandler tryLock error", e);
         }
 
         if (!acquireLock) {
@@ -150,15 +153,15 @@ public class EventLogHandler implements EventsHandler{
                     connection.commit();
                 } catch (SQLException e) {
                     connection.rollback();
-                    log.error("DorisEventLogHandler insertSql execute error", e);
+                    logger.error("DorisEventLogHandler insertSql execute error", e);
                 }
             } catch (SQLException e) {
-                log.error("DorisEventLogHandler connection error", e);
+                logger.error("DorisEventLogHandler connection error", e);
             } finally {
                 this.buffers.clear();
             }
         } catch (Exception e) {
-            log.error("DorisEventLogHandler lock error", e);
+            logger.error("DorisEventLogHandler lock error", e);
         } finally {
             lock.unlock();
         }

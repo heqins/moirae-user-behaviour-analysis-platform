@@ -14,6 +14,8 @@ import com.report.sink.helper.DorisHelper;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -31,8 +33,9 @@ import java.util.stream.Collectors;
  * @author heqin
  */
 @Component
-@Slf4j
 public class DorisHandler implements EventsHandler{
+    
+    private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -47,7 +50,7 @@ public class DorisHandler implements EventsHandler{
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
                 .setNamePrefix("report-data-doris")
-                .setUncaughtExceptionHandler((value, ex) -> {log.error("");})
+                .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
@@ -140,7 +143,7 @@ public class DorisHandler implements EventsHandler{
         try {
             alterTableColumn(jsonObject, dbName, tableName);
         }catch (IllegalArgumentException | IllegalStateException ia) {
-            log.error("reportEventsToDorisHandler addEvent error", ia);
+            logger.error("reportEventsToDorisHandler addEvent error", ia);
             return;
         }
 
@@ -154,7 +157,7 @@ public class DorisHandler implements EventsHandler{
         }
 
         List<MetaEventAttributeDTO> attributeCache = redisCache.multiGetMetaEventAttributeCache(new ArrayList<>(attributeSets));
-        if (CollectionUtils.isEmpty(attributeSets)) {
+        if (CollectionUtils.isEmpty(attributeCache)) {
             return true;
         }
 
@@ -186,7 +189,7 @@ public class DorisHandler implements EventsHandler{
         try {
             acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
         }catch (InterruptedException e) {
-            log.error("reportEventsToDorisHandler flush lock error", e);
+            logger.error("reportEventsToDorisHandler flush lock error", e);
         }
 
         if (!acquireLock) {

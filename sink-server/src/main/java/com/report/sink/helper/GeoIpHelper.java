@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 @Component
-@Slf4j
 public class GeoIpHelper {
 
     @Value("${geo-ip.file-path:}")
@@ -31,13 +30,13 @@ public class GeoIpHelper {
         try {
             this.reader = new DatabaseReader.Builder(database).build();
         }catch (IOException e) {
-            log.error("geoIp build reader error", e);
+            //log.error("geoIp build reader error", e);
         }
     }
 
     public GeoIpDTO queryIp(String ip) {
         if (this.reader == null) {
-            log.warn("geoIp reader null ip:{}", ip);
+            //log.warn("geoIp reader null ip:{}", ip);
             return null;
         }
 
@@ -48,10 +47,10 @@ public class GeoIpHelper {
             Country country = response.getCountry();
             GeoIpDTO.GeoIpDTOBuilder builder = GeoIpDTO.builder();
 
-            log.info("geoIp queryIp result:{}", JSONUtil.toJsonStr(country));
+            //log.info("geoIp queryIp result:{}", JSONUtil.toJsonStr(country));
             return  builder.country(country.getName()).ip(ip).build();
         }catch (IOException | GeoIp2Exception e) {
-            log.error("");
+            //log.error("");
         }
 
         return null;

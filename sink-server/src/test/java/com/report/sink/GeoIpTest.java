@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Slf4j
 public class GeoIpTest {
 
     @Resource
@@ -24,6 +23,6 @@ public class GeoIpTest {
         GeoIpDTO geoIpDTO = geoIpHelper.queryIp("114.93.1.44");
         assert geoIpDTO != null;
 
-        log.info("geoIpDto:{}", JSONUtil.toJsonStr(geoIpDTO));
+        //log.info("geoIpDto:{}", JSONUtil.toJsonStr(geoIpDTO));
     }
 }

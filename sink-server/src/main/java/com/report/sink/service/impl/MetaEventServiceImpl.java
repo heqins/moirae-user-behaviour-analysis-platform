@@ -1,8 +1,7 @@
 package com.report.sink.service.impl;
 
-import com.api.common.bo.MetaEvent;
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.report.sink.dao.MetaEventDao;
+import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.service.ICacheService;
 import com.report.sink.service.IMetaEventService;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +11,6 @@ import javax.annotation.Resource;
 import java.util.Objects;
 
 @Service
-@DS("mysqlDataSource")
 public class MetaEventServiceImpl implements IMetaEventService {
 
     @Resource

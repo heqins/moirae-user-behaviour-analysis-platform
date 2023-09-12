@@ -10,4 +10,5 @@ public class MetaEventsPageVo {
     private String appId;
 
     private List<MetaEventVo> events;
+
 }

@@ -13,7 +13,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@Slf4j
 @EnableCaching
 @MapperScan(basePackages = {"com.report.sink.mapper"})
 public class SinkMain {
@@ -26,10 +25,10 @@ public class SinkMain {
         port = port == null ? "8080" : port;
         String path = env.getProperty("server.servlet.context-path");
         path = path == null ? "" : path;
-        log.info("\n----------------------------------------------------------\n\t" +
-                "数据上报服务已启动! Access URLs:\n\t" +
-                "本地访问地址: \thttp://localhost:" + port + path + "/\n\t" +
-                "Swagger文档: \thttp://" + ip + ":" + port + path + "/swagger-ui.html\n" +
-                "----------------------------------------------------------");
+        //log.info("\n----------------------------------------------------------\n\t" +
+//                "数据上报服务已启动! Access URLs:\n\t" +
+//                "本地访问地址: \thttp://localhost:" + port + path + "/\n\t" +
+//                "Swagger文档: \thttp://" + ip + ":" + port + path + "/swagger-ui.html\n" +
+//                "----------------------------------------------------------");
     }
 }

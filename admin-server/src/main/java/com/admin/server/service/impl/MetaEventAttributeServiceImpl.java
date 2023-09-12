@@ -5,7 +5,7 @@ import com.admin.server.dao.MetaEventAttributeDao;
 import com.admin.server.error.ErrorCodeEnum;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.service.IMetaEventAttributeService;
-import com.admin.server.util.TypeUtil;
+import com.admin.server.utils.TypeUtil;
 import com.admin.server.model.bo.MetaEventAttribute;
 import com.api.common.constant.ConfigConstant;
 import com.api.common.enums.AttributeDataTypeEnum;
@@ -80,11 +80,11 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
             return null;
         }
 
-        if (pageNum <= 0) {
+        if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
 
-        if (pageSize > 100 || pageSize <= 0) {
+        if (pageSize == null || pageSize > 100 || pageSize <= 0) {
             pageSize = 10;
         }
 
@@ -100,6 +100,10 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
      * @return
      */
     private Boolean ifCanChangeTableColumn(String oldColumnType, String dataType, Integer length, Integer limit) {
+        if (oldColumnType == null || dataType == null) {
+            return false;
+        }
+
         if (!oldColumnType.startsWith(dataType)) {
             return false;
         }

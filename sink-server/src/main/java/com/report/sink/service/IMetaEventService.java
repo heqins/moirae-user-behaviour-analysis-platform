@@ -1,6 +1,7 @@
 package com.report.sink.service;
 
-import com.api.common.bo.MetaEvent;
+
+import com.report.sink.model.bo.MetaEvent;
 
 /**
  * @author heqin

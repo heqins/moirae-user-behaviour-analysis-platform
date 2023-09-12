@@ -20,7 +20,6 @@ import java.util.*;
  * @author heqin
  */
 @Component
-@Slf4j
 public class DorisHelper {
 
     private static final String COLUMN_QUERY_SQL = "select column_name, column_type, is_nullable\n" +
@@ -80,10 +79,10 @@ public class DorisHelper {
                     columns.add(columnDTO);
                 }
             } catch (SQLException e) {
-                log.error("DorisHelper getTableColumnInfos sql error", e);
+                //log.error("DorisHelper getTableColumnInfos sql error", e);
             }
         }catch (SQLException e) {
-            log.error("DorisHelper getTableColumnInfos sql error", e);
+            //log.error("DorisHelper getTableColumnInfos sql error", e);
         }
 
         localCacheService.setColumnCache(dbName, tableName, columns);
@@ -136,7 +135,7 @@ public class DorisHelper {
         List<String> alterQueries = new ArrayList<>(jsonFields.size());
         for (String jsonField: jsonFields) {
             if (!jsonObject.containsKey(jsonField)) {
-                log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
+                //log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
                 continue;
             }
 
@@ -166,7 +165,7 @@ public class DorisHelper {
             }
 
             if (StringUtils.isBlank(type)) {
-                log.error("DorisHelper type not found className:{}", className);
+                //log.error("DorisHelper type not found className:{}", className);
                 continue;
             }
 
@@ -183,13 +182,13 @@ public class DorisHelper {
                         statement.execute();
                     } catch (SQLException e) {
                         connection.rollback();
-                        log.error("DorisHelper changeTableSchema execute error", e);
+                        //log.error("DorisHelper changeTableSchema execute error", e);
                     }
                 }
 
                 connection.commit();
             }catch (SQLException e) {
-                log.error("DorisHelper changeTableSchema alter column commit error", e);
+                //log.error("DorisHelper changeTableSchema alter column commit error", e);
             }
         }
 
@@ -207,7 +206,7 @@ public class DorisHelper {
             try (PreparedStatement statement = insertConnection.prepareStatement(sql)) {
                 for (JSONObject jsonObject: jsonDataList) {
                     if (columnDTOList.size() < jsonObject.size()) {
-                        log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
+                        //log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
                         return;
                     }
 
@@ -253,12 +252,12 @@ public class DorisHelper {
 
             }catch (SQLException e) {
                 insertConnection.rollback();
-                log.error("DorisHelper tableInsertData insert execute error", e);
+                //log.error("DorisHelper tableInsertData insert execute error", e);
             }
 
             insertConnection.commit();
         }catch (SQLException e) {
-            log.error("DorisHelper tableInsertData insert commit error", e);
+            //log.error("DorisHelper tableInsertData insert commit error", e);
         }
     }
 

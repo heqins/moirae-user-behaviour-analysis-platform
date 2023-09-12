@@ -1,4 +1,4 @@
-package com.admin.server.util;
+package com.admin.server.utils;
 
 import cn.hutool.core.util.RandomUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -9,7 +9,6 @@ import javax.crypto.SecretKey;
 import java.security.*;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
-import java.util.UUID;
 
 public class KeyUtil {
 

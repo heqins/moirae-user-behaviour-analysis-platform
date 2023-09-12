@@ -1,23 +1,23 @@
 package com.admin.server.facade;
 
 import com.admin.server.error.ErrorCodeEnum;
+import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.domain.MetaEventAttributeUtil;
+import com.admin.server.model.dto.DbColumnValueDto;
 import com.admin.server.service.IAppService;
 import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.service.IMetaEventService;
-import com.admin.server.util.MyPageUtil;
+import com.admin.server.utils.MyPageUtil;
 import com.admin.server.model.bo.App;
 import com.admin.server.model.bo.MetaEventAttribute;
 import com.admin.server.model.bo.MetaEvent;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
+import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.error.ResponseException;
-import com.api.common.model.param.admin.AttributeParam;
-import com.api.common.model.param.admin.CreateMetaEventAttributeParam;
-import com.api.common.model.param.admin.CreateMetaEventParam;
+import com.api.common.model.param.admin.*;
 import com.api.common.model.vo.PageVo;
-import com.api.common.model.vo.admin.MetaEventAttributePageVo;
-import com.api.common.model.vo.admin.MetaEventAttributeVo;
+import com.api.common.model.vo.admin.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -42,6 +42,9 @@ public class MetaFacade {
     @Resource
     private IAppService appService;
 
+    @Resource
+    private DorisHelper dorisHelper;
+
     @Transactional(rollbackFor = Exception.class)
     public void createMetaEventAttribute(CreateMetaEventAttributeParam param) {
         MetaEvent metaEvent = metaEventService.selectByAppId(param.getAppId(), param.getEventName());
@@ -62,6 +65,10 @@ public class MetaFacade {
 
         String dataType = AttributeDataTypeEnum.generateDorisTypeWithLength(attributeParam.getDataType(),
                 attributeParam.getLength(), attributeParam.getLimit());
+
+        if (Objects.isNull(dataType)) {
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_ATTRIBUTE_CREATE_PARAM_ERROR.getCode(), ErrorCodeEnum.META_EVENT_ATTRIBUTE_CREATE_PARAM_ERROR.getMsg());
+        }
 
         metaEventAttribute.setDataType(dataType);
         metaEventAttribute.setAttributeName(attributeParam.getAttributeName());
@@ -97,5 +104,40 @@ public class MetaFacade {
         }
 
         metaEventService.createMetaEvent(param);
+    }
+
+    public PageVo<EventAttributePropPageVo> pageQueryMetaEventAttributeProperties(PageEventAttributePropParam param) {
+        IPage<MetaEventAttribute> pageResult = metaEventAttributeService.pageQueryByName(param.getAppId(), param.getEventName(), null, param.getPageNum(), param.getPageSize());
+        if (pageResult == null || CollectionUtils.isEmpty(pageResult.getRecords())) {
+            return null;
+        }
+
+        EventAttributePropPageVo resVo = new EventAttributePropPageVo();
+        resVo.setAppId(param.getAppId());
+        resVo.setEventName(param.getEventName());
+
+        List<EventAttributePropVo> propVos = MetaEventAttributeUtil.transferToPropVoFromAttributeBo(pageResult.getRecords());
+        resVo.setProps(propVos);
+
+        return MyPageUtil.constructPageVo(param.getPageNum(), param.getPageSize(), pageResult.getTotal(), resVo);
+    }
+
+    public PageVo<EventAttributeValuePageVo> queryEventReportValue(PageEventAttributeValueParam param) {
+        MetaEvent metaEvent = metaEventService.selectByAppId(param.getAppId(), param.getEventName());
+        if (metaEvent == null || !MetaEventStatusEnum.isEnable(metaEvent.getStatus())) {
+            // todo: 错误码
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_NOT_EXIST.getMsg());
+        }
+
+        IPage<MetaEventAttribute> attributePage = metaEventAttributeService.pageQueryByName(param.getAppId(), param.getEventName(), param.getAttributeName(), param.getPageNum(), param.getPageSize());
+        if (attributePage == null || CollectionUtils.isEmpty(attributePage.getRecords())) {
+            throw new ResponseException(ErrorCodeEnum.META_EVENT_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_NOT_EXIST.getMsg());
+        }
+
+        // todo:
+        List<DbColumnValueDto> dbColumnValues = dorisHelper.selectColumnValues("user_behaviour_analysis", "event_log", param.getAttributeName());
+        EventAttributeValuePageVo resPageVo = MetaEventAttributeUtil.transferToValuePageFromColumnValueDto(param.getAppId(), param.getEventName(), param.getAttributeName(), dbColumnValues);
+
+        return MyPageUtil.constructPageVo(param.getPageNum(), param.getPageSize(), attributePage.getTotal(), resPageVo);
     }
 }

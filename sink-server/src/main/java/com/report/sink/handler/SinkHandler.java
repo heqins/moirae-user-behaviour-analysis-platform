@@ -2,18 +2,20 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.api.common.bo.MetaEvent;
 import com.api.common.constant.ConfigConstant;
+import com.api.common.enums.AppStatusEnum;
+import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.EventLogDTO;
-import com.api.common.enums.MetaEventStatusEnum;
 import com.report.sink.enums.EventStatusEnum;
+import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.ICacheService;
 import com.report.sink.service.IMetaEventService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -25,9 +27,10 @@ import java.util.Objects;
  * @author heqin
  */
 @Component
-@Slf4j
 public class SinkHandler {
 
+    private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
+    
     @Resource
     private EventLogHandler eventLogHandler;
 
@@ -56,26 +59,26 @@ public class SinkHandler {
         for (ConsumerRecord<String, String> record: logRecords) {
             JSONObject jsonObject = parseJson(record.value());
             if (jsonObject == null) {
-                log.warn("SinkHandler jsonObject null");
+                logger.warn("SinkHandler jsonObject null");
                 continue;
             }
 
             if (!jsonObject.containsKey("app_id")) {
-                log.warn("SinkHandler jsonObject not found appId:{}", JSONUtil.toJsonStr(jsonObject));
+                logger.warn("SinkHandler jsonObject not found appId:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
             String appId = jsonObject.getStr("app_id");
             AppDTO appDTO = appService.getAppInfo(appId);
             // todo: 0 -> 1
-            if (appDTO == null || !Objects.equals(appDTO.getStatus(), 0)) {
-                log.warn("SinkHandler appId not found:{}", JSONUtil.toJsonStr(jsonObject));
+            if (appDTO == null || !Objects.equals(appDTO.getStatus(), AppStatusEnum.ENABLE.getStatus())) {
+                logger.warn("SinkHandler appId not found:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
             String eventName = jsonObject.getStr("event_name");
             if (eventName == null) {
-                log.warn("SinkHandler jsonObject not found eventName:{}", JSONUtil.toJsonStr(jsonObject));
+                logger.warn("SinkHandler jsonObject not found eventName:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
@@ -106,7 +109,7 @@ public class SinkHandler {
         try {
             jsonObject = JSONUtil.parseObj(json);
         }catch (Exception e) {
-            log.error("parseJson parse error", e);
+            logger.error("parseJson parse error", e);
         }
 
         return jsonObject;

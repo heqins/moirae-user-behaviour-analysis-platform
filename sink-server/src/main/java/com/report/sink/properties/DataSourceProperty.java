@@ -9,14 +9,28 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "data-source")
-@Data
 public class DataSourceProperty {
 
     private DorisConfig doris;
 
     private MysqlConfig mysql;
 
-    @Data
+    public DorisConfig getDoris() {
+        return doris;
+    }
+
+    public void setDoris(DorisConfig doris) {
+        this.doris = doris;
+    }
+
+    public MysqlConfig getMysql() {
+        return mysql;
+    }
+
+    public void setMysql(MysqlConfig mysql) {
+        this.mysql = mysql;
+    }
+
     public static class MysqlConfig {
         private String url;
 
@@ -25,9 +39,40 @@ public class DataSourceProperty {
         private String password;
 
         private String driver;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
+
+        public void setDriver(String driver) {
+            this.driver = driver;
+        }
     }
 
-    @Data
     public static class DorisConfig {
         private String url;
 
@@ -38,5 +83,45 @@ public class DataSourceProperty {
         private String driver;
 
         private String dbName;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
+
+        public void setDriver(String driver) {
+            this.driver = driver;
+        }
+
+        public String getDbName() {
+            return dbName;
+        }
+
+        public void setDbName(String dbName) {
+            this.dbName = dbName;
+        }
     }
 }

@@ -9,10 +9,10 @@ spring:
       idle-timeout: 500000
 
     doris:
-      url: jdbc:doris://localhost:40000
+      url: jdbc:mysql://localhost:9030/user_behaviour_analysis?rewriteBatchedStatements=true
       username: root
-      password: 5323105
-      driver-class-name: com.doris.Doris
+      password:
+      driver-class-name: com.mysql.cj.jdbc.Driver
       db-name: user_behaviour_analysis
 
     dynamic:

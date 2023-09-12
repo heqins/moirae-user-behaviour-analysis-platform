@@ -1,7 +1,7 @@
 package com.report.sink.helper;
 
-import com.api.common.bo.MetaEvent;
-import com.api.common.bo.MetaEventAttribute;
+import com.report.sink.model.bo.MetaEvent;
+import com.report.sink.model.bo.MetaEventAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Component
-@Slf4j
 public class MySqlHelper {
 
     @Resource(name = "mysqlDataSource")
