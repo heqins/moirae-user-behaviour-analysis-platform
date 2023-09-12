@@ -1,7 +1,8 @@
 package com.flink.job.util;
 
 import com.api.common.constant.ConfigConstant;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +11,9 @@ import java.util.Properties;
 /**
  * @author heqin
  */
-@Slf4j
 public class PropertyUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(PropertyUtils.class);
 
     private static final Properties myProperties;
 
