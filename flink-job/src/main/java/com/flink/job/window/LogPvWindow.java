@@ -1,5 +1,6 @@
 package com.flink.job.window;
 
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.flink.job.model.entity.EventLogPv;
@@ -13,7 +14,7 @@ import org.apache.flink.util.OutputTag;
 
 import java.util.Iterator;
 
-public class LogPvWindow extends ProcessWindowFunction<EventLogDTO, EventLogPv, String, TimeWindow> {
+public class LogPvWindow extends ProcessWindowFunction<JSONObject, EventLogPv, String, TimeWindow> {
 
     private ValueState<Long> countState;
 
@@ -30,23 +31,22 @@ public class LogPvWindow extends ProcessWindowFunction<EventLogDTO, EventLogPv, 
     }
 
     @Override
-    public void process(String s, Context context, Iterable<EventLogDTO> elements, Collector<EventLogPv> out) throws Exception {
+    public void process(String s, Context context, Iterable<JSONObject> elements, Collector<EventLogPv> out) throws Exception {
         Long count = countState.value();
         if (count == null) {
             count = 0L;
         }
 
-        Iterator<EventLogDTO> iterator = elements.iterator();
+        Iterator<JSONObject> iterator = elements.iterator();
         EventLogPv pv = new EventLogPv();
         String appId = null;
         while (iterator.hasNext()) {
             count++;
-            EventLogDTO next = iterator.next();
-            if (appId == null) {
-                appId = next.getAppId();
-            }
 
-            context.output(etlOutputTag, JSONUtil.toJsonStr(next));
+            JSONObject obj = iterator.next();
+            appId = obj.getStr("app_id");
+
+            context.output(etlOutputTag, JSONUtil.toJsonStr(obj));
         }
 
         pv.setAppName(appId);

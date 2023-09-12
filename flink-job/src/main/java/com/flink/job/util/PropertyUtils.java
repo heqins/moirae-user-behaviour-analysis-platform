@@ -1,12 +1,16 @@
 package com.flink.job.util;
 
-import com.api.common.constant.ConfigConstant;
+import com.flink.job.config.Config;
+import com.flink.job.config.Parameters;
+import org.apache.flink.api.java.utils.ParameterTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import static com.flink.job.config.Parameters.*;
 
 /**
  * @author heqin
@@ -19,12 +23,12 @@ public class PropertyUtils {
 
     static {
         myProperties = new Properties();
-        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(ConfigConstant.CONFIG_FILE_PATH);
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
 
         try {
             myProperties.load(in);
         }catch (IOException ioe) {
-            log.error("load properties error", ioe);
+            log.error("PropertyUtils load properties error", ioe);
             ioe.printStackTrace();
         }
     }

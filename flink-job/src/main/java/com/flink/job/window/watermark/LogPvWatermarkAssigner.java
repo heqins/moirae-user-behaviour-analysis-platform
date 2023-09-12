@@ -1,10 +1,11 @@
 package com.flink.job.window.watermark;
 
+import cn.hutool.json.JSONObject;
 import com.api.common.model.dto.sink.EventLogDTO;
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;
 
-public class LogPvWatermarkAssigner implements AssignerWithPeriodicWatermarks<EventLogDTO> {
+public class LogPvWatermarkAssigner implements AssignerWithPeriodicWatermarks<JSONObject> {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,8 +16,8 @@ public class LogPvWatermarkAssigner implements AssignerWithPeriodicWatermarks<Ev
     }
 
     @Override
-    public long extractTimestamp(EventLogDTO element, long previousElementTimestamp) {
+    public long extractTimestamp(JSONObject element, long previousElementTimestamp) {
         // 从元素中提取事件时间
-        return element.getEventTime();
+        return element.getLong("event_time");
     }
 }

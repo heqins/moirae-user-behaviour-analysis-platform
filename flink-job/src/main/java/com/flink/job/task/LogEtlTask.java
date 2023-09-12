@@ -1,15 +1,13 @@
 package com.flink.job.task;
 
 import cn.hutool.json.JSONUtil;
-import com.api.common.model.dto.sink.EventLogDTO;
-import com.flink.job.model.entity.EventLogPv;
 import com.flink.job.config.Config;
-import com.api.common.constant.ConfigConstant;
+import com.flink.job.model.entity.EventLogPv;
 import com.flink.job.sink.KafkaSink;
 import com.flink.job.sink.LogPvMysqlSink;
 import com.flink.job.source.KafkaSource;
-import com.flink.job.window.watermark.LogPvWatermarkAssigner;
 import com.flink.job.window.LogPvWindow;
+import com.flink.job.window.watermark.LogPvWatermarkAssigner;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.configuration.Configuration;
@@ -42,22 +40,22 @@ public class LogEtlTask {
         environment.setParallelism(1);
 
         DataStreamSource<String> sourceStream = environment.addSource(KafkaSource
-                .getFlinkKafkaSource(ConfigConstant.Topics.LOG_ETL_MAIN_TOPIC, ConfigConstant.GroupIds.LOG_ETL_MAIN__GROUP_ID));
+                .getFlinkKafkaSource(config.get(LOG_ETL_MAIN_TOPIC), config.get(LOG_ETL_MAIN__GROUP_ID)));
 
         OutputTag<String> etlOutputTag = new OutputTag<>("etl-output-tag"){};
 
-        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(json -> JSONUtil.toBean(json, EventLogDTO.class))
+        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(json -> JSONUtil.parseObj(json))
                 .assignTimestampsAndWatermarks(new LogPvWatermarkAssigner())
-                .filter(log -> StringUtils.isNotBlank(log.getAppId()))
-                .keyBy(EventLogDTO::getAppId)
-                .timeWindow(Time.minutes(5))
+                .filter(log -> StringUtils.isNotBlank(log.getStr("app_id")))
+                .keyBy(log -> log.getStr("app_id"))
+                .timeWindow(Time.seconds(5))
                 .process(new LogPvWindow(etlOutputTag));
 
-        countStream.print();
+        //countStream.print();
 
         DataStream<String> sideOutput = countStream.getSideOutput(etlOutputTag);
 
-        sideOutput.addSink(KafkaSink.createSink(ConfigConstant.Topics.LOG_SINK_TOPIC));
+        sideOutput.addSink(KafkaSink.createSink(config.get(LOG_SINK_TOPIC)));
 
         countStream.addSink(new LogPvMysqlSink());
         environment.execute("logEtlTask");

@@ -9,6 +9,7 @@ import org.apache.flink.util.OutputTag;
  * @author heqin
  */
 public class ReportDataLoadFunction extends ProcessFunction<String, String> {
+
     private OutputTag<String> invalidOutput;
 
     public ReportDataLoadFunction(OutputTag<String> outputTag) {

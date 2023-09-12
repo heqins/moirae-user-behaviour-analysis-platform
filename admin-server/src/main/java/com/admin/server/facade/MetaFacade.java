@@ -11,7 +11,7 @@ import com.admin.server.utils.MyPageUtil;
 import com.admin.server.model.bo.App;
 import com.admin.server.model.bo.MetaEventAttribute;
 import com.admin.server.model.bo.MetaEvent;
-import com.api.common.constant.ConfigConstant;
+import com.api.common.constant.SinkConstants;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.enums.MetaEventStatusEnum;
@@ -135,7 +135,7 @@ public class MetaFacade {
             throw new ResponseException(ErrorCodeEnum.META_EVENT_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_NOT_EXIST.getMsg());
         }
 
-        String tableName = ConfigConstant.generateTableName(param.getAppId());
+        String tableName = SinkConstants.generateTableName(param.getAppId());
 
         // todo:
         List<DbColumnValueDto> dbColumnValues = dorisHelper.selectColumnValues("user_behaviour_analysis", tableName, param.getAttributeName());

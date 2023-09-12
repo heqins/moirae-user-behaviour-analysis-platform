@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class LogPvMysqlSink extends RichSinkFunction<EventLogPv> {
+
     // 声明连接和预编译语句
     Connection connection = null;
     PreparedStatement insertStmt = null;

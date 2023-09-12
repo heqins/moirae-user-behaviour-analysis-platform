@@ -109,7 +109,7 @@ public class EventLogDetailHandler implements EventsHandler{
                             EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
                     eventLogHandler.addEvent(failLog);
 
-                    throw new IllegalStateException("字段类型不一致");
+                    throw new IllegalStateException("字段类型不一致 name:" + columnDTO.getColumnName());
                 }
             }
 

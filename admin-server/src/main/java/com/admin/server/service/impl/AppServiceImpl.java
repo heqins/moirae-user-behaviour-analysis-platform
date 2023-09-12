@@ -8,7 +8,7 @@ import com.admin.server.service.IAppService;
 import com.admin.server.utils.KeyUtil;
 import com.admin.server.utils.MyPageUtil;
 import com.admin.server.model.bo.App;
-import com.api.common.constant.ConfigConstant;
+import com.api.common.constant.SinkConstants;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.error.ResponseException;
 import com.api.common.model.param.admin.CreateAppParam;
@@ -79,7 +79,7 @@ public class AppServiceImpl implements IAppService {
         Long id = appDao.createApp(app);
         logger.info("createApp id={}", id);
 
-        String tableName = ConfigConstant.generateTableName(generateAppId);
+        String tableName = SinkConstants.generateTableName(generateAppId);
         dorisHelper.createApp("user_behaviour_analysis", tableName);
     }
 

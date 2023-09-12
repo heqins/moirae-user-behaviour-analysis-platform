@@ -10,7 +10,7 @@ import com.admin.server.handler.type.VarcharTypeParser;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.model.bo.MetaEventAttribute;
-import com.api.common.constant.ConfigConstant;
+import com.api.common.constant.SinkConstants;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.error.ResponseException;
 import com.api.common.model.param.admin.UpdateMetaEventAttributeParam;
@@ -64,7 +64,7 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
             throw new ResponseException(ErrorCodeEnum.META_EVENT_ATTRIBUTE_NOT_EXIST.getCode(), ErrorCodeEnum.META_EVENT_ATTRIBUTE_NOT_EXIST.getMsg());
         }
 
-        String tableName = ConfigConstant.generateTableName(attributeParam.getAppId());
+        String tableName = SinkConstants.generateTableName(attributeParam.getAppId());
 
         Boolean ifCanChangeColumn = ifCanChangeTableColumn(metaEventAttribute.getDataType(), attributeParam.getDataType(), attributeParam.getLength(), attributeParam.getLimit());
         if (!ifCanChangeColumn) {

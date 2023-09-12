@@ -22,4 +22,5 @@ public class KafkaSink {
         kafkaProps.setProperty("auto.create.topics.enable", "false");
         return new FlinkKafkaProducer<String>(topic, new SimpleStringSchema(), kafkaProps);
     }
+
 }

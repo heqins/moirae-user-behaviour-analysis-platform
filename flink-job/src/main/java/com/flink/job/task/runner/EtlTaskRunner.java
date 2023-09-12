@@ -1,12 +1,14 @@
-package com.flink.job.task;
+package com.flink.job.task.runner;
 
 import com.flink.job.config.Config;
 import com.flink.job.config.Parameters;
+import com.flink.job.task.LogEtlTask;
 import org.apache.flink.api.java.utils.ParameterTool;
 
 import static com.flink.job.config.Parameters.*;
 
 public class EtlTaskRunner {
+
     public static void main(String[] args) throws Exception {
         ParameterTool tool = ParameterTool.fromArgs(args);
         Parameters inputParams = new Parameters(tool);

@@ -21,19 +21,6 @@ public class MysqlUtils {
         return jdbcConnectionOptions;
     }
 
-//    public static boolean putData(Object object) throws Exception {
-//        String sql = "";
-//        if (object instanceof ReportLogPv) {
-//            ReportLogPv pv = (ReportLogPv) object;
-//            sql = String.format("insert into report_log_pv(window_start, window_end, count) values (%d, '%d', '%d')",
-//                    pv.getWindowStart(), pv.getWindowEnd(), pv.getCount());
-//            System.out.println(sql);
-//            stmt.p
-//        }
-//
-//        return !stmt.execute(sql);
-//    }
-
     public static String format(String str) {
         str.replaceAll("\"", "\\\"");
         if (str.startsWith("\"")) {

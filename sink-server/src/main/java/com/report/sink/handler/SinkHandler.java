@@ -2,7 +2,7 @@ package com.report.sink.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.api.common.constant.ConfigConstant;
+import com.api.common.constant.SinkConstants;
 import com.api.common.enums.AppStatusEnum;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.model.dto.admin.AppDTO;
@@ -11,7 +11,6 @@ import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
-import com.report.sink.service.ICacheService;
 import com.report.sink.service.IMetaEventService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -87,7 +86,7 @@ public class SinkHandler {
                 continue;
             }
 
-            String tableName = ConfigConstant.generateTableName(appId);
+            String tableName = SinkConstants.generateTableName(appId);
 
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
