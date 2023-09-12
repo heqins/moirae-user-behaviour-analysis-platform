@@ -65,17 +65,7 @@ public class MetaEventHandler implements EventsHandler{
             return;
         }
 
-        List<MetaEvent> metaEventCache = redisCache.getMetaEventsCache(metaEvent.getAppId());
-        if (!CollectionUtils.isEmpty(metaEventCache)) {
-            Set<String> enabledMetaEvents = getEnabledMetaEvents(metaEventCache);
-
-            if (!enabledMetaEvents.contains(metaEvent.getEventName())) {
-                return;
-            }
-
-            metaEventsBuffers.add(metaEvent);
-        }
-
+        metaEventsBuffers.add(metaEvent);
         if (metaEventsBuffers.size() >= 1000) {
             flush();
         }

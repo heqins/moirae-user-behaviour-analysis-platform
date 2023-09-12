@@ -1,6 +1,5 @@
-package com.admin.server.handler;
+package com.admin.server.handler.type;
 
-import com.api.common.enums.AttributeDataTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

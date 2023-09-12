@@ -3,10 +3,10 @@ package com.admin.server.service.impl;
 import cn.hutool.core.lang.Pair;
 import com.admin.server.dao.MetaEventAttributeDao;
 import com.admin.server.error.ErrorCodeEnum;
-import com.admin.server.handler.DecimalTypeParser;
-import com.admin.server.handler.DorisTypeParseFactory;
-import com.admin.server.handler.DorisTypeParser;
-import com.admin.server.handler.VarcharTypeParser;
+import com.admin.server.handler.type.DecimalTypeParser;
+import com.admin.server.handler.type.DorisTypeParseFactory;
+import com.admin.server.handler.type.DorisTypeParser;
+import com.admin.server.handler.type.VarcharTypeParser;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.service.IMetaEventAttributeService;
 import com.admin.server.model.bo.MetaEventAttribute;
@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -55,6 +56,7 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
         metaEventAttributeDao.batchInsertAttributes(metaEventAttributes);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateMetaEventAttribute(UpdateMetaEventAttributeParam attributeParam) {
         MetaEventAttribute metaEventAttribute = metaEventAttributeDao.selectByEventAndAttributeName(attributeParam.getAppId(), attributeParam.getEventName(), attributeParam.getAttributeName());
@@ -73,8 +75,11 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
 
         dorisHelper.alterTableColumn(dorisDbName, tableName, attributeParam.getAttributeName(), newDataType);
 
-        metaEventAttributeDao.updateAttributeByAppIdAndName(attributeParam.getAppId(),
-                    attributeParam.getEventName(), attributeParam.getAttributeName());
+        MetaEventAttribute typeUpdate = new MetaEventAttribute();
+        typeUpdate.setDataType(newDataType);
+
+        metaEventAttributeDao.updateAttributeByAppIdAndName(attributeParam.getAppId(), attributeParam.getEventName(),
+                attributeParam.getAttributeName(), typeUpdate);
     }
 
     @Override

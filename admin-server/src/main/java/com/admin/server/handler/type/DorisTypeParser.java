@@ -1,4 +1,4 @@
-package com.admin.server.handler;
+package com.admin.server.handler.type;
 
 import cn.hutool.core.lang.Pair;
 

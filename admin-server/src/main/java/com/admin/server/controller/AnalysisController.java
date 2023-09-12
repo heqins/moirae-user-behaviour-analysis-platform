@@ -1,14 +1,10 @@
 package com.admin.server.controller;
 
-import com.admin.server.facade.MetaFacade;
+import com.admin.server.facade.AnalysisFacade;
 import com.api.common.constant.ApiConstants;
-import com.api.common.model.param.admin.PageEventAttributePropParam;
+import com.api.common.model.param.admin.AnalysisParam;
 import com.api.common.model.vo.CommonResponse;
-import com.api.common.model.vo.PageVo;
-import com.api.common.model.vo.admin.EventAttributePropPageVo;
-import com.api.common.model.vo.admin.MetaEventsPageVo;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +20,12 @@ import javax.validation.Valid;
 public class AnalysisController {
 
     @Resource
-    private MetaFacade metaFacade;
+    private AnalysisFacade analysisFacade;
 
     @Operation(description = "进行事件查询")
     @PostMapping("/doEventAnalysis")
-    public CommonResponse<PageVo<EventAttributePropPageVo>> doEventAnalysis(@RequestBody @Valid PageEventAttributePropParam param) {
+    public CommonResponse<Void> doEventAnalysis(@RequestBody @Valid AnalysisParam param) {
+        analysisFacade.doEventAnalysis(param);
         return CommonResponse.ofSuccess();
     }
 

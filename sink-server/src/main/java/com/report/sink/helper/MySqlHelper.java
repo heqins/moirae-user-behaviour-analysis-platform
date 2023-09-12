@@ -22,7 +22,7 @@ public class MySqlHelper {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);
 
-                String metaEventInsertSql = "insert ignore into meta_event(appid, event_name) values (?, ?);";
+                String metaEventInsertSql = "insert ignore into meta_event(app_id, event_name) values (?, ?);";
                 try (PreparedStatement statement = connection.prepareStatement(metaEventInsertSql)){
                     statement.setString(1, event.getAppId());
                     statement.setString(2, event.getEventName());

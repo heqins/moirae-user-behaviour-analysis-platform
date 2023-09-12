@@ -41,8 +41,17 @@ public class MetaEventAttributeDao extends ServiceImpl<MetaEventAttributeMapper,
         metaEventAttributeMapper.batchInsertAttributes(metaEventAttributes);
     }
 
-    public void updateAttributeByAppIdAndName(String appId, String eventName, String attributeName) {
+    public void updateAttributeByAppIdAndName(String appId, String eventName, String attributeName, MetaEventAttribute updateAttribute) {
+        if (updateAttribute == null) {
+            return;
+        }
 
+        LambdaQueryWrapper<MetaEventAttribute> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MetaEventAttribute::getAppId, appId);
+        queryWrapper.eq(MetaEventAttribute::getEventName, eventName);
+        queryWrapper.eq(MetaEventAttribute::getAttributeName, attributeName);
+
+        metaEventAttributeMapper.update(updateAttribute, queryWrapper);
     }
 
     public IPage<MetaEventAttribute> pageQueryByName(String appId, String eventName, String attributeName, Integer pageNum, Integer pageSize) {
