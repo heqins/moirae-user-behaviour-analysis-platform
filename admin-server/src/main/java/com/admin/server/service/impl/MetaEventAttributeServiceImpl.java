@@ -3,9 +3,12 @@ package com.admin.server.service.impl;
 import cn.hutool.core.lang.Pair;
 import com.admin.server.dao.MetaEventAttributeDao;
 import com.admin.server.error.ErrorCodeEnum;
+import com.admin.server.handler.DecimalTypeParser;
+import com.admin.server.handler.DorisTypeParseFactory;
+import com.admin.server.handler.DorisTypeParser;
+import com.admin.server.handler.VarcharTypeParser;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.service.IMetaEventAttributeService;
-import com.admin.server.utils.TypeUtil;
 import com.admin.server.model.bo.MetaEventAttribute;
 import com.api.common.constant.ConfigConstant;
 import com.api.common.enums.AttributeDataTypeEnum;
@@ -108,11 +111,15 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
             return false;
         }
 
+        DorisTypeParseFactory factory = new DorisTypeParseFactory();
+
         // 如果是varchar，则pair第一个数代表长度
         if (oldColumnType.startsWith(AttributeDataTypeEnum.VARCHAR.getDorisType())) {
-            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.VARCHAR_PATTERN, oldColumnType);
+            DorisTypeParser dorisTypeParser = factory.getDorisTypeParser(VarcharTypeParser.class);
 
-            if (oldPair == null) {
+            Pair<Integer, Integer> oldPair = dorisTypeParser.parseType(oldColumnType);
+
+            if (oldPair == null || length == null) {
                 return false;
             }
 
@@ -121,9 +128,11 @@ public class MetaEventAttributeServiceImpl implements IMetaEventAttributeService
 
         // 如果是decimal，则pair第一个数代表整数位，第二个数代表小数位
         if (oldColumnType.startsWith(AttributeDataTypeEnum.DECIMAL.getDorisType())) {
-            Pair<Integer, Integer> oldPair = TypeUtil.parseTypeNumber(TypeUtil.DECIMAL_PATTERN, oldColumnType);
+            DorisTypeParser dorisTypeParser = factory.getDorisTypeParser(DecimalTypeParser.class);
 
-            if (oldPair == null) {
+            Pair<Integer, Integer> oldPair = dorisTypeParser.parseType(oldColumnType);
+
+            if (oldPair == null || length == null || limit == null) {
                 return false;
             }
 

@@ -8,6 +8,7 @@ import com.admin.server.service.IAppService;
 import com.admin.server.utils.KeyUtil;
 import com.admin.server.utils.MyPageUtil;
 import com.admin.server.model.bo.App;
+import com.api.common.constant.ConfigConstant;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.error.ResponseException;
 import com.api.common.model.param.admin.CreateAppParam;
@@ -18,6 +19,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -35,6 +37,10 @@ public class AppServiceImpl implements IAppService {
     @Resource
     private AppDao appDao;
 
+    @Resource
+    private DorisHelper dorisHelper;
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createApp(CreateAppParam createAppParam) {
         if (Objects.isNull(createAppParam)) {
@@ -47,6 +53,8 @@ public class AppServiceImpl implements IAppService {
 
         String user = StpUtil.getLoginIdAsString();
         App app = AppUtil.transferFromCreateAppParam(createAppParam);
+
+        // todo:
         if (Objects.isNull(app)) {
             return;
         }
@@ -62,16 +70,17 @@ public class AppServiceImpl implements IAppService {
         }
 
         if (appKey == null) {
-            return;
+            throw new IllegalStateException("createApp appKey is null");
         }
 
         app.setAppKey(appKey);
         app.setCreateUser(user);
 
-        logger.info("createApp appId length:{} key length:{}", app.getAppId().length(), app.getAppKey().length());
-
         Long id = appDao.createApp(app);
         logger.info("createApp id={}", id);
+
+        String tableName = ConfigConstant.generateTableName(generateAppId);
+        dorisHelper.createApp("user_behaviour_analysis", tableName);
     }
 
     @Override

@@ -58,6 +58,7 @@ public enum AttributeDataTypeEnum {
     }
 
     public static String getDefaultDataTypeByClass(String className) {
+        // todo: boolean,
         String type = null;
         switch (className) {
             case "java.lang.String":

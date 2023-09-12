@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新查询值接口">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新Sink处理meta_event,attribute">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/DorisTypeParseFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/DorisTypeParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/VarcharTypeParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/MetaEventAttributeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/TypeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/DecimalTypeParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ConfigConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/ConfigConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AttributeDataTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AttributeDataTypeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/DorisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/MetaEventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/MetaEventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -124,14 +127,14 @@
       <recent name="$PROJECT_DIR$/report-server/lua" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.admin.server.handler" />
       <recent name="com.admin.server" />
       <recent name="com.api.common.model.vo.admin" />
       <recent name="com.api.common.model.param.admin" />
       <recent name="com.api.common.enums" />
-      <recent name="com.api.common.model.param" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.AdminMain">
+  <component name="RunManager" selected="JUnit.SinkListenerTest.testListener">
     <configuration name="DorisHelper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.admin.server.helper.DorisHelper" />
       <module name="admin-server" />
@@ -255,7 +258,7 @@
       <workItem from="1694073291572" duration="25510000" />
       <workItem from="1694140901261" duration="794000" />
       <workItem from="1694141711598" duration="84000" />
-      <workItem from="1694141812133" duration="16397000" />
+      <workItem from="1694141812133" duration="20663000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 初始化">
       <created>1692443338309</created>
@@ -586,7 +589,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694484428130</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="feat: 更新Sink处理meta_event,attribute">
+      <created>1694488866790</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1694488866790</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -616,7 +626,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新数据库连接池" />
     <MESSAGE value="feat: 更新字段检查" />
     <MESSAGE value="feat: 更新字段检查顺序" />
     <MESSAGE value="feat: 更新表字段添加" />
@@ -641,7 +650,8 @@
     <MESSAGE value="feat: 更新alterColumn判断" />
     <MESSAGE value="feat: 更新表结构" />
     <MESSAGE value="feat: 更新查询值接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新查询值接口" />
+    <MESSAGE value="feat: 更新Sink处理meta_event,attribute" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新Sink处理meta_event,attribute" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -653,13 +663,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
-          <line>87</line>
+          <line>126</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="39" />
+          <line>271</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

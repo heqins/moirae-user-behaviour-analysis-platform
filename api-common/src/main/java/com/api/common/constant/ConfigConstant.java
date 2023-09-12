@@ -1,13 +1,13 @@
 package com.api.common.constant;
 
 public interface ConfigConstant {
-    public static final String EVENT_TABLE_PREFIX = "event_log_detail_";
+    String EVENT_TABLE_PREFIX = "event_log_detail_";
 
-    public static String generateTableName(String appId) {
+    static String generateTableName(String appId) {
         return EVENT_TABLE_PREFIX + appId;
     }
 
-    public static final String CONFIG_FILE_PATH = "config.properties";
+    String CONFIG_FILE_PATH = "config.properties";
 
     public interface Topics {
         public static final String LOG_ETL_MAIN_TOPIC = "log-etl-main";

@@ -33,8 +33,9 @@ public class SinkListenerTest {
         jsonObject.set("event_name", "测试");
         jsonObject.set("event_type", "测试");
         jsonObject.set("event_time", System.currentTimeMillis());
-        jsonObject.set("app_id", "dse1iz9o");
+        jsonObject.set("app_id", "2crdwf5q");
         jsonObject.set("app_version", "3.14.0");
+        jsonObject.set("app_beta_flag4", 3.14);
         jsonObject.set("unique_id", MD5.create().digestHex("test"));
 
         String value = JSONUtil.toJsonStr(jsonObject);

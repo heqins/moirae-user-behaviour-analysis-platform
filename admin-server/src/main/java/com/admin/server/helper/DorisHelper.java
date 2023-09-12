@@ -40,7 +40,7 @@ public class DorisHelper {
 
             logger.info("alterTableColumn 表字段类型更改成功 tableName: {}, columnName: {}, type: {}", tableName, columnName, type);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("表字段更改异常:" + e.getMessage());
         }
     }
 
@@ -79,6 +79,45 @@ public class DorisHelper {
         }
 
         return results;
+    }
+
+    public void createApp(String dbName, String tableName) {
+        String createTableSql = String.format("CREATE TABLE `%s`.`%s` (\n" +
+                "                                          app_id VARCHAR(255),\n" +
+                "                                          event_time BIGINT(20),\n" +
+                "                                          event_date DATE,\n" +
+                "                                          event_name VARCHAR(255),\n" +
+                "                                          event_type VARCHAR(32),\n" +
+                "                                          status TINYINT\n" +
+                ") ENGINE=OLAP\n" +
+                "DUPLICATE KEY (app_id, event_time)\n" +
+                "PARTITION BY RANGE (event_date) ()\n" +
+                "DISTRIBUTED BY HASH(event_name) BUCKETS 32\n" +
+                "PROPERTIES(\n" +
+                "    \"dynamic_partition.time_unit\" = \"DAY\",\n" +
+                "    \"dynamic_partition.start\" = \"-2\",\n" +
+                "    \"dynamic_partition.end\" = \"2\",\n" +
+                "    \"dynamic_partition.prefix\" = \"p\",\n" +
+                "    \"dynamic_partition.buckets\" = \"32\",\n" +
+                "    \"replication_num\" = \"1\"\n" +
+                ");", dbName, tableName);
+
+        try {
+            // 创建数据库连接
+            Connection connection = DriverManager.getConnection(dorisProrperties.getUrl(), dorisProrperties.getUsername(), dorisProrperties.getPassword());
+
+            // 创建 Statement 对象
+            Statement statement = connection.createStatement();
+
+            // 执行 SQL 语句
+            statement.executeUpdate(createTableSql);
+
+            // 关闭 Statement 和连接
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new IllegalStateException("表创建异常:" + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
