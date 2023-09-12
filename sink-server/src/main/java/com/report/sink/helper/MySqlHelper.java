@@ -2,7 +2,6 @@ package com.report.sink.helper;
 
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -32,10 +31,10 @@ public class MySqlHelper {
                 }catch (SQLException e) {
                     connection.rollback();
                 }
+
+                connection.commit();
             }catch (Exception e) {
-
-            }finally {
-
+                System.out.println("test");
             }
         }
     }
@@ -45,20 +44,23 @@ public class MySqlHelper {
             try (Connection connection = dataSource.getConnection()) {
                 connection.setAutoCommit(false);
 
-                String metaAttributeInsertSql = "insert ignore into meta_event_attribute(app_id, event_name, event_attribute) values (?, ?, ?);";
+                String metaAttributeInsertSql = "insert ignore into meta_event_attribute(app_id, event_name, attribute_type, attribute_name, data_type) values (?, ?, ?, ?, ?);";
                 try (PreparedStatement statement = connection.prepareStatement(metaAttributeInsertSql)){
                     statement.setString(1, event.getAppId());
-                    statement.setString(2, event.getShowName());
-                    statement.setString(3, event.getAttributeName());
+                    statement.setString(2, event.getEventName());
+                    statement.setInt(3, event.getAttributeType());
+                    statement.setString(4, event.getAttributeName());
+                    statement.setString(5, event.getDataType());
 
-                    statement.execute();
+                    boolean execute = statement.execute();
+                    System.out.println("test");
                 }catch (SQLException e) {
                     connection.rollback();
                 }
+
+                connection.commit();
             }catch (Exception e) {
-
-            }finally {
-
+                System.out.println("test");
             }
         }
     }

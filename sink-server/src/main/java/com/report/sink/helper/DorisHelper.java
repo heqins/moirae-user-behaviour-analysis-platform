@@ -1,6 +1,7 @@
 package com.report.sink.helper;
 
 import cn.hutool.json.JSONObject;
+import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
@@ -140,29 +141,7 @@ public class DorisHelper {
             }
 
             String className = jsonObject.get(jsonField).getClass().getCanonicalName();
-            String type = "";
-            switch (className) {
-                case "java.lang.String":
-                    type = "VARCHAR(64)";
-                    break;
-                case "java.lang.Integer":
-                    type = "INT";
-                    break;
-                case "java.lang.Long":
-                    type = "LARGEINT";
-                    break;
-                case "java.lang.Byte":
-                    type = "TINYINT";
-                    break;
-                case "java.util.Date":
-                    type = "DATE";
-                    break;
-                case "java.math.BigDecimal":
-                    type = "DECIMAL(10,2)";
-                    break;
-                default:
-                    break;
-            }
+            String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {
                 //log.error("DorisHelper type not found className:{}", className);

@@ -1,12 +1,10 @@
 package com.report.sink.handler;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import com.report.sink.dao.MetaEventDao;
 import com.report.sink.helper.MySqlHelper;
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,10 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -59,29 +60,24 @@ public class MetaEventHandler implements EventsHandler{
     @Resource
     private MySqlHelper mySqlHelper;
 
-    @Resource
-    private MetaEventDao metaEventDao;
+    public void addMetaEvent(MetaEvent metaEvent) {
+        if (metaEvent == null) {
+            return;
+        }
 
-    public void addMetaEvents(List<MetaEvent> metaEvents) {
-        if (!CollectionUtils.isEmpty(metaEvents)) {
-            Map<String, List<MetaEvent>> appMetaEvents = metaEvents.stream().collect(Collectors.groupingBy(MetaEvent::getAppId));
-            for (Map.Entry<String, List<MetaEvent>> entry: appMetaEvents.entrySet()) {
-                String appId = entry.getKey();
-                List<MetaEvent> metaEventCache = redisCache.getMetaEventsCache(appId);
-                if (!CollectionUtils.isEmpty(metaEventCache)) {
-                    Set<String> enabledMetaEvents = getEnabledMetaEvents(metaEventCache);
+        List<MetaEvent> metaEventCache = redisCache.getMetaEventsCache(metaEvent.getAppId());
+        if (!CollectionUtils.isEmpty(metaEventCache)) {
+            Set<String> enabledMetaEvents = getEnabledMetaEvents(metaEventCache);
 
-                    metaEventsBuffers.addAll(entry.getValue().stream().filter(value -> enabledMetaEvents.contains(value.getEventName())).collect(Collectors.toList()));
-                    continue;
-                }
-
-                List<MetaEvent> metaEventsLists = new ArrayList<>();
-
+            if (!enabledMetaEvents.contains(metaEvent.getEventName())) {
+                return;
             }
 
-            if (metaEventsBuffers.size() >= 1000) {
-                flush();
-            }
+            metaEventsBuffers.add(metaEvent);
+        }
+
+        if (metaEventsBuffers.size() >= 1000) {
+            flush();
         }
     }
 
@@ -93,12 +89,12 @@ public class MetaEventHandler implements EventsHandler{
         return metaEvents.stream().map(MetaEvent::getEventName).collect(Collectors.toSet());
     }
 
-    public void addMetaAttributeEvents(List<MetaEventAttribute> metaAttributeEvents) {
-        if (!CollectionUtils.isEmpty(metaAttributeEvents)) {
-
-
-            metaEventAttributeBuffers.addAll(metaAttributeEvents);
+    public void addMetaAttributeEvent(MetaEventAttribute metaAttributeEvent) {
+        if (metaAttributeEvent == null) {
+            return;
         }
+
+        metaEventAttributeBuffers.add(metaAttributeEvent);
     }
 
     public void runSchedule() {

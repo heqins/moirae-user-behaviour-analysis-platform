@@ -13,6 +13,7 @@ import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.ICacheService;
 import com.report.sink.service.IMetaEventService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class SinkHandler {
     private EventLogHandler eventLogHandler;
 
     @Resource
-    private DorisHandler dorisHandler;
+    private EventLogDetailHandler eventLogDetailHandler;
 
     @Resource
     private DataSourceProperty dataSourceProperty;
@@ -43,8 +44,8 @@ public class SinkHandler {
     @Resource
     private IAppService appService;
 
-    @Resource(name = "redisCacheService")
-    private ICacheService redisCache;
+    @Resource
+    private MetaEventHandler metaEventHandler;
 
     @Resource
     private IMetaEventService metaEventService;
@@ -91,10 +92,24 @@ public class SinkHandler {
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLogHandler.addEvent(eventLog);
 
-            dorisHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
+            MetaEvent metaEvent = getMetaEvent(appId, eventName);
+            metaEventHandler.addMetaEvent(metaEvent);
+
+            eventLogDetailHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
         }
     }
 
+    private MetaEvent getMetaEvent(String appId, String eventName) {
+        if (StringUtils.isBlank(appId) || StringUtils.isBlank(eventName)) {
+            return null;
+        }
+
+        MetaEvent metaEvent = new MetaEvent();
+        metaEvent.setEventName(eventName);
+        metaEvent.setAppId(appId);
+
+        return metaEvent;
+    }
     private Boolean checkIfEventEnabled(String appId, String eventName) {
         MetaEvent metaEvent = metaEventService.getMetaEvent(appId, eventName);
         if (metaEvent != null && MetaEventStatusEnum.DISABLE.getStatus().equals(metaEvent.getStatus())) {

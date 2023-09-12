@@ -36,5 +36,4 @@ public class MetaEventServiceImpl implements IMetaEventService {
         return event;
     }
 
-
 }

@@ -4,6 +4,8 @@ import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.api.common.enums.AttributeDataTypeEnum;
+import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.model.dto.sink.LogEventDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
@@ -11,8 +13,9 @@ import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.helper.DorisHelper;
+import com.report.sink.model.bo.MetaEvent;
+import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +36,7 @@ import java.util.stream.Collectors;
  * @author heqin
  */
 @Component
-public class DorisHandler implements EventsHandler{
+public class EventLogDetailHandler implements EventsHandler{
     
     private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
@@ -117,9 +120,42 @@ public class DorisHandler implements EventsHandler{
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
             dorisHelper.addTableColumn(dbName, tableName, jsonObject, newFieldKeys);
+
+            newFieldKeys.forEach(fieldKey -> {
+                MetaEventAttribute metaEventAttribute = getMetaEventAttributeFromJsonObj(jsonObject, fieldKey);
+                if (metaEventAttribute == null) {
+                    return;
+                }
+
+                metaEventHandler.addMetaAttributeEvent(metaEventAttribute);
+            });
         }
     }
 
+    private MetaEventAttribute getMetaEventAttributeFromJsonObj(JSONObject jsonObject, String fieldKey) {
+        if (jsonObject == null || StringUtils.isBlank(fieldKey)) {
+            return null;
+        }
+
+        Object fieldObj = jsonObject.get(fieldKey);
+        String className = fieldObj.getClass().getCanonicalName();
+        String dataType = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
+        if (dataType == null) {
+            return null;
+        }
+
+        MetaEventAttribute metaEventAttribute = new MetaEventAttribute();
+        String appId = jsonObject.getStr("app_id");
+        String eventName = jsonObject.getStr("event_name");
+
+        metaEventAttribute.setAppId(appId);
+        metaEventAttribute.setEventName(eventName);
+        metaEventAttribute.setAttributeName(fieldKey);
+        metaEventAttribute.setDataType(dataType);
+        metaEventAttribute.setAttributeType(AttributeTypeEnum.USER_CUSTOM.getStatus());
+
+        return metaEventAttribute;
+    }
 
     private Set<String> getNewFieldKey(Set<String> jsonFields, Set<String> existFields) {
         Set<String> res = new HashSet<>();

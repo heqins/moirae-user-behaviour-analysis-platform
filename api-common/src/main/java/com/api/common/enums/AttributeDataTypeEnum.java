@@ -57,6 +57,34 @@ public enum AttributeDataTypeEnum {
         return "";
     }
 
+    public static String getDefaultDataTypeByClass(String className) {
+        String type = null;
+        switch (className) {
+            case "java.lang.String":
+                type = "VARCHAR(64)";
+                break;
+            case "java.lang.Integer":
+                type = "INT";
+                break;
+            case "java.lang.Long":
+                type = "LARGEINT";
+                break;
+            case "java.lang.Byte":
+                type = "TINYINT";
+                break;
+            case "java.util.Date":
+                type = "DATE";
+                break;
+            case "java.math.BigDecimal":
+                type = "DECIMAL(10,2)";
+                break;
+            default:
+                break;
+        }
+
+        return type;
+    }
+
     public static String generateDorisTypeWithLength(String type, Integer length, Integer limit) {
         if (!containType(type)) {
             return null;
