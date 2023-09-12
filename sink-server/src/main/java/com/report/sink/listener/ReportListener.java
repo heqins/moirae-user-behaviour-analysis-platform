@@ -2,6 +2,8 @@ package com.report.sink.listener;
 
 import com.report.sink.handler.SinkHandler;
 import com.report.sink.properties.DataSourceProperty;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ public class ReportListener {
 
     private final Logger logger = LoggerFactory.getLogger(ReportListener.class);
 
+    private final Counter kafkaConsumerCounter = Metrics.counter("kafka.consumer.sink.records.count");
+
     @Resource
     private SinkHandler sinkHandler;
 
@@ -28,6 +32,8 @@ public class ReportListener {
     public void onReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
         try {
             sinkHandler.run(records);
+
+            kafkaConsumerCounter.increment(records.size());
         }catch (Exception e) {
             logger.error("report-main error", e);
         }

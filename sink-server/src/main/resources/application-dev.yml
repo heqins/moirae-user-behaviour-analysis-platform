@@ -75,3 +75,14 @@ data-source:
     username: root
     password: 5323105
     driver: com.mysql.cj.jdbc.Driver
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
