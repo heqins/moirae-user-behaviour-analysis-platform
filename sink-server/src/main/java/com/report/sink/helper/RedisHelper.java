@@ -39,18 +39,21 @@ public class RedisHelper {
         return values.stream().map(String::valueOf).collect(Collectors.toList());
     }
 
-    public void putIfAbsentHashValue(String key, String hashKey, String hashValue) {
+    public void putHashValue(String key, String hashKey, String hashValue) {
         if (key == null || hashKey == null) {
             throw new IllegalArgumentException("key or hashKey is null");
         }
 
-        redisTemplate.opsForHash().putIfAbsent(key, hashValue, hashValue);
+        redisTemplate.opsForHash().put(key, hashValue, hashValue);
     }
 
-    public void hashSet(String key, Map<String, String> values) {
+    public void deleteHashKey(String key, String hashKey) {
+        if (key == null || hashKey == null) {
+            throw new IllegalArgumentException("key or hashKey is null");
+        }
 
+        redisTemplate.opsForHash().delete(key, hashKey);
     }
-
     public List<String> multiGet(List<String> keyList) {
         return redisTemplate.opsForValue().multiGet(keyList);
     }

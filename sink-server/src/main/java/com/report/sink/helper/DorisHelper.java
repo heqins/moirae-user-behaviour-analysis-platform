@@ -6,6 +6,8 @@ import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -23,6 +25,8 @@ import java.util.*;
 @Component
 public class DorisHelper {
 
+    private final Logger log = LoggerFactory.getLogger(DorisHelper.class);
+    
     private static final String COLUMN_QUERY_SQL = "select column_name, column_type, is_nullable\n" +
             "FROM information_schema.columns\n" +
             "WHERE table_schema = ? AND table_name = ?;";
@@ -80,10 +84,10 @@ public class DorisHelper {
                     columns.add(columnDTO);
                 }
             } catch (SQLException e) {
-                //log.error("DorisHelper getTableColumnInfos sql error", e);
+                log.error("DorisHelper getTableColumnInfos sql error", e);
             }
         }catch (SQLException e) {
-            //log.error("DorisHelper getTableColumnInfos sql error", e);
+            log.error("DorisHelper getTableColumnInfos sql error", e);
         }
 
         localCacheService.setColumnCache(dbName, tableName, columns);
@@ -136,7 +140,7 @@ public class DorisHelper {
         List<String> alterQueries = new ArrayList<>(jsonFields.size());
         for (String jsonField: jsonFields) {
             if (!jsonObject.containsKey(jsonField)) {
-                //log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
+                log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
                 continue;
             }
 
@@ -144,7 +148,7 @@ public class DorisHelper {
             String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {
-                //log.error("DorisHelper type not found className:{}", className);
+                log.error("DorisHelper type not found className:{}", className);
                 continue;
             }
 
@@ -161,18 +165,19 @@ public class DorisHelper {
                         statement.execute();
                     } catch (SQLException e) {
                         connection.rollback();
-                        //log.error("DorisHelper changeTableSchema execute error", e);
+                        log.error("DorisHelper changeTableSchema execute error", e);
                     }
                 }
 
                 connection.commit();
             }catch (SQLException e) {
-                //log.error("DorisHelper changeTableSchema alter column commit error", e);
+                log.error("DorisHelper changeTableSchema alter column commit error", e);
             }
         }
 
-        localCacheService.removeColumnCache(dbName, tableName);
-        redisCacheService.removeColumnCache(dbName, tableName);
+        List<String> fields = new ArrayList<>(jsonFields);
+        localCacheService.removeColumnCache(dbName, tableName, fields);
+        redisCacheService.removeColumnCache(dbName, tableName, fields);
     }
 
     public void tableInsertData(String sql, List<TableColumnDTO> columnDTOList, List<JSONObject> jsonDataList) {
@@ -185,7 +190,7 @@ public class DorisHelper {
             try (PreparedStatement statement = insertConnection.prepareStatement(sql)) {
                 for (JSONObject jsonObject: jsonDataList) {
                     if (columnDTOList.size() < jsonObject.size()) {
-                        //log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
+                        log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
                         return;
                     }
 
@@ -231,12 +236,12 @@ public class DorisHelper {
 
             }catch (SQLException e) {
                 insertConnection.rollback();
-                //log.error("DorisHelper tableInsertData insert execute error", e);
+                log.error("DorisHelper tableInsertData insert execute error", e);
             }
 
             insertConnection.commit();
         }catch (SQLException e) {
-            //log.error("DorisHelper tableInsertData insert commit error", e);
+            log.error("DorisHelper tableInsertData insert commit error", e);
         }
     }
 

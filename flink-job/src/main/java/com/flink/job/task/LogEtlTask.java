@@ -36,28 +36,41 @@ public class LogEtlTask {
     }
 
     public void run() throws Exception {
+        justRedirectStream();
+//        StreamExecutionEnvironment environment = configureStreamExecutionEnvironment();
+//        environment.setParallelism(1);
+//
+//        DataStreamSource<String> sourceStream = environment.addSource(KafkaSource
+//                .getFlinkKafkaSource(config.get(LOG_ETL_MAIN_TOPIC), config.get(LOG_ETL_MAIN__GROUP_ID)));
+//
+//        OutputTag<String> etlOutputTag = new OutputTag<>("etl-output-tag"){};
+//
+//        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(JSONUtil::parseObj)
+//                .assignTimestampsAndWatermarks(new LogPvWatermarkAssigner())
+//                .filter(log -> StringUtils.isNotBlank(log.getStr("app_id")))
+//                .keyBy(log -> log.getStr("app_id"))
+//                .timeWindow(Time.seconds(5))
+//                .process(new LogPvWindow(etlOutputTag));
+//
+//        //countStream.print();
+//
+//        DataStream<String> sideOutput = countStream.getSideOutput(etlOutputTag);
+//
+//        sideOutput.addSink(KafkaSink.createSink(config.get(LOG_SINK_TOPIC)));
+//
+//        countStream.addSink(new LogPvMysqlSink());
+//        environment.execute("logEtlTask");
+    }
+
+    private void justRedirectStream() throws Exception {
         StreamExecutionEnvironment environment = configureStreamExecutionEnvironment();
         environment.setParallelism(1);
 
         DataStreamSource<String> sourceStream = environment.addSource(KafkaSource
                 .getFlinkKafkaSource(config.get(LOG_ETL_MAIN_TOPIC), config.get(LOG_ETL_MAIN__GROUP_ID)));
 
-        OutputTag<String> etlOutputTag = new OutputTag<>("etl-output-tag"){};
+        sourceStream.addSink(KafkaSink.createSink(config.get(LOG_SINK_TOPIC)));
 
-        SingleOutputStreamOperator<EventLogPv> countStream = sourceStream.map(json -> JSONUtil.parseObj(json))
-                .assignTimestampsAndWatermarks(new LogPvWatermarkAssigner())
-                .filter(log -> StringUtils.isNotBlank(log.getStr("app_id")))
-                .keyBy(log -> log.getStr("app_id"))
-                .timeWindow(Time.seconds(5))
-                .process(new LogPvWindow(etlOutputTag));
-
-        //countStream.print();
-
-        DataStream<String> sideOutput = countStream.getSideOutput(etlOutputTag);
-
-        sideOutput.addSink(KafkaSink.createSink(config.get(LOG_SINK_TOPIC)));
-
-        countStream.addSink(new LogPvMysqlSink());
         environment.execute("logEtlTask");
     }
 

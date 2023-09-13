@@ -1,9 +1,8 @@
-from locust import HttpUser, task, between
-from producer.KafkaReportProducer import KafkaProducer
+from locust import HttpUser, task
 
 
 class KafkaUser(HttpUser):
-    wait_time = between(1, 3)
+    #wait_time = between(1, 3)
 
     @task
     def send_kafka_message(self):

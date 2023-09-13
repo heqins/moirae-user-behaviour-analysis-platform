@@ -4,10 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加压测任务类">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新prometheus">
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress-test/producer/AiokafkaProducer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/RedisCacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/RedisCacheConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DorisDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DorisDataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/MySqlDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/MySqlDataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stress-test/ReportLocustFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/ReportLocustFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stress-test/producer/KafkaReportProducer.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/producer/KafkaReportProducer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +41,20 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Python Unit Test" />
-        <option value="Class" />
         <option value="Python Script" />
+        <option value="Class" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -97,7 +125,7 @@
     "project.structure.proportion": "0.12227076",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.idesettings.debugger.python",
     "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
     "vue.rearranger.settings.migration": "true"
   }
@@ -128,7 +156,7 @@
       <recent name="com.api.common.model.vo.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.FlaskStressTestServer">
+  <component name="RunManager" selected="Spring Boot.SinkMain">
     <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.EtlTaskRunner" />
       <module name="flink-job" />
@@ -142,18 +170,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportLogRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.ReportLogRunner" />
-      <module name="flink-job" />
+    <configuration name="SinkListenerTest.testListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sink-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flink.job.task.runner.*" />
+          <option name="PATTERN" value="com.report.sink.listener.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.report.sink.listener" />
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.listener.SinkListenerTest" />
+      <option name="METHOD_NAME" value="testListener" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="AiokafkaProducer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stress-test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/stress-test/producer" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stress-test/producer/AiokafkaProducer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="FlaskStressTestServer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="stress-test" />
@@ -169,28 +222,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="KafkaReportProducer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="stress-test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/stress-test/producer" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stress-test/producer/KafkaReportProducer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -237,11 +268,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.FlaskStressTestServer" />
+        <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Python.ReportLocustFile" />
-        <item itemvalue="Application.ReportLogRunner" />
+        <item itemvalue="Python.FlaskStressTestServer" />
+        <item itemvalue="Python.AiokafkaProducer" />
         <item itemvalue="Application.EtlTaskRunner" />
-        <item itemvalue="Python.KafkaReportProducer" />
       </list>
     </recent_temporary>
   </component>
@@ -268,14 +299,7 @@
       <workItem from="1694140901261" duration="794000" />
       <workItem from="1694141711598" duration="84000" />
       <workItem from="1694141812133" duration="30078000" />
-      <workItem from="1694513871029" duration="10063000" />
-    </task>
-    <task id="LOCAL-00005" summary="feat: 更新readme">
-      <created>1692443966405</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1692443966405</updated>
+      <workItem from="1694513871029" duration="26282000" />
     </task>
     <task id="LOCAL-00006" summary="feat: 更新report-server">
       <created>1692444108458</created>
@@ -613,11 +637,29 @@
       <option name="project" value="LOCAL" />
       <updated>1694529601881</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="feat: 更新prometheus">
+      <created>1694532317292</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1694532317292</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -643,7 +685,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新查询app表信息" />
     <MESSAGE value="feat: 增加Flume收集配置" />
     <MESSAGE value="feat: 初始化元数据管理" />
     <MESSAGE value="feat: 更新加锁逻辑" />
@@ -668,7 +709,8 @@
     <MESSAGE value="feat: 增加任务" />
     <MESSAGE value="feat: 标记已完成任务" />
     <MESSAGE value="feat: 增加压测任务类" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加压测任务类" />
+    <MESSAGE value="feat: 更新prometheus" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新prometheus" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -691,9 +733,14 @@
       </breakpoints>
     </breakpoint-manager>
   </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/user_behaviour_analysis$FlaskStressTestServer.coverage" NAME="FlaskStressTestServer Coverage Results" MODIFIED="1694530070937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
+    <SUITE FILE_PATH="coverage/user_behaviour_analysis$AiokafkaProducer.coverage" NAME="AiokafkaProducer Coverage Results" MODIFIED="1694577200831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test/producer" />
+    <SUITE FILE_PATH="coverage/user_behaviour_analysis$FlaskStressTestServer.coverage" NAME="FlaskStressTestServer Coverage Results" MODIFIED="1694577746358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
     <SUITE FILE_PATH="coverage/user_behaviour_analysis$KafkaReportProducer.coverage" NAME="KafkaReportProducer Coverage Results" MODIFIED="1694526406270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test/producer" />
-    <SUITE FILE_PATH="coverage/user_behaviour_analysis$ReportLocustFile.coverage" NAME="ReportLocustFile Coverage Results" MODIFIED="1694530074512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
+    <SUITE FILE_PATH="coverage/user_behaviour_analysis$ReportLocustFile.coverage" NAME="ReportLocustFile Coverage Results" MODIFIED="1694577768529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
   </component>
 </project>

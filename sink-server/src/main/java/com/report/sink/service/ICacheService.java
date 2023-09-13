@@ -16,7 +16,7 @@ public interface ICacheService {
 
     void setColumnCache(String dbName, String tableName, List<TableColumnDTO> columns);
 
-    void removeColumnCache(String dbName, String tableName);
+    void removeColumnCache(String dbName, String tableName, List<String> fields);
 
     List<MetaEvent> getMetaEventsCache(String appId);
 
@@ -31,5 +31,7 @@ public interface ICacheService {
     List<MetaEventAttributeDTO> getMetaEventAttributeCache(String appId, String eventName);
 
     List<MetaEventAttributeDTO> multiGetMetaEventAttributeCache(List<String> keys);
+
+    void setAppInfoCache(String appId, AppDTO appDTO);
 
 }

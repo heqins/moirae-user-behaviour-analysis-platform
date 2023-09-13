@@ -40,6 +40,8 @@ public class AppServiceImpl implements IAppService {
         AppDTO appInfo = new AppDTO();
         BeanUtils.copyProperties(app, appInfo);
 
+        redisCacheService.setAppInfoCache(appId, appInfo);
+
         return appInfo;
     }
 }

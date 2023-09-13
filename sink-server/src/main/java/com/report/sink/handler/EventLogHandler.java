@@ -18,10 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -36,11 +33,11 @@ public class EventLogHandler implements EventsHandler{
     private static final String INSERT_SQL = "INSERT INTO event_log (app_id, event_time, event_date, event_name," +
             " event_data, event_type, error_reason, error_handling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private List<EventLogDTO> buffers;
+    private ConcurrentLinkedQueue<EventLogDTO> buffers;
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final Integer bufferSize = 1000;
+    private final Integer bufferSize = 2000;
 
     private final Integer jsonLengthLimit = 1024;
 
@@ -63,7 +60,7 @@ public class EventLogHandler implements EventsHandler{
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
-        buffers = new ArrayList<>(bufferSize);
+        buffers = new ConcurrentLinkedQueue<>();
 
         run();
     }
@@ -102,12 +99,12 @@ public class EventLogHandler implements EventsHandler{
 
     public void addEvent(EventLogDTO eventLog) {
         if (eventLog != null) {
-            this.buffers.add(eventLog);
+            this.buffers.offer(eventLog);
         }
 
-        if (this.buffers.size() >= this.bufferSize) {
-            this.flush();
-        }
+//        if (this.buffers.size() >= this.bufferSize) {
+//            this.flush();
+//        }
     }
 
     @Override
@@ -116,54 +113,65 @@ public class EventLogHandler implements EventsHandler{
             return;
         }
 
-        boolean acquireLock = false;
-        try {
-            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
-        }catch (InterruptedException e) {
-            logger.error("EventLogHandler tryLock error", e);
+//        boolean acquireLock = false;
+//        try {
+//            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
+//        }catch (InterruptedException e) {
+//            logger.error("EventLogHandler tryLock error", e);
+//        }
+//
+//        if (!acquireLock) {
+//            return;
+//        }
+
+        List<EventLogDTO> batch = new CopyOnWriteArrayList<>();
+        EventLogDTO data;
+        while ((data = this.buffers.poll()) != null) {
+            batch.add(data);
         }
 
-        if (!acquireLock) {
-            return;
-        }
+        if (!batch.isEmpty()) {
+            try {
+                try (Connection connection = dataSource.getConnection()) {
+                    connection.setAutoCommit(false);
 
-        try {
-            try (Connection connection = dataSource.getConnection()) {
-                connection.setAutoCommit(false);
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
+                        for (EventLogDTO eventLog : batch) {
+                            preparedStatement.setString(1, eventLog.getAppId());
+                            preparedStatement.setLong(2, eventLog.getEventTime());
+                            preparedStatement.setDate(3, new Date(eventLog.getEventTime()));
+                            preparedStatement.setString(4, eventLog.getEventName());
+                            preparedStatement.setString(6, eventLog.getEventType());
+                            preparedStatement.setString(7, eventLog.getErrorReason());
+                            preparedStatement.setString(8, eventLog.getErrorHandling());
+                            preparedStatement.setInt(9, eventLog.getStatus());
 
-                try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
-                    for (EventLogDTO eventLog : this.buffers) {
-                        preparedStatement.setString(1, eventLog.getAppId());
-                        preparedStatement.setLong(2, eventLog.getEventTime());
-                        preparedStatement.setDate(3, new Date(eventLog.getEventTime()));
-                        preparedStatement.setString(4, eventLog.getEventName());
-                        preparedStatement.setString(6, eventLog.getEventType());
-                        preparedStatement.setString(7, eventLog.getErrorReason());
-                        preparedStatement.setString(8, eventLog.getErrorHandling());
-                        preparedStatement.setInt(9, eventLog.getStatus());
-
-                        if (eventLog.getDataJson() != null) {
-                            String json = eventLog.getDataJson().substring(0, Math.min(eventLog.getDataJson().length(), 1000));
-                            preparedStatement.setString(5, json);
+                            if (eventLog.getDataJson() != null) {
+                                String json = eventLog.getDataJson().substring(0, Math.min(eventLog.getDataJson().length(), 1000));
+                                preparedStatement.setString(5, json);
+                            }
+                            preparedStatement.addBatch();
                         }
-                        preparedStatement.addBatch();
+
+                        preparedStatement.executeBatch();
+                    } catch (SQLException e) {
+                        connection.rollback();
+                        logger.error("DorisEventLogHandler insertSql execute error", e);
                     }
 
-                    preparedStatement.executeBatch();
                     connection.commit();
                 } catch (SQLException e) {
-                    connection.rollback();
-                    logger.error("DorisEventLogHandler insertSql execute error", e);
+                    logger.error("DorisEventLogHandler connection error", e);
                 }
-            } catch (SQLException e) {
-                logger.error("DorisEventLogHandler connection error", e);
-            } finally {
-                this.buffers.clear();
+                // finally {
+//                this.buffers.clear();
+//            }
+            } catch (Exception e) {
+                logger.error("DorisEventLogHandler lock error", e);
             }
-        } catch (Exception e) {
-            logger.error("DorisEventLogHandler lock error", e);
-        } finally {
-            lock.unlock();
+//        finally {
+//            lock.unlock();
+//        }
         }
     }
 }

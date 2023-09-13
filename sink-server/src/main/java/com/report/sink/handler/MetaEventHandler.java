@@ -93,21 +93,21 @@ public class MetaEventHandler implements EventsHandler{
 
     @Override
     public void flush() {
-        lock.lock();
-        try {
-            if (!CollectionUtils.isEmpty(metaEventsBuffers)) {
-                mySqlHelper.insertMetaEvent(metaEventsBuffers);
-
-                metaEventsBuffers.clear();
-            }
-
-            if (!CollectionUtils.isEmpty(metaEventAttributeBuffers)) {
-                mySqlHelper.insertMetaAttributeEvent(metaEventAttributeBuffers);
-
-                metaEventAttributeBuffers.clear();
-            }
-        }finally {
-            lock.unlock();
-        }
+//        lock.lock();
+//        try {
+//            if (!CollectionUtils.isEmpty(metaEventsBuffers)) {
+//                mySqlHelper.insertMetaEvent(metaEventsBuffers);
+//
+//                metaEventsBuffers.clear();
+//            }
+//
+//            if (!CollectionUtils.isEmpty(metaEventAttributeBuffers)) {
+//                mySqlHelper.insertMetaAttributeEvent(metaEventAttributeBuffers);
+//
+//                metaEventAttributeBuffers.clear();
+//            }
+//        }finally {
+//            lock.unlock();
+//        }
     }
 }

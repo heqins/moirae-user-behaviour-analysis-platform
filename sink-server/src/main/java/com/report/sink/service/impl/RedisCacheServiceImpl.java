@@ -33,17 +33,37 @@ public class RedisCacheServiceImpl implements ICacheService {
 
     @Override
     public List<TableColumnDTO> getColumnCache(String dbName, String tableName) {
-        return null;
+        String cacheKey = RedisCacheConstants.getDorisColumnCacheKey(dbName, tableName);
+        List<String> hashValues = redisHelper.getHashValues(cacheKey);
+        if (CollectionUtils.isEmpty(hashValues)) {
+            return null;
+        }
+
+        List<TableColumnDTO> columns = hashValues.stream()
+                .map(value -> JSONUtil.toBean(value, TableColumnDTO.class))
+                .collect(Collectors.toList());
+        return columns;
     }
 
     @Override
     public void setColumnCache(String dbName, String tableName, List<TableColumnDTO> columns) {
-
+        String cacheKey = RedisCacheConstants.getDorisColumnCacheKey(dbName, tableName);
+        columns.forEach(column -> {
+            String hashKey = column.getColumnName();
+            redisHelper.putHashValue(cacheKey, hashKey, JSONUtil.toJsonStr(column));
+        });
     }
 
     @Override
-    public void removeColumnCache(String dbName, String tableName) {
+    public void removeColumnCache(String dbName, String tableName, List<String> fields) {
+        if (CollectionUtils.isEmpty(fields)) {
+            return;
+        }
 
+        String cacheKey = RedisCacheConstants.getDorisColumnCacheKey(dbName, tableName);
+        fields.forEach(field -> {
+            redisHelper.deleteHashKey(cacheKey, field);
+        });
     }
 
     @Override
@@ -71,7 +91,13 @@ public class RedisCacheServiceImpl implements ICacheService {
 
     @Override
     public AppDTO getAppInfoCache(String appId) {
-        return null;
+        String cacheKey = RedisCacheConstants.getAppCacheKey(appId);
+        String value = redisHelper.getValue(cacheKey);
+        if (value == null) {
+            return null;
+        }
+
+        return JSONUtil.toBean(value, AppDTO.class);
     }
 
     @Override
@@ -98,5 +124,11 @@ public class RedisCacheServiceImpl implements ICacheService {
         }
 
         return values.stream().filter(Objects::nonNull).map(value -> JSONUtil.toBean(value, MetaEventAttributeDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void setAppInfoCache(String appId, AppDTO appDTO) {
+        String cacheKey = RedisCacheConstants.getAppCacheKey(appId);
+        redisHelper.setValue(cacheKey, JSONUtil.toJsonStr(appDTO));
     }
 }

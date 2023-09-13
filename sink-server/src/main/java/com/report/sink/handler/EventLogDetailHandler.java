@@ -25,10 +25,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
@@ -42,7 +39,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    private List<LogEventDTO> buffers;
+    private ConcurrentLinkedQueue<LogEventDTO> buffers;
 
     private final int capacity = 1000;
 
@@ -57,7 +54,7 @@ public class EventLogDetailHandler implements EventsHandler{
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
-        buffers = new ArrayList<>(capacity);
+        buffers = new ConcurrentLinkedQueue<>();
 
         runSchedule();
     }
@@ -75,7 +72,7 @@ public class EventLogDetailHandler implements EventsHandler{
     private ICacheService redisCache;
 
     public void runSchedule() {
-        scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 1000, TimeUnit.MILLISECONDS);
     }
 
     private void  alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
@@ -210,9 +207,9 @@ public class EventLogDetailHandler implements EventsHandler{
             this.buffers.add(eventDTO);
         }
 
-        if (this.buffers.size() >= this.capacity) {
-            this.flush();
-        }
+//        if (this.buffers.size() >= this.capacity) {
+//            this.flush();
+//        }
     }
 
     @Override
@@ -221,23 +218,29 @@ public class EventLogDetailHandler implements EventsHandler{
             return;
         }
 
-        boolean acquireLock = false;
-        try {
-            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
-        }catch (InterruptedException e) {
-            logger.error("reportEventsToDorisHandler flush lock error", e);
+//        boolean acquireLock = false;
+//        try {
+//            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
+//        }catch (InterruptedException e) {
+//            logger.error("reportEventsToDorisHandler flush lock error", e);
+//        }
+
+//        if (!acquireLock) {
+//            return;
+//        }
+
+        Map<String, List<LogEventDTO>> eventMap = new ConcurrentHashMap<>();
+        LogEventDTO data;
+        while ((data = this.buffers.poll()) != null) {
+            String key = data.getDbName() + ":" + data.getTableName();
+            List<LogEventDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
+            eventList.add(data);
+
+            eventMap.putIfAbsent(key, eventList);
         }
 
-        if (!acquireLock) {
-            return;
-        }
-
         try {
-            Map<String, List<LogEventDTO>> tableGroupMap = this.buffers
-                    .stream()
-                    .collect(Collectors.groupingBy(logEvent -> logEvent.getDbName() + ":" + logEvent.getTableName()));
-
-            for (Map.Entry<String, List<LogEventDTO>> entry: tableGroupMap.entrySet()) {
+            for (Map.Entry<String, List<LogEventDTO>> entry: eventMap.entrySet()) {
                 String key = entry.getKey();
                 String[] split = key.split(":");
 
@@ -271,10 +274,8 @@ public class EventLogDetailHandler implements EventsHandler{
 
                 dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
             }
-
-            this.buffers.clear();
-        }finally {
-            lock.unlock();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

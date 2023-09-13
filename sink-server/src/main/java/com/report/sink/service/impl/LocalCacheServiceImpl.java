@@ -32,7 +32,7 @@ public class LocalCacheServiceImpl implements ICacheService {
     }
 
     @Override
-    public void removeColumnCache(String dbName, String tableName) {
+    public void removeColumnCache(String dbName, String tableName, List<String> fields) {
 
     }
 
@@ -69,5 +69,10 @@ public class LocalCacheServiceImpl implements ICacheService {
     @Override
     public List<MetaEventAttributeDTO> multiGetMetaEventAttributeCache(List<String> keys) {
         return null;
+    }
+
+    @Override
+    public void setAppInfoCache(String appId, AppDTO appDTO) {
+
     }
 }
