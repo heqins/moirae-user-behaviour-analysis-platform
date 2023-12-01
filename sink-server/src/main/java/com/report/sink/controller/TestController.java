@@ -1,10 +1,9 @@
-package com.report.sink;
+package com.report.sink.controller;
 
 import cn.hutool.crypto.digest.MD5;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.report.sink.handler.SinkHandler;
-import com.report.sink.listener.ReportListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

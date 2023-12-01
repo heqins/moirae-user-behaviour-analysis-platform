@@ -4,27 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新prometheus">
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stress-test/producer/AiokafkaProducer.py" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 优化大批量下插入速度">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/accumulator/RecordAccumulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/RedisCacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/constant/RedisCacheConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/java/com/flink/job/task/LogEtlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DorisDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/DorisDataSourceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/MySqlDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/MySqlDataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/RedisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/ICacheService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/AppServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/LocalCacheServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/service/impl/RedisCacheServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress-test/ReportLocustFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/ReportLocustFile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress-test/producer/KafkaReportProducer.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress-test/producer/KafkaReportProducer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,34 +91,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ToolWindowBuild.ShowToolbar": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "jdk.selected.JAVA_MODULE": "temurin-11",
-    "last_opened_file_path": "/Users/heqin/workspace/java/user-behaviour-analysis/sink-server/src/main/java/com/report/sink/model/bo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.12227076",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.idesettings.debugger.python",
-    "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ToolWindowBuild.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-11&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/heqin/workspace/java/user-behaviour-analysis/sink-server/src/main/java/com/report/sink/model/bo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.12227076&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.idesettings.debugger.python&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;917492cd6eff15b225a41c36a5af4f92&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -156,16 +145,10 @@
       <recent name="com.api.common.model.vo.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SinkMain">
-    <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.EtlTaskRunner" />
-      <module name="flink-job" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.flink.job.task.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+  <component name="RunManager" selected="Application.Interview">
+    <configuration name="Interview" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Interview" />
+      <module name="user-behaviour-analysis-platform" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -268,11 +251,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Interview" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Python.ReportLocustFile" />
         <item itemvalue="Python.FlaskStressTestServer" />
         <item itemvalue="Python.AiokafkaProducer" />
-        <item itemvalue="Application.EtlTaskRunner" />
       </list>
     </recent_temporary>
   </component>
@@ -299,14 +282,22 @@
       <workItem from="1694140901261" duration="794000" />
       <workItem from="1694141711598" duration="84000" />
       <workItem from="1694141812133" duration="30078000" />
-      <workItem from="1694513871029" duration="26282000" />
-    </task>
-    <task id="LOCAL-00006" summary="feat: 更新report-server">
-      <created>1692444108458</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1692444108458</updated>
+      <workItem from="1694513871029" duration="29354000" />
+      <workItem from="1694772274869" duration="45778000" />
+      <workItem from="1694832427059" duration="1252000" />
+      <workItem from="1695000902937" duration="78000" />
+      <workItem from="1695001518071" duration="597000" />
+      <workItem from="1695368260251" duration="597000" />
+      <workItem from="1695529182139" duration="597000" />
+      <workItem from="1695956036725" duration="597000" />
+      <workItem from="1696511920190" duration="109000" />
+      <workItem from="1696664624129" duration="597000" />
+      <workItem from="1697465339576" duration="193000" />
+      <workItem from="1697466715978" duration="597000" />
+      <workItem from="1698027557777" duration="3986000" />
+      <workItem from="1698419040767" duration="1199000" />
+      <workItem from="1701134397948" duration="55000" />
+      <workItem from="1701134464645" duration="16088000" />
     </task>
     <task id="LOCAL-00007" summary="feat: 更新依赖">
       <created>1692445497927</created>
@@ -644,7 +635,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694532317292</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat: 优化大批量下插入速度">
+      <created>1694588290242</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1694588290242</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -685,7 +683,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 增加Flume收集配置" />
     <MESSAGE value="feat: 初始化元数据管理" />
     <MESSAGE value="feat: 更新加锁逻辑" />
     <MESSAGE value="feat: 增加adminServer元数据查询接口" />
@@ -710,7 +707,8 @@
     <MESSAGE value="feat: 标记已完成任务" />
     <MESSAGE value="feat: 增加压测任务类" />
     <MESSAGE value="feat: 更新prometheus" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新prometheus" />
+    <MESSAGE value="feat: 优化大批量下插入速度" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 优化大批量下插入速度" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

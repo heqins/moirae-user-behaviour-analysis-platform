@@ -4,6 +4,6 @@ import com.api.common.model.param.admin.AnalysisParam;
 
 public interface AnalysisHandler {
 
-    void execute();
+    void execute(AnalysisParam param);
 
 }

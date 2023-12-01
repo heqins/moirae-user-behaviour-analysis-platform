@@ -19,6 +19,6 @@ public class AnalysisFacade {
             throw new IllegalStateException("");
         }
 
-        eventHandler.execute();
+        eventHandler.execute(param);
     }
 }

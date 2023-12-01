@@ -37,8 +37,6 @@ public class EventLogDetailHandler implements EventsHandler{
     
     private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
-    private final ReentrantLock lock = new ReentrantLock();
-
     private ConcurrentLinkedQueue<LogEventDTO> buffers;
 
     private final int capacity = 1000;
