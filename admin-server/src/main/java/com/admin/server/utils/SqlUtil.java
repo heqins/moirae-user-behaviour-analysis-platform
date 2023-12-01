@@ -3,10 +3,12 @@ package com.admin.server.utils;
 import com.api.common.model.param.admin.AnalysisAggregationParam;
 import com.api.common.model.param.admin.AnalysisParam;
 import com.api.common.model.param.admin.AnalysisWhereFilterParam;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,96 +123,62 @@ public class SqlUtil {
         sql += eventSqlArgsPair.getKey();
         sqlArgs.addAll(eventSqlArgsPair.getValue());
 
-        Pair<String, String> dateGroupSqlColPair = getGroupDateSql();
+        Pair<String, String> dateGroupSqlColPair = getDateGroupSql(analysisParam.getWindowFormat());
 
-        String dateGroupSql = dateGroupSqlColPair.getFirst();
-        String dateGroupCol = dateGroupSqlColPair.getSecond();
+        String dateGroupSql = dateGroupSqlColPair.getKey();
+        String dateGroupCol = dateGroupSqlColPair.getValue();
 
-        List<String> groupArr = this.getGroupSql();
-        List<String> copyGroupArr = new ArrayList<>(groupArr);
+        Pair<String, String> groupArrPair = getGroupBySql(analysisParam);
+        List<String> copyGroupArr = new ArrayList<>();
 
-        if (!dateGroupCol.isEmpty()) {
-            groupCol.add(dateGroupCol);
+        if (StringUtils.isNotBlank(dateGroupSql)) {
+            copyGroupArr.add(dateGroupSql);
         }
 
-        if (!dateGroupSql.isEmpty()) {
-            groupArr.add(dateGroupSql);
+        if (StringUtils.isNotBlank(dateGroupCol)) {
+            sqlArgs.add(dateGroupCol);
         }
 
         String groupBySql = "";
-        if (!groupArr.isEmpty()) {
+        if (!CollectionUtils.isEmpty(copyGroupArr)) {
             groupBySql = " group by ";
         }
 
         String whereSql = "";
-        List<Object> whereArgs = new ArrayList<>();
+        List<String> whereArgs = new ArrayList<>();
 
         String withSql = "";
-        List<Object> argsWith = new ArrayList<>();
+        List<String> argsWith = new ArrayList<>();
 
-        switch (zhibiao.getTyp()) {
-            case Zhibiao:
-                if (zhibiao.getSelectAttr().isEmpty()) {
-                    throw new Exception("请选择维度");
+        switch (agg.getType()) {
+            case "zhibiao":
+                if (CollectionUtils.isEmpty(agg.getSelectAttributes())) {
+                    throw new IllegalArgumentException("请选择维度");
                 }
 
-                Pair<String, List<Object>> whereSqlArgsPair = utils.getWhereSql(zhibiao.getRelation());
-                whereSql = whereSqlArgsPair.getFirst();
-                whereArgs = whereSqlArgsPair.getSecond();
+                Pair<String, List<String>> whereSqlArgsPair = getWhereSql(agg.getRelation());
+
+                whereSql = whereSqlArgsPair.getKey();
+                whereArgs = whereSqlArgsPair.getValue();
 
                 String selectAttr = this.req.getZhibiaoArr().get(index).getSelectAttr();
-                String col = String.format(" (%s) as %s ", utils.getCountTypMap().get(selectAttr.get(1)).apply(selectAttr.get(0)), "amount");
-                groupCol.add(col);
-                break;
-            case Formula:
-                if (zhibiao.getOne().getSelectAttr().isEmpty() || zhibiao.getTwo().getSelectAttr().isEmpty()) {
-                    throw new Exception("请选择维度");
-                }
-
-                Pair<String, String> formulaSqlOnePair = this.getFormulaSql(zhibiao.getOne(), false, zhibiao.getDivisorNoGrouping());
-                String sqlOne = formulaSqlOnePair.getSecond();
-                List<Object> argsOne = formulaSqlOnePair.getThird();
-
-                Pair<String, String> formulaSqlTwoPair = this.getFormulaSql(zhibiao.getTwo(), true, zhibiao.getDivisorNoGrouping());
-                withSql = formulaSqlTwoPair.getFirst();
-                String sqlTwo = formulaSqlTwoPair.getSecond();
-                List<Object> argsTwo = formulaSqlTwoPair.getThird();
-
-                List<Object> argsTmp = new ArrayList<>();
-                argsTmp.addAll(argsOne);
-                argsTmp.addAll(argsTwo);
-
-                args.addAll(argsTmp);
-
-                switch (zhibiao.getScaleType()) {
-                    case utils.TwoDecimalPlaces:
-                        String fmtStr = String.format("  %s(%s,%s) ", zhibiao.getOperate(), utils.toFloat32OrZero(sqlOne), utils.toFloat32OrZero(sqlTwo));
-                        groupCol.add(String.format("toString(%s)   amount", utils.round(utils.NaN2Zero(fmtStr))));
-                        break;
-                    case utils.Percentage:
-                        String fmtStr = String.format("  %s(%s,%s) ", zhibiao.getOperate(), utils.toFloat32OrZero(sqlOne), utils.toFloat32OrZero(sqlTwo));
-                        groupCol.add(String.format(" concat(toString( %s *100),'%%')   amount", utils.round(utils.NaN2Zero(fmtStr))));
-                        break;
-                    case utils.Rounding:
-                        String fmtStr = String.format("  %s(%s,%s) ", zhibiao.getOperate(), utils.toFloat32OrZero(sqlOne), utils.toFloat32OrZero(sqlTwo));
-                        groupCol.add(String.format("toString(round(%s,0))   amount", utils.NaN2Zero(fmtStr)));
-                        break;
-                }
+                String col = String.format(" (%s) as %s ", CountUtil.get().get(selectAttr.get(1)).apply(selectAttr.get(0)), "amount");
+                copyGroupArr.add(col);
                 break;
             default:
-                throw new Exception("未知指标类型");
+                throw new IllegalArgumentException("未知指标类型");
         }
 
-        argsWith.addAll(args);
+        sqlArgs.addAll(argsWith);
 
-        args.addAll(whereArgs);
+        sqlArgs.addAll(whereArgs);
 
-        if (!whereSql.isEmpty()) {
+        if (StringUtils.isNotBlank(whereSql)) {
             whereSql = " and " + whereSql;
         }
 
-        String SQL = String.format(" from ( %s  select %s from xwl_event%s prewhere %s%s%s%s order by date_group ) ",
-                withSql, String.join(",", groupCol), this.req.getAppid(), sql, whereSql, this.sql, groupBySql, String.join(",", groupArr));
+        String SQL = String.format(" from ( %s  select %s from event_log_detail%s where %s%s%s order by date_group ) ",
+                withSql, String.join(",", groupCol), analysisParam.getAppId(), sql, whereSql, groupBySql, String.join(",", groupArr));
 
         if (!copyGroupArr.isEmpty()) {
             SQL = SQL + " group by " + String.join(",", copyGroupArr);
@@ -228,6 +196,10 @@ public class SqlUtil {
         return new Triple<>(SQL, args);
     }
 
+    public static Pair<String, String> getCountTypeMap() {
+
+    }
+
     public static Pair<String, List<String>> getEventAggSql(AnalysisAggregationParam aggregationParam) {
         List<String> sqlArg = new ArrayList<>();
         switch (aggregationParam.getType()) {
@@ -241,20 +213,32 @@ public class SqlUtil {
         return Pair.of(EVENT_SQL, sqlArg);
     }
 
+    public static Pair<String, String> getGroupBySql(AnalysisParam analysisParam) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        StringBuilder colBuilder = new StringBuilder();
+
+        for (String groupBy: analysisParam.getGroupBy()) {
+            sqlBuilder.append(groupBy);
+            colBuilder.append(String.format(" %s as %s", groupBy, groupBy));
+        }
+
+        return Pair.of(sqlBuilder.toString(), colBuilder.toString());
+    }
+
     public static Pair<String, String> getDateGroupSql(String windowTimeFormat) {
         switch (windowTimeFormat) {
             case "按天":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日') as date_group ");
             case "按周":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点') as date_group ");
             case "按分钟":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点%M分') as date_group ");
             case "按小时":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月 星期%u')  as date_group ");
             case "按月":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月') as date_group");
             case "合计":
-                return Pair.of("date_group", "");
+                return Pair.of("date_group", " '合计' as date_group ");
         }
 
         return Pair.of("", "");

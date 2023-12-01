@@ -9,7 +9,7 @@ import java.util.List;
 @Schema(description = "事件查询参数")
 public class AnalysisAggregationParam {
 
-    private String relation;
+    private AnalysisWhereFilterParam relation;
 
     private String eventName;
 
