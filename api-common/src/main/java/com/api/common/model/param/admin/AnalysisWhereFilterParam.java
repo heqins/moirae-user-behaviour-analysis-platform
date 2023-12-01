@@ -19,6 +19,38 @@ public class AnalysisWhereFilterParam {
 
         private String comparator;
 
-        private List<String> values;
+        private String value;
+
+        public String getColumnName() {
+            return columnName;
+        }
+
+        public void setColumnName(String columnName) {
+            this.columnName = columnName;
+        }
+
+        public String getComparator() {
+            return comparator;
+        }
+
+        public void setComparator(String comparator) {
+            this.comparator = comparator;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public boolean isValid() {
+            if (columnName == null || comparator == null || value == null) {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
