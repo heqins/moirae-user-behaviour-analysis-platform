@@ -11,5 +11,12 @@ public class AnalysisAggregationParam {
 
     private String relation;
 
+    private String eventName;
+
+    private String eventNameForDisplay;
+
+    private String type;
+
+    private List<String> selectAttributes;
 
 }

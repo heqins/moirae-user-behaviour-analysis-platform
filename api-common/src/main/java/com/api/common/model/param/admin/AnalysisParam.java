@@ -17,12 +17,12 @@ public class AnalysisParam {
 
     private String windowFormat;
 
-    private Set<String> dateRange;
+    private List<String> dateRange;
 
-    private Set<String> groupBy;
+    private List<String> groupBy;
 
     private AnalysisWhereFilterParam whereFilter;
 
-    private AnalysisAggregationParam aggregation;
+    private List<AnalysisAggregationParam> aggregations;
 
 }
