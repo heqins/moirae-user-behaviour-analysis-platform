@@ -178,22 +178,27 @@ public class SqlUtil {
         }
 
         String SQL = String.format(" from ( %s  select %s from event_log_detail%s where %s%s%s order by date_group ) ",
-                withSql, String.join(",", groupCol), analysisParam.getAppId(), sql, whereSql, groupBySql, String.join(",", groupArr));
+                withSql, String.join(",", groupBySql), analysisParam.getAppId(), sql,
+                whereSql, groupBySql, String.join(",", copyGroupArr));
 
         if (!copyGroupArr.isEmpty()) {
             SQL = SQL + " group by " + String.join(",", copyGroupArr);
         }
 
         copyGroupArr.add("arrayMap((x, y) -> (x, y),groupArray(date_group),groupArray(amount)) as data_group");
-        String eventNameDisplay = String.format("%s(%d)", zhibiao.getEventNameDisplay(), index + 1);
-        this.eventNameDisplayArr.add(eventNameDisplay);
-        copyGroupArr.add(String.format("'%s' as eventNameDisplay", eventNameDisplay), "count(1)  group_num", String.valueOf(index + 1) + " as serial_number");
+        String eventNameDisplay = String.format("%s(%d)", agg.getEventNameForDisplay(), index + 1);
+
+//        this.eventNameDisplayArr.add(eventNameDisplay);
+
+        copyGroupArr.add(String.format("'%s' as eventNameDisplay", eventNameDisplay));
+        copyGroupArr.add("count(1)  group_num");
+        copyGroupArr.add(index + 1 + " as serial_number");
 
         SQL = String.format("select %s%s limit 1000 ", String.join(",", copyGroupArr), SQL);
 
-        args.addAll(this.args);
+//        sqlArgs.addAll(this.args);
 
-        return new Triple<>(SQL, args);
+        return Pair.of(SQL, sqlArgs);
     }
 
     public static Pair<String, String> getCountTypeMap() {
@@ -227,14 +232,14 @@ public class SqlUtil {
 
     public static Pair<String, String> getDateGroupSql(String windowTimeFormat) {
         switch (windowTimeFormat) {
-            case "按天":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日') as date_group ");
-            case "按周":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点') as date_group ");
             case "按分钟":
                 return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点%M分') as date_group ");
             case "按小时":
                 return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月 星期%u')  as date_group ");
+            case "按天":
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日') as date_group ");
+            case "按周":
+                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点') as date_group ");
             case "按月":
                 return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月') as date_group");
             case "合计":

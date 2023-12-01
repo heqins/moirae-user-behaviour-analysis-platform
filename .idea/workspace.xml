@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新项目参考感谢">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 完善事件查询逻辑">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisAggregationParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisAggregationParam.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,14 +285,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="25897000" />
-    </task>
-    <task id="LOCAL-00010" summary="feat: 更改标题">
-      <created>1692456203978</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1692456203978</updated>
+      <workItem from="1701134464645" duration="27888000" />
     </task>
     <task id="LOCAL-00011" summary="feat: 初始化pv数据sink到mysql">
       <created>1692512064214</created>
@@ -628,7 +623,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701423779327</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat: 完善事件查询逻辑">
+      <created>1701426049038</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1701426049038</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,7 +671,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 增加adminServer应用创建接口" />
     <MESSAGE value="feat: 更新异常处理类" />
     <MESSAGE value="feat: 增加登录接口" />
     <MESSAGE value="feat: 更新登录校验" />
@@ -694,7 +695,8 @@
     <MESSAGE value="feat: 增加处理where条件" />
     <MESSAGE value="feat: 处理and逻辑" />
     <MESSAGE value="feat: 更新项目参考感谢" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新项目参考感谢" />
+    <MESSAGE value="feat: 完善事件查询逻辑" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善事件查询逻辑" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -703,16 +705,6 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/CustomKeyGenerator.java</url>
           <line>13</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
-          <line>126</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
