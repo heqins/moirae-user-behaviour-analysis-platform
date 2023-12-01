@@ -4,7 +4,9 @@
 - 该项目主要用于搭建基于大数据框架的用户行为日志收集、存储、分析平台;
 
 ## 感谢
-- 本项目基于Bilibili北极星平台(https://www.bilibili.com/read/cv22600289/)和铸龙项目(https://github.com/1340691923/xwl_bi)，在搭建过程中参考了许多业务逻辑，在此感谢！
+本项目参考了以下资料：
+  - bilibili北极星平台(https://www.bilibili.com/read/cv22600289/) 
+  - 铸龙项目(https://github.com/1340691923/xwl_bi)
 
 ## 任务计划：
 - [ ] flink数据清洗任务、统计任务、数据转发任务、数据存储任务
