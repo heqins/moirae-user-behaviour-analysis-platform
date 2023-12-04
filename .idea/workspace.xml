@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新感谢">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 替换sql语句兼容doris">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandlerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/BeanProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,14 +275,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="39997000" />
-    </task>
-    <task id="LOCAL-00013" summary="feat: 初始化sink和admin服务">
-      <created>1692517549220</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1692517549220</updated>
+      <workItem from="1701134464645" duration="41034000" />
     </task>
     <task id="LOCAL-00014" summary="feat: 数据初始化处理">
       <created>1692529969162</created>
@@ -629,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701428224699</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="feat: 替换sql语句兼容doris">
+      <created>1701693524806</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1701693524806</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +661,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新登录校验" />
     <MESSAGE value="feat: 更新metaEvent开启控制" />
     <MESSAGE value="feat: 更新元事件属性管理接口" />
     <MESSAGE value="feat: 更新元事件接口" />
@@ -695,7 +685,8 @@
     <MESSAGE value="feat: 完善事件查询逻辑" />
     <MESSAGE value="feat: 完善事件查询逻辑，注释多余部分" />
     <MESSAGE value="feat: 更新感谢" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新感谢" />
+    <MESSAGE value="feat: 替换sql语句兼容doris" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 替换sql语句兼容doris" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -707,13 +698,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>60</line>
+          <line>76</line>
           <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java</url>
@@ -732,8 +718,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="114" />
+          <line>60</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -48,9 +48,32 @@ public class EventHandler implements AnalysisHandler{
 
         String sql = whereSqlPair.getKey() + dateRangeSqlPair.getKey();
 
-        Pair<String, List<String>> sqlPair = SqlUtil.getAggregation(0, param, sqlArgs, sql);
+        List<String> allArgs = new ArrayList<>();
+        List<String> allSql = new ArrayList<>();
 
+        for (int i = 0; i < param.getAggregations().size(); i++) {
+            Pair<String, List<String>> sqlPair = SqlUtil.getAggregation(i, param, sqlArgs, sql);
+
+            if (sqlPair == null) {
+                continue;
+            }
+
+            allSql.add(sqlPair.getKey());
+            allArgs.addAll(sqlPair.getValue());
+        }
+
+        List<String> orderBy = new ArrayList<>();
         // order by
-        return sqlPair;
+        if (param.getGroupBy() != null && param.getGroupBy().size() > 0) {
+            orderBy.addAll(param.getGroupBy());
+        }else {
+            orderBy.add("serial_number");
+        }
+
+        String finalSQL = String.format("select * from (%s) AS out order by %s",
+                String.join(" union all ", allSql),
+                String.join(", ", orderBy));
+
+        return Pair.of(finalSQL, allArgs);
     }
 }
