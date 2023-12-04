@@ -2,6 +2,7 @@ package com.api.common.model.param.admin;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -25,4 +26,11 @@ public class AnalysisParam {
 
     private List<AnalysisAggregationParam> aggregations;
 
+    public boolean isValid() {
+        if (CollectionUtils.isEmpty(aggregations)) {
+            return false;
+        }
+
+        return true;
+    }
 }

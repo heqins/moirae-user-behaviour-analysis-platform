@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CountUtil {
+
     public interface GetCountCol {
         String apply(String col);
     }
@@ -13,11 +14,19 @@ public class CountUtil {
     public static final String Default = "默认";
 
     public enum CountType {
-        UserNum, AllSum, AvgCount, AvgSumByUser, MiddleCount, MaxCount, MinCount,
-        DistincCount, AllCount, ClickUserNum, AvgCountByUser, MiddleCount5,
-        MiddleCount10, MiddleCount20, MiddleCount25, MiddleCount30, MiddleCount40,
-        MiddleCount60, MiddleCount70, MiddleCount75, MiddleCount80, MiddleCount90,
-        MiddleCount95, MiddleCount99
+
+
+        UserNum("A1"), AllSum("2"), AvgCount("3"), AvgSumByUser("4"), MiddleCount("5"), MaxCount("6"), MinCount("7"),
+        DistincCount("8"), AllCount("9"), ClickUserNum("10"), AvgCountByUser("11"), MiddleCount5("12"),
+        MiddleCount10("13"), MiddleCount20("14"), MiddleCount25("15"), MiddleCount30("16"), MiddleCount40("17"),
+        MiddleCount60("18"), MiddleCount70("19"), MiddleCount75("20"), MiddleCount80("21"), MiddleCount90("22"),
+        MiddleCount95("23"), MiddleCount99("24");
+
+        private String type;
+
+        private CountType(String type) {
+            this.type = type;
+        }
     }
 
     public enum ScaleType {
@@ -26,34 +35,34 @@ public class CountUtil {
 
     private static final AtomicInteger autoAddId = new AtomicInteger(0);
 
-    public static final Map<CountType, GetCountCol> COUNT_TYPE_MAP = new HashMap<>();
+    public static final Map<String, GetCountCol> COUNT_TYPE_MAP = new HashMap<>();
 
     static {
-        COUNT_TYPE_MAP.put(CountType.UserNum, col -> {
+        COUNT_TYPE_MAP.put(CountType.UserNum.type, col -> {
             if (col.equals(Default)) {
-                return toString("count()");
+                return toString("count(*)");
             }
             return toString(String.format("count(%s)", col));
         });
 
-        COUNT_TYPE_MAP.put(CountType.AllSum, col -> toString(Round(NaN2Zero(String.format("sum(%s)", col)))));
+        COUNT_TYPE_MAP.put(CountType.AllSum.type, col -> toString(Round(NaN2Zero(String.format("sum(%s)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.AvgCount, col -> toString(Round(NaN2Zero(String.format("avg(%s)", col)))));
+        COUNT_TYPE_MAP.put(CountType.AvgCount.type, col -> toString(Round(NaN2Zero(String.format("avg(%s)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.AvgSumByUser, col -> toString(Round(NaN2Zero(String.format("SUM(%s)/COUNT(DISTINCT xwl_distinct_id)", col)))));
+        COUNT_TYPE_MAP.put(CountType.AvgSumByUser.type, col -> toString(Round(NaN2Zero(String.format("SUM(%s)/COUNT(DISTINCT xwl_distinct_id)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.MiddleCount, col -> toString(NaN2Zero(String.format("quantile(%s)", col))));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount.type, col -> toString(NaN2Zero(String.format("quantile(%s)", col))));
 
-        COUNT_TYPE_MAP.put(CountType.MaxCount, col -> toString(Round(NaN2Zero(String.format("max(%s)", col)))));
+        COUNT_TYPE_MAP.put(CountType.MaxCount.type, col -> toString(Round(NaN2Zero(String.format("max(%s)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.MinCount, col -> toString(Round(NaN2Zero(String.format("min(%s)", col)))));
+        COUNT_TYPE_MAP.put(CountType.MinCount.type, col -> toString(Round(NaN2Zero(String.format("min(%s)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.DistincCount, col -> toString(Round(NaN2Zero(String.format("count(DISTINCT %s)", col)))));
+        COUNT_TYPE_MAP.put(CountType.DistincCount.type, col -> toString(Round(NaN2Zero(String.format("count(DISTINCT %s)", col)))));
 
-        COUNT_TYPE_MAP.put(CountType.AllCount, CountTypeMap::allCount);
-        COUNT_TYPE_MAP.put(CountType.ClickUserNum, CountTypeMap::clickUserNum);
+//        COUNT_TYPE_MAP.put(CountType.AllCount, CountTypeMap::allCount);
+//        COUNT_TYPE_MAP.put(CountType.ClickUserNum, CountTypeMap::clickUserNum);
 
-        COUNT_TYPE_MAP.put(CountType.AvgCountByUser, col -> {
+        COUNT_TYPE_MAP.put(CountType.AvgCountByUser.type, col -> {
             if (col.equals(Default)) {
                 return toString(Round(NaN2Zero(String.format("%s/%s", ToFloat32OrZero(allCount(col)), ToFloat32OrZero(clickUserNum(col))))));
             }
@@ -62,19 +71,19 @@ public class CountUtil {
             return toString(Round(NaN2Zero(String.format("%s/%s", ToFloat32OrZero(allCount(arr[0])), ToFloat32OrZero(clickUserNum(arr[1]))))));
         });
 
-        COUNT_TYPE_MAP.put(CountType.MiddleCount5, col -> toString(getQuantile(0.05, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount10, col -> toString(getQuantile(0.1, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount20, col -> toString(getQuantile(0.2, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount25, col -> toString(getQuantile(0.25, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount30, col -> toString(getQuantile(0.3, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount40, col -> toString(getQuantile(0.4, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount60, col -> toString(getQuantile(0.6, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount70, col -> toString(getQuantile(0.7, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount75, col -> toString(getQuantile(0.75, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount80, col -> toString(getQuantile(0.8, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount90, col -> toString(getQuantile(0.9, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount95, col -> toString(getQuantile(0.95, col)));
-        COUNT_TYPE_MAP.put(CountType.MiddleCount99, col -> toString(getQuantile(0.99, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount5.type, col -> toString(getQuantile(0.05, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount10.type, col -> toString(getQuantile(0.1, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount20.type, col -> toString(getQuantile(0.2, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount25.type, col -> toString(getQuantile(0.25, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount30.type, col -> toString(getQuantile(0.3, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount40.type, col -> toString(getQuantile(0.4, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount60.type, col -> toString(getQuantile(0.6, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount70.type, col -> toString(getQuantile(0.7, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount75.type, col -> toString(getQuantile(0.75, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount80.type, col -> toString(getQuantile(0.8, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount90.type, col -> toString(getQuantile(0.9, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount95.type, col -> toString(getQuantile(0.95, col)));
+        COUNT_TYPE_MAP.put(CountType.MiddleCount99.type, col -> toString(getQuantile(0.99, col)));
     }
 
     private static String getQuantile(double sum, String col) {
@@ -114,7 +123,7 @@ public class CountUtil {
 
     private static String allCount(String col) {
         if (col.equals(Default)) {
-            return toString("count()");
+            return toString("count(*)");
         }return toString(String.format("count(%s)", col));
     }
 
@@ -133,7 +142,7 @@ public class CountUtil {
     }
 
     private static String toString(String fn) {
-        return String.format("toString(%s)", fn);
+        return String.format("CAST(%s as VARCHAR(256))", fn);
     }
 
     private static String Round(String fn) {

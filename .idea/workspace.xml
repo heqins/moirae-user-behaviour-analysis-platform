@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 完善事件查询逻辑">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新感谢">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandlerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/BeanProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +147,7 @@
       <recent name="com.api.common.model.vo.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SqlUtil">
+  <component name="RunManager" selected="JUnit.EventAnalysisTest.doAnalysis">
     <configuration name="Interview" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Interview" />
       <module name="user-behaviour-analysis-platform" />
@@ -163,6 +168,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EventAnalysisTest.doAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.admin.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.admin.server" />
+      <option name="MAIN_CLASS_NAME" value="com.admin.server.EventAnalysisTest" />
+      <option name="METHOD_NAME" value="doAnalysis" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SinkListenerTest.testListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sink-server" />
       <extension name="coverage">
@@ -178,28 +199,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="FlaskStressTestServer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="stress-test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/stress-test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stress-test/FlaskStressTestServer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="ReportLocustFile" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="stress-test" />
@@ -239,11 +238,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EventAnalysisTest.doAnalysis" />
         <item itemvalue="Application.SqlUtil" />
         <item itemvalue="Application.Interview" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Python.ReportLocustFile" />
-        <item itemvalue="Python.FlaskStressTestServer" />
       </list>
     </recent_temporary>
   </component>
@@ -285,21 +284,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="27888000" />
-    </task>
-    <task id="LOCAL-00011" summary="feat: 初始化pv数据sink到mysql">
-      <created>1692512064214</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1692512064214</updated>
-    </task>
-    <task id="LOCAL-00012" summary="feat: 初始化pv数据sink到mysql，任务启动类">
-      <created>1692512565087</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1692512565087</updated>
+      <workItem from="1701134464645" duration="39997000" />
     </task>
     <task id="LOCAL-00013" summary="feat: 初始化sink和admin服务">
       <created>1692517549220</created>
@@ -630,7 +615,21 @@
       <option name="project" value="LOCAL" />
       <updated>1701426049038</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="feat: 完善事件查询逻辑，注释多余部分">
+      <created>1701428053547</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1701428053547</updated>
+    </task>
+    <task id="LOCAL-00061" summary="feat: 更新感谢">
+      <created>1701428224699</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1701428224699</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -671,8 +670,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新异常处理类" />
-    <MESSAGE value="feat: 增加登录接口" />
     <MESSAGE value="feat: 更新登录校验" />
     <MESSAGE value="feat: 更新metaEvent开启控制" />
     <MESSAGE value="feat: 更新元事件属性管理接口" />
@@ -696,7 +693,9 @@
     <MESSAGE value="feat: 处理and逻辑" />
     <MESSAGE value="feat: 更新项目参考感谢" />
     <MESSAGE value="feat: 完善事件查询逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善事件查询逻辑" />
+    <MESSAGE value="feat: 完善事件查询逻辑，注释多余部分" />
+    <MESSAGE value="feat: 更新感谢" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新感谢" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -705,6 +704,36 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/CustomKeyGenerator.java</url>
           <line>13</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java</url>
+          <line>209</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="114" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

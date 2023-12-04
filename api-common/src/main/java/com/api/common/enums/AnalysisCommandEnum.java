@@ -2,19 +2,19 @@ package com.api.common.enums;
 
 public enum AnalysisCommandEnum {
 
-    EVENT_COMMAND(1),
+    EVENT_COMMAND("eventHandler"),
 
-    FUNNEL_COMMAND(0),
+    FUNNEL_COMMAND(""),
 
     ;
 
-    private Integer value;
+    private String value;
 
-    AnalysisCommandEnum(Integer value) {
+    AnalysisCommandEnum(String value) {
         this.value = value;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 }

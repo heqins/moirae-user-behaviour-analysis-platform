@@ -19,9 +19,9 @@ public class SqlUtil {
 
     static String DEFAULT_WHERE = "1=1";
 
-    private static final String DATE_RANGE_SQL = " and event_date >= ? and event_date <= ?";
+    private static final String DATE_RANGE_SQL = " AND event_date >= ? AND event_date <= ?";
 
-    private static final String EVENT_SQL = " and report_event in (?)";
+    private static final String EVENT_SQL = " AND event_name in (?)";
 
     interface Relation {
         String toSql();
@@ -66,15 +66,15 @@ public class SqlUtil {
             }
 
             sb.append(filter.getColumnName()).append(" ")
-                    .append(filter.getComparator());
+                    .append(filter.getComparator()).append(" ?");
 
             return this;
         }
     }
 
     public static Pair<String, List<String>> getWhereSql(AnalysisWhereFilterParam whereFilter) {
-        if (whereFilter == null) {
-            return Pair.of("", new ArrayList<>());
+        if (whereFilter == null || whereFilter.getFilters() == null) {
+            return null;
         }
 
         Relation relation;
@@ -128,19 +128,23 @@ public class SqlUtil {
         String dateGroupSql = dateGroupSqlColPair.getKey();
         String dateGroupCol = dateGroupSqlColPair.getValue();
 
-        Pair<String, String> groupArrPair = getGroupBySql(analysisParam);
+        Pair<List<String>, List<String>> groupArrPair = getGroupBySql(analysisParam);
+
+        List<String> groupArr = groupArrPair.getKey();
+        List<String> groupCol = groupArrPair.getValue();
+
         List<String> copyGroupArr = new ArrayList<>();
 
-        if (StringUtils.isNotBlank(dateGroupSql)) {
-            copyGroupArr.add(dateGroupSql);
+        if (StringUtils.isNotBlank(dateGroupCol)) {
+            groupCol.add(dateGroupCol);
         }
 
-        if (StringUtils.isNotBlank(dateGroupCol)) {
-            sqlArgs.add(dateGroupCol);
+        if (StringUtils.isNotBlank(dateGroupSql)) {
+            groupArr.add(dateGroupSql);
         }
 
         String groupBySql = "";
-        if (!CollectionUtils.isEmpty(copyGroupArr)) {
+        if (!CollectionUtils.isEmpty(groupArr)) {
             groupBySql = " group by ";
         }
 
@@ -158,12 +162,15 @@ public class SqlUtil {
 
                 Pair<String, List<String>> whereSqlArgsPair = getWhereSql(agg.getRelation());
 
-                whereSql = whereSqlArgsPair.getKey();
-                whereArgs = whereSqlArgsPair.getValue();
+                if (whereSqlArgsPair != null) {
+                    whereSql = whereSqlArgsPair.getKey();
+                    whereArgs = whereSqlArgsPair.getValue();
+                }
 
-                String selectAttr = this.req.getZhibiaoArr().get(index).getSelectAttr();
-                String col = String.format(" (%s) as %s ", CountUtil.get().get(selectAttr.get(1)).apply(selectAttr.get(0)), "amount");
-                copyGroupArr.add(col);
+                List<String> selectAttrs = agg.getSelectAttributes();
+                String col = String.format(" (%s) as %s ", CountUtil.COUNT_TYPE_MAP.get(selectAttrs.get(1))
+                        .apply(selectAttrs.get(0)), "amount");
+                groupCol.add(col);
                 break;
             default:
                 throw new IllegalArgumentException("未知指标类型");
@@ -177,32 +184,30 @@ public class SqlUtil {
             whereSql = " and " + whereSql;
         }
 
-        String SQL = String.format(" from ( %s  select %s from event_log_detail%s where %s%s%s order by date_group ) ",
-                withSql, String.join(",", groupBySql), analysisParam.getAppId(), sql,
-                whereSql, groupBySql, String.join(",", copyGroupArr));
+        String SQL = String.format(" from ( %s select %s from event_log_detail_%s where %s%s%s",
+                withSql, String.join(",", groupCol), analysisParam.getAppId(), sql,
+                whereSql, groupBySql);
 
-        if (!copyGroupArr.isEmpty()) {
+        SQL += String.join(",", groupArr);
+        SQL += " order by date_group ) t";
+
+        if (!CollectionUtils.isEmpty(copyGroupArr)) {
             SQL = SQL + " group by " + String.join(",", copyGroupArr);
         }
 
-        copyGroupArr.add("arrayMap((x, y) -> (x, y),groupArray(date_group),groupArray(amount)) as data_group");
+        copyGroupArr.add("ARRAY(t.date_group, t.amount) as data_group");
         String eventNameDisplay = String.format("%s(%d)", agg.getEventNameForDisplay(), index + 1);
 
 //        this.eventNameDisplayArr.add(eventNameDisplay);
 
         copyGroupArr.add(String.format("'%s' as eventNameDisplay", eventNameDisplay));
-        copyGroupArr.add("count(1)  group_num");
+        copyGroupArr.add("count(1) as group_num");
         copyGroupArr.add(index + 1 + " as serial_number");
 
-        SQL = String.format("select %s%s limit 1000 ", String.join(",", copyGroupArr), SQL);
+        SQL = String.format("select %s%s group by date_group, amount limit 1000 ", String.join(",", copyGroupArr), SQL);
 
-//        sqlArgs.addAll(this.args);
-
+        //        sqlArgs.addAll(this.args);
         return Pair.of(SQL, sqlArgs);
-    }
-
-    public static Pair<String, String> getCountTypeMap() {
-
     }
 
     public static Pair<String, List<String>> getEventAggSql(AnalysisAggregationParam aggregationParam) {
@@ -218,30 +223,32 @@ public class SqlUtil {
         return Pair.of(EVENT_SQL, sqlArg);
     }
 
-    public static Pair<String, String> getGroupBySql(AnalysisParam analysisParam) {
-        StringBuilder sqlBuilder = new StringBuilder();
-        StringBuilder colBuilder = new StringBuilder();
+    public static Pair<List<String>, List<String>> getGroupBySql(AnalysisParam analysisParam) {
+        List<String> groupArr = new ArrayList<>();
+        List<String> groupCol = new ArrayList<>();
 
-        for (String groupBy: analysisParam.getGroupBy()) {
-            sqlBuilder.append(groupBy);
-            colBuilder.append(String.format(" %s as %s", groupBy, groupBy));
+        if (!CollectionUtils.isEmpty(analysisParam.getGroupBy())) {
+            for (String groupBy: analysisParam.getGroupBy()) {
+                groupArr.add(groupBy);
+                groupCol.add(String.format(" %s as %s", groupBy, groupBy));
+            }
         }
 
-        return Pair.of(sqlBuilder.toString(), colBuilder.toString());
+        return Pair.of(groupArr, groupCol);
     }
 
     public static Pair<String, String> getDateGroupSql(String windowTimeFormat) {
         switch (windowTimeFormat) {
             case "按分钟":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点%M分') as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日 %H点%M分') as date_group ");
             case "按小时":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月 星期%u')  as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月 星期%u')  as date_group ");
             case "按天":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日') as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日') as date_group ");
             case "按周":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月%d日 %H点') as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日 %H点') as date_group ");
             case "按月":
-                return Pair.of("date_group", " formatDateTime(event_date,'%Y年%m月') as date_group");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月') as date_group ");
             case "合计":
                 return Pair.of("date_group", " '合计' as date_group ");
         }
