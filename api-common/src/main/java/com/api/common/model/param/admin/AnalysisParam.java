@@ -16,6 +16,7 @@ public class AnalysisParam {
     @NotBlank
     private String appId;
 
+    @Schema(description = "窗口类型", example = "按天")
     private String windowFormat;
 
     private List<String> dateRange;

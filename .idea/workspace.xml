@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 替换sql语句兼容doris">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 处理多个聚合语句">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/enums/CountType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/sql/And.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/sql/Or.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/sql/Relation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/BeanProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/BeanProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/CountUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +29,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Enum" />
-        <option value="Interface" />
         <option value="Python Unit Test" />
         <option value="Python Script" />
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -275,14 +284,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="41034000" />
-    </task>
-    <task id="LOCAL-00014" summary="feat: 数据初始化处理">
-      <created>1692529969162</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1692529969162</updated>
+      <workItem from="1701134464645" duration="42675000" />
     </task>
     <task id="LOCAL-00015" summary="feat: 初始化sink服务redis工具类">
       <created>1692534817533</created>
@@ -620,7 +622,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701693524806</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="feat: 处理多个聚合语句">
+      <created>1701694605985</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1701694605985</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -661,7 +670,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新metaEvent开启控制" />
     <MESSAGE value="feat: 更新元事件属性管理接口" />
     <MESSAGE value="feat: 更新元事件接口" />
     <MESSAGE value="feat: 更新元事件属性插入接口" />
@@ -686,7 +694,8 @@
     <MESSAGE value="feat: 完善事件查询逻辑，注释多余部分" />
     <MESSAGE value="feat: 更新感谢" />
     <MESSAGE value="feat: 替换sql语句兼容doris" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 替换sql语句兼容doris" />
+    <MESSAGE value="feat: 处理多个聚合语句" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 处理多个聚合语句" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -698,17 +707,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>76</line>
+          <line>71</line>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java</url>
-          <line>209</line>
+          <line>160</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -718,8 +722,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="116" />
+          <line>33</line>
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

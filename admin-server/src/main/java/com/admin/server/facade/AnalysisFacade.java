@@ -23,7 +23,7 @@ public class AnalysisFacade {
     private BeanProcessor beanProcessor;
 
     public void doEventAnalysis(AnalysisParam param) {
-        AnalysisHandler eventHandler = beanProcessor.processBeansImplementingInterface(AnalysisCommandEnum.EVENT_COMMAND.getValue());
+        AnalysisHandler eventHandler = beanProcessor.getByCommand(AnalysisCommandEnum.EVENT_COMMAND.getValue());
         if (eventHandler == null) {
             throw new IllegalStateException("");
         }

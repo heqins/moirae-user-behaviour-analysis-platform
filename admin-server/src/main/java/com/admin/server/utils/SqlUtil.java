@@ -1,5 +1,8 @@
 package com.admin.server.utils;
 
+import com.admin.server.model.domain.sql.And;
+import com.admin.server.model.domain.sql.Or;
+import com.admin.server.model.domain.sql.Relation;
 import com.api.common.model.param.admin.AnalysisAggregationParam;
 import com.api.common.model.param.admin.AnalysisParam;
 import com.api.common.model.param.admin.AnalysisWhereFilterParam;
@@ -16,60 +19,9 @@ public class SqlUtil {
 
     private final Logger logger = LoggerFactory.getLogger(SqlUtil.class);
 
-    static String DEFAULT_WHERE = "1=1";
-
     private static final String DATE_RANGE_SQL = " AND event_date >= ? AND event_date <= ?";
 
     private static final String EVENT_SQL = " AND event_name in (?)";
-
-    interface Relation {
-        String toSql();
-
-        Relation execute(AnalysisWhereFilterParam.Filter filter);
-    }
-
-    static class Or implements Relation {
-
-        @Override
-        public String toSql() {
-            return null;
-        }
-
-        @Override
-        public Relation execute(AnalysisWhereFilterParam.Filter filter) {
-            return null;
-        }
-    }
-
-    static class And implements Relation{
-
-        StringBuilder sb;
-
-        public And() {
-            sb = new StringBuilder();
-        }
-
-        @Override
-        public String toSql() {
-            return "(" + sb.toString() + ")";
-        }
-
-        @Override
-        public Relation execute(AnalysisWhereFilterParam.Filter filter) {
-            if (filter == null || !filter.isValid()) {
-                return this;
-            }
-
-            if (sb.length() != 0) {
-                sb.append(" AND ");
-            }
-
-            sb.append(filter.getColumnName()).append(" ")
-                    .append(filter.getComparator()).append(" ?");
-
-            return this;
-        }
-    }
 
     public static Pair<String, List<String>> getWhereSql(AnalysisWhereFilterParam whereFilter) {
         if (whereFilter == null || whereFilter.getFilters() == null) {
@@ -85,7 +37,7 @@ public class SqlUtil {
                 relation = new Or();
                 break;
             default:
-                throw new IllegalArgumentException("");
+                throw new IllegalArgumentException("关联关系参数错误");
         }
 
         List<String> sqlArgs = new ArrayList<>();
@@ -101,7 +53,7 @@ public class SqlUtil {
 
     public static Pair<String, List<String>> getDateRangeSql(List<String> dateRange) {
         if (dateRange.size() == 0 || dateRange.size() > 2) {
-            return Pair.of("", new ArrayList<>());
+            return null;
         }
 
         String startTime = dateRange.get(0) + " 00:00:00";
@@ -250,37 +202,10 @@ public class SqlUtil {
                 return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月') as date_group ");
             case "合计":
                 return Pair.of("date_group", " '合计' as date_group ");
+            default:
+                break;
         }
 
         return Pair.of("", "");
-    }
-
-    public static void main(String[] args) {
-        AnalysisWhereFilterParam filterParam = new AnalysisWhereFilterParam();
-        filterParam.setRelation("AND");
-        AnalysisWhereFilterParam.Filter filter = new AnalysisWhereFilterParam.Filter();
-        filter.setColumnName("name");
-        filter.setComparator(">=");
-        filter.setValue("32");
-
-        AnalysisWhereFilterParam.Filter filter2 = new AnalysisWhereFilterParam.Filter();
-        filter2.setColumnName("age");
-        filter2.setComparator("IN");
-        filter2.setValue("[1, 2, 3]");
-
-        AnalysisWhereFilterParam.Filter filter3 = new AnalysisWhereFilterParam.Filter();
-        filter3.setColumnName("version");
-        filter3.setComparator("<=");
-        filter3.setValue("3.45.0");
-
-        List<AnalysisWhereFilterParam.Filter> filterList = new ArrayList<>();
-        filterParam.setFilters(filterList);
-
-        filterParam.getFilters().add(filter);
-        filterParam.getFilters().add(filter2);
-        filterParam.getFilters().add(filter3);
-
-        Pair<String, List<String>> res = getWhereSql(filterParam);
-        System.out.println("test");
     }
 }
