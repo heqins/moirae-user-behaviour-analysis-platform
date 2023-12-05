@@ -14,6 +14,7 @@ import java.util.*;
 
 @Component
 public class DorisHelper {
+
     private final Logger logger = LoggerFactory.getLogger(DorisHelper.class);
 
     @Resource
@@ -142,7 +143,7 @@ public class DorisHelper {
 
             return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("selectEventAnalysis execute query sql error", e);
         }
 
         return new ArrayList<>();

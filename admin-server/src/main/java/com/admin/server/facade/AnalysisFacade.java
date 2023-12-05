@@ -22,13 +22,15 @@ public class AnalysisFacade {
     @Resource
     private BeanProcessor beanProcessor;
 
-    public void doEventAnalysis(AnalysisParam param) {
+    public EventAnalysisResultDto doEventAnalysis(AnalysisParam param) {
         AnalysisHandler eventHandler = beanProcessor.getByCommand(AnalysisCommandEnum.EVENT_COMMAND.getValue());
         if (eventHandler == null) {
-            throw new IllegalStateException("");
+            throw new IllegalStateException("事件类型不存在");
         }
 
         EventAnalysisResultDto eventResult = eventHandler.execute(param);
         logger.info("do event analysis result:{}", eventResult);
+
+        return eventResult;
     }
 }

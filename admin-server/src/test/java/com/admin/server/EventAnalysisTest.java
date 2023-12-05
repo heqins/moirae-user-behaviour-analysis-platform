@@ -62,7 +62,7 @@ public class EventAnalysisTest {
 
         List<String> selectAttrs = new ArrayList<>();
         selectAttrs.add("默认");
-        selectAttrs.add("A1");
+        selectAttrs.add("9");
 
         agg.setSelectAttributes(selectAttrs);
 

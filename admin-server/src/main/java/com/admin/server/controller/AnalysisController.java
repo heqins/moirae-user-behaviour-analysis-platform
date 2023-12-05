@@ -1,6 +1,7 @@
 package com.admin.server.controller;
 
 import com.admin.server.facade.AnalysisFacade;
+import com.admin.server.model.dto.EventAnalysisResultDto;
 import com.api.common.constant.ApiConstants;
 import com.api.common.model.param.admin.AnalysisParam;
 import com.api.common.model.vo.CommonResponse;
@@ -24,9 +25,8 @@ public class AnalysisController {
 
     @Operation(description = "进行事件查询")
     @PostMapping("/doEventAnalysis")
-    public CommonResponse<Void> doEventAnalysis(@RequestBody @Valid AnalysisParam param) {
-        analysisFacade.doEventAnalysis(param);
-        return CommonResponse.ofSuccess();
+    public CommonResponse<EventAnalysisResultDto> doEventAnalysis(@RequestBody @Valid AnalysisParam param) {
+        return CommonResponse.ofSuccess(analysisFacade.doEventAnalysis(param));
     }
 
 

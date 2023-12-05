@@ -8,9 +8,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,28 @@ public class EventHandler implements AnalysisHandler{
 
         List<Map<String, Object>> maps = dorisHelper.selectEventAnalysis(sqlPair);
 
-        return null;
+        EventAnalysisResultDto resultDto = constructResult(maps);
+
+        return resultDto;
+    }
+
+    private EventAnalysisResultDto constructResult(List<Map<String, Object>> dataMaps) {
+        EventAnalysisResultDto resultDto = new EventAnalysisResultDto();
+
+        List<EventAnalysisResultDto.DataGroupDto> groupDtos = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(dataMaps)) {
+            for (Map<String, Object> dataMap : dataMaps) {
+                EventAnalysisResultDto.DataGroupDto groupDto = new EventAnalysisResultDto.DataGroupDto();
+                groupDto.setItem(dataMap);
+
+                groupDtos.add(groupDto);
+            }
+        }
+
+        resultDto.setDataGroups(groupDtos);
+        resultDto.setTotal(dataMaps.size());
+
+        return resultDto;
     }
 
     private Pair<String, List<String>> getEventSql(AnalysisParam param) {
@@ -43,6 +66,7 @@ public class EventHandler implements AnalysisHandler{
         List<String> sqlArgs = whereSqlPair.getValue();
 
         Pair<String, List<String>> dateRangeSqlPair = SqlUtil.getDateRangeSql(param.getDateRange());
+
         sqlArgs.addAll(dateRangeSqlPair.getValue());
 
         String sql = whereSqlPair.getKey() + dateRangeSqlPair.getKey();
@@ -65,10 +89,10 @@ public class EventHandler implements AnalysisHandler{
             orderBy.add("serial_number");
         }
 
-        String finalSQL = String.format("select * from (%s) AS out order by %s",
+        String finalSql = String.format("select * from (%s) AS out order by %s",
                 String.join(" union all ", allSql),
                 String.join(", ", orderBy));
 
-        return Pair.of(finalSQL, allArgs);
+        return Pair.of(finalSql, allArgs);
     }
 }
