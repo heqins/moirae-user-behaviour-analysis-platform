@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 排除部分文件">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新事件分析返回结果封装">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AnalysisController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/DorisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/helper/DorisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/permission/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +137,9 @@
       <recent name="$PROJECT_DIR$/report-server/sh" />
       <recent name="$PROJECT_DIR$/report-server/conf" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.admin.server.helper" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.api.common.model.param.admin" />
       <recent name="com.api.common.enums" />
@@ -144,19 +149,25 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.EventAnalysisTest.doAnalysis">
-    <configuration name="Interview" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Interview" />
-      <module name="user-behaviour-analysis-platform" />
+    <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.EtlTaskRunner" />
+      <module name="flink-job" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.flink.job.task.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SqlUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.utils.SqlUtil" />
-      <module name="admin-server" />
+    <configuration name="ReportLogRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.ReportLogRunner" />
+      <module name="flink-job" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.admin.server.utils.*" />
+          <option name="PATTERN" value="com.flink.job.task.runner.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -168,12 +179,12 @@
       <module name="admin-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.admin.server.*" />
+          <option name="PATTERN" value="com.admin.server.analysis.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.admin.server" />
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.EventAnalysisTest" />
+      <option name="PACKAGE_NAME" value="com.admin.server.analysis" />
+      <option name="MAIN_CLASS_NAME" value="com.admin.server.analysis.EventAnalysisTest" />
       <option name="METHOD_NAME" value="doAnalysis" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -235,10 +246,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.EventAnalysisTest.doAnalysis" />
-        <item itemvalue="Application.SqlUtil" />
-        <item itemvalue="Application.Interview" />
-        <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Python.ReportLocustFile" />
+        <item itemvalue="JUnit.SinkListenerTest.testListener" />
+        <item itemvalue="Application.ReportLogRunner" />
+        <item itemvalue="Application.EtlTaskRunner" />
       </list>
     </recent_temporary>
   </component>
@@ -280,14 +291,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="47029000" />
-    </task>
-    <task id="LOCAL-00018" summary="feat: 初始化geoIp2查询国家接口">
-      <created>1692632668700</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1692632668700</updated>
+      <workItem from="1701134464645" duration="48533000" />
     </task>
     <task id="LOCAL-00019" summary="feat: 初始化swagger配置">
       <created>1692634237877</created>
@@ -625,7 +629,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701696366816</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="feat: 更新事件分析返回结果封装">
+      <created>1701750178452</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1701750178452</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -666,7 +677,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新cache配置" />
     <MESSAGE value="feat: 删除多余表" />
     <MESSAGE value="feat: 更新metaEventAttribute接口增加" />
     <MESSAGE value="feat: 更新alterColumn判断" />
@@ -691,7 +701,8 @@
     <MESSAGE value="feat: 删除部分多余代码" />
     <MESSAGE value="feat: 排查部分文件" />
     <MESSAGE value="feat: 排除部分文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 排除部分文件" />
+    <MESSAGE value="feat: 更新事件分析返回结果封装" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新事件分析返回结果封装" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -700,21 +711,6 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/CustomKeyGenerator.java</url>
           <line>13</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="121" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -727,6 +723,6 @@
     <SUITE FILE_PATH="coverage/user_behaviour_analysis$AiokafkaProducer.coverage" NAME="AiokafkaProducer Coverage Results" MODIFIED="1694577200831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test/producer" />
     <SUITE FILE_PATH="coverage/user_behaviour_analysis$FlaskStressTestServer.coverage" NAME="FlaskStressTestServer Coverage Results" MODIFIED="1694577746358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
     <SUITE FILE_PATH="coverage/user_behaviour_analysis$KafkaReportProducer.coverage" NAME="KafkaReportProducer Coverage Results" MODIFIED="1694526406270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test/producer" />
-    <SUITE FILE_PATH="coverage/user_behaviour_analysis$ReportLocustFile.coverage" NAME="ReportLocustFile Coverage Results" MODIFIED="1694577768529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
+    <SUITE FILE_PATH="coverage/user_behaviour_analysis$ReportLocustFile.coverage" NAME="ReportLocustFile Coverage Results" MODIFIED="1701750429642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stress-test" />
   </component>
 </project>

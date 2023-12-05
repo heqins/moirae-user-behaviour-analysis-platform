@@ -1,4 +1,4 @@
-package com.admin.server;
+package com.admin.server.helper;
 
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.dto.DbColumnValueDto;

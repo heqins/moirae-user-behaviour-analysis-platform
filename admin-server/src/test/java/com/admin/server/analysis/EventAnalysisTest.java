@@ -1,4 +1,4 @@
-package com.admin.server;
+package com.admin.server.analysis;
 
 
 import com.admin.server.facade.AnalysisFacade;
@@ -28,7 +28,7 @@ public class EventAnalysisTest {
         AnalysisParam param = new AnalysisParam();
 
         param.setAppId("2crdwf5q");
-        param.setWindowFormat("按天");
+        param.setWindowFormat("按周");
 
         List<String> dateRange = new ArrayList<>();
         dateRange.add("2023-12-01");
@@ -38,7 +38,7 @@ public class EventAnalysisTest {
         AnalysisWhereFilterParam filterParam = new AnalysisWhereFilterParam();
         filterParam.setRelation("AND");
         AnalysisWhereFilterParam.Filter filter = new AnalysisWhereFilterParam.Filter();
-        filter.setComparator("=");
+        filter.setComparator(">=");
         filter.setValue("test");
         filter.setColumnName("event_name");
 
@@ -52,11 +52,11 @@ public class EventAnalysisTest {
         relation.setRelation("AND");
         AnalysisWhereFilterParam.Filter relationFilter = new AnalysisWhereFilterParam.Filter();
         relationFilter.setComparator("=");
-        relationFilter.setValue("test");
+        relationFilter.setValue("登录2");
         relationFilter.setColumnName("event_name");
 
         agg.setRelation(relation);
-        agg.setEventName("test");
+        agg.setEventName("登录2");
         agg.setType("zhibiao");
         agg.setEventNameForDisplay("默认");
 

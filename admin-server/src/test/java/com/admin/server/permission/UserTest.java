@@ -1,4 +1,4 @@
-package com.admin.server;
+package com.admin.server.permission;
 
 import com.admin.server.dao.SysUserDao;
 import com.admin.server.service.IRoleService;

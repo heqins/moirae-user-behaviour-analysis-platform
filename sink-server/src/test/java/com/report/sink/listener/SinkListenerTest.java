@@ -30,13 +30,13 @@ public class SinkListenerTest {
         String key = "my-key";
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.set("event_name", "测试");
-        jsonObject.set("event_type", "测试");
-        jsonObject.set("event_time", System.currentTimeMillis());
+        jsonObject.set("event_name", "登录");
+        jsonObject.set("event_type", "正式");
+        jsonObject.set("event_time", 1701549068000L);
         jsonObject.set("app_id", "2crdwf5q");
         jsonObject.set("app_version", "3.14.0");
         jsonObject.set("app_beta_flag4", 3.14);
-        jsonObject.set("unique_id", MD5.create().digestHex("test"));
+        jsonObject.set("unique_id", MD5.create().digestHex("dssqqwee"));
 
         String value = JSONUtil.toJsonStr(jsonObject);
         ConsumerRecord<String, String> record = new ConsumerRecord<>(topic, partition, offset, key, value);

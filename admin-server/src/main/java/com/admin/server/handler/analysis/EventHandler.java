@@ -1,5 +1,6 @@
 package com.admin.server.handler.analysis;
 
+import cn.hutool.json.JSONUtil;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.dto.EventAnalysisResultDto;
 import com.admin.server.utils.SqlUtil;
@@ -30,6 +31,7 @@ public class EventHandler implements AnalysisHandler{
     @Override
     public EventAnalysisResultDto execute(AnalysisParam param) {
         Pair<String, List<String>> sqlPair = getEventSql(param);
+        logger.info("EventHandler sql: {} args:{}", sqlPair.getKey(), JSONUtil.toJsonStr(sqlPair.getValue()));
 
         List<Map<String, Object>> maps = dorisHelper.selectEventAnalysis(sqlPair);
 
@@ -89,7 +91,7 @@ public class EventHandler implements AnalysisHandler{
             orderBy.add("serial_number");
         }
 
-        String finalSql = String.format("select * from (%s) AS out order by %s",
+        String finalSql = String.format("select * from (%s) AS external order by %s",
                 String.join(" union all ", allSql),
                 String.join(", ", orderBy));
 

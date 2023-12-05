@@ -193,11 +193,11 @@ public class SqlUtil {
             case "按分钟":
                 return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日 %H点%M分') as date_group ");
             case "按小时":
-                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月 星期%u')  as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日 %H点') as date_group ");
             case "按天":
                 return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日') as date_group ");
             case "按周":
-                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月%d日 %H点') as date_group ");
+                return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月 星期%u')  as date_group ");
             case "按月":
                 return Pair.of("date_group", " DATE_FORMAT(event_date,'%Y年%m月') as date_group ");
             case "合计":
