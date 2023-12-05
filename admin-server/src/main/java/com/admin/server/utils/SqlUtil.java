@@ -84,7 +84,7 @@ public class SqlUtil {
         List<String> groupArr = groupArrPair.getKey();
         List<String> groupCol = groupArrPair.getValue();
 
-        List<String> copyGroupArr = new ArrayList<>();
+        List<String> copyGroupArr = new ArrayList<>(groupArr);
 
         if (StringUtils.isNotBlank(dateGroupCol)) {
             groupCol.add(dateGroupCol);
@@ -143,21 +143,19 @@ public class SqlUtil {
         SQL += " order by date_group ) t";
 
         if (!CollectionUtils.isEmpty(copyGroupArr)) {
-            SQL = SQL + " group by " + String.join(",", copyGroupArr);
+            SQL = SQL + " group by " + String.join(",", copyGroupArr) + ", date_group, amount";
+        }else {
+            SQL += " group by date_group, amount";
         }
 
         copyGroupArr.add("ARRAY(t.date_group, t.amount) as data_group");
         String eventNameDisplay = String.format("%s(%d)", agg.getEventNameForDisplay(), index + 1);
 
-//        this.eventNameDisplayArr.add(eventNameDisplay);
-
         copyGroupArr.add(String.format("'%s' as eventNameDisplay", eventNameDisplay));
         copyGroupArr.add("count(1) as group_num");
         copyGroupArr.add(index + 1 + " as serial_number");
 
-        SQL = String.format("select %s%s group by date_group, amount limit 1000 ", String.join(",", copyGroupArr), SQL);
-
-        //        sqlArgs.addAll(this.args);
+        SQL = String.format("select %s%s limit 1000 ", String.join(",", copyGroupArr), SQL);
         return Pair.of(SQL, sqlArgs);
     }
 

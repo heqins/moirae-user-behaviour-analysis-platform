@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新事件分析返回结果封装">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新事件分析返回结构体">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/DorisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/helper/DorisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/permission/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/listener/SinkListenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,14 +286,7 @@
       <workItem from="1698027557777" duration="3986000" />
       <workItem from="1698419040767" duration="1199000" />
       <workItem from="1701134397948" duration="55000" />
-      <workItem from="1701134464645" duration="48533000" />
-    </task>
-    <task id="LOCAL-00019" summary="feat: 初始化swagger配置">
-      <created>1692634237877</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1692634237877</updated>
+      <workItem from="1701134464645" duration="50514000" />
     </task>
     <task id="LOCAL-00020" summary="feat: 初始化redis缓存处理">
       <created>1692635455385</created>
@@ -636,7 +624,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701750178452</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="feat: 更新事件分析返回结构体">
+      <created>1701751642254</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1701751642254</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +672,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 删除多余表" />
     <MESSAGE value="feat: 更新metaEventAttribute接口增加" />
     <MESSAGE value="feat: 更新alterColumn判断" />
     <MESSAGE value="feat: 更新表结构" />
@@ -702,7 +696,8 @@
     <MESSAGE value="feat: 排查部分文件" />
     <MESSAGE value="feat: 排除部分文件" />
     <MESSAGE value="feat: 更新事件分析返回结果封装" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新事件分析返回结果封装" />
+    <MESSAGE value="feat: 更新事件分析返回结构体" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新事件分析返回结构体" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -711,6 +706,11 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/CustomKeyGenerator.java</url>
           <line>13</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="132" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

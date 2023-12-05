@@ -33,9 +33,9 @@ public class TestController {
         jsonObject.set("event_type", "正式");
         jsonObject.set("event_time", System.currentTimeMillis());
         jsonObject.set("app_id", "2crdwf5q");
-        jsonObject.set("app_version", "3.14.0");
+        jsonObject.set("app_version", "3.15.0");
         jsonObject.set("app_beta_flag4", 3.14);
-        jsonObject.set("unique_id", MD5.create().digestHex("fdassd"));
+        jsonObject.set("unique_id", MD5.create().digestHex("fdfqwdassd"));
 
         String value = JSONUtil.toJsonStr(jsonObject);
         ConsumerRecord<String, String> record = new ConsumerRecord<>(topic, partition, offset, key, value);

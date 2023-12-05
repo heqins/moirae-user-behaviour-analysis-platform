@@ -32,14 +32,14 @@ public class EventAnalysisTest {
 
         List<String> dateRange = new ArrayList<>();
         dateRange.add("2023-12-01");
-        dateRange.add("2023-12-04");
+        dateRange.add("2023-12-05");
         param.setDateRange(dateRange);
 
         AnalysisWhereFilterParam filterParam = new AnalysisWhereFilterParam();
         filterParam.setRelation("AND");
         AnalysisWhereFilterParam.Filter filter = new AnalysisWhereFilterParam.Filter();
-        filter.setComparator(">=");
-        filter.setValue("test");
+        filter.setComparator("=");
+        filter.setValue("登录");
         filter.setColumnName("event_name");
 
         filterParam.setFilters(List.of(filter));
@@ -52,11 +52,13 @@ public class EventAnalysisTest {
         relation.setRelation("AND");
         AnalysisWhereFilterParam.Filter relationFilter = new AnalysisWhereFilterParam.Filter();
         relationFilter.setComparator("=");
-        relationFilter.setValue("登录2");
-        relationFilter.setColumnName("event_name");
+        relationFilter.setValue("3.15.0");
+        relationFilter.setColumnName("app_version");
+
+        relation.setFilters(List.of(relationFilter));
 
         agg.setRelation(relation);
-        agg.setEventName("登录2");
+        agg.setEventName("登录");
         agg.setType("zhibiao");
         agg.setEventNameForDisplay("默认");
 
@@ -69,6 +71,7 @@ public class EventAnalysisTest {
         aggregationParams.add(agg);
 
         param.setAggregations(aggregationParams);
+        param.setGroupBy(List.of("unique_id"));
 
         Assert.assertEquals("2crdwf5q", param.getAppId());
 
