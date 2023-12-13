@@ -1,11 +1,13 @@
 package com.admin.server.model.dto;
 
-import lombok.Data;
-
 import java.util.List;
 import java.util.Map;
 
 public class EventAnalysisResultDto {
+
+    private long total;
+
+    private List<DataGroupDto> dataGroups;
 
     public long getTotal() {
         return total;
@@ -23,10 +25,6 @@ public class EventAnalysisResultDto {
         this.dataGroups = dataGroups;
     }
 
-    private long total;
-
-    private List<DataGroupDto> dataGroups;
-
     @Override
     public String toString() {
         return "EventAnalysisResultDto{" +
@@ -36,6 +34,7 @@ public class EventAnalysisResultDto {
     }
 
     public static class DataGroupDto {
+        private Map<String, Object> item;
 
         public Map<String, Object> getItem() {
             return item;
@@ -44,8 +43,6 @@ public class EventAnalysisResultDto {
         public void setItem(Map<String, Object> item) {
             this.item = item;
         }
-
-        private Map<String, Object> item;
 
         @Override
         public String toString() {

@@ -5,6 +5,7 @@ import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.dto.EventAnalysisResultDto;
 import com.admin.server.utils.SqlUtil;
 import com.api.common.model.param.admin.AnalysisParam;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +60,20 @@ public class EventHandler implements AnalysisHandler{
         return resultDto;
     }
 
+    public boolean isValid(AnalysisParam param) {
+        if (StringUtils.isBlank(param.getAppId())) {
+            return false;
+        }
+
+        if (CollectionUtils.isEmpty(param.getAggregations())) {
+            return false;
+        }
+
+        return true;
+    }
+
     private Pair<String, List<String>> getEventSql(AnalysisParam param) {
-        if (!param.isValid()) {
+        if (!isValid(param)) {
             throw new IllegalStateException("参数错误");
         }
 
@@ -68,10 +81,11 @@ public class EventHandler implements AnalysisHandler{
         List<String> sqlArgs = whereSqlPair.getValue();
 
         Pair<String, List<String>> dateRangeSqlPair = SqlUtil.getDateRangeSql(param.getDateRange());
+        if (dateRangeSqlPair != null && !CollectionUtils.isEmpty(dateRangeSqlPair.getValue())) {
+            sqlArgs.addAll(dateRangeSqlPair.getValue());
+        }
 
-        sqlArgs.addAll(dateRangeSqlPair.getValue());
-
-        String sql = whereSqlPair.getKey() + dateRangeSqlPair.getKey();
+        String sql = dateRangeSqlPair == null ? whereSqlPair.getKey() : whereSqlPair.getKey() + dateRangeSqlPair.getKey();
 
         List<String> allArgs = new ArrayList<>();
         List<String> allSql = new ArrayList<>();

@@ -1,5 +1,9 @@
 package com.admin.server.utils;
 
+/**
+ *
+ */
+
 import com.admin.server.model.domain.sql.And;
 import com.admin.server.model.domain.sql.Or;
 import com.admin.server.model.domain.sql.Relation;
@@ -106,7 +110,7 @@ public class SqlUtil {
         List<String> argsWith = new ArrayList<>();
 
         switch (agg.getType()) {
-            case "zhibiao":
+            case "default":
                 if (CollectionUtils.isEmpty(agg.getSelectAttributes())) {
                     throw new IllegalArgumentException("请选择维度");
                 }
