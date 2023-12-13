@@ -1,4 +1,4 @@
-package com.report.sink.handler;
+package com.report.sink.handler.event;
 
 import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
@@ -12,8 +12,9 @@ import com.api.common.model.dto.sink.TableColumnDTO;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
+import com.report.sink.handler.meta.MetaEventHandler;
+import com.report.sink.handler.SinkHandler;
 import com.report.sink.helper.DorisHelper;
-import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,8 @@ public class EventLogDetailHandler implements EventsHandler{
 
     private ScheduledExecutorService scheduledExecutorService;
 
+    private final ReentrantLock lock = new ReentrantLock();
+
     @PostConstruct
     public void init() {
         ThreadFactory threadFactory = ThreadFactoryBuilder
@@ -68,6 +71,9 @@ public class EventLogDetailHandler implements EventsHandler{
 
     @Resource(name = "redisCacheService")
     private ICacheService redisCache;
+
+    @Resource
+    private FailEventsHandler failEventsHandler;
 
     public void runSchedule() {
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 1000, TimeUnit.MILLISECONDS);
@@ -205,9 +211,9 @@ public class EventLogDetailHandler implements EventsHandler{
             this.buffers.add(eventDTO);
         }
 
-//        if (this.buffers.size() >= this.capacity) {
-//            this.flush();
-//        }
+        if (this.buffers.size() >= this.capacity) {
+            this.flush();
+        }
     }
 
     @Override
@@ -216,64 +222,68 @@ public class EventLogDetailHandler implements EventsHandler{
             return;
         }
 
-//        boolean acquireLock = false;
-//        try {
-//            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
-//        }catch (InterruptedException e) {
-//            logger.error("reportEventsToDorisHandler flush lock error", e);
-//        }
+        boolean acquireLock = false;
+        try {
+            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
+        }catch (InterruptedException e) {
+            logger.error("reportEventsToDorisHandler flush lock error", e);
+        }
 
-//        if (!acquireLock) {
-//            return;
-//        }
-
-        Map<String, List<LogEventDTO>> eventMap = new ConcurrentHashMap<>();
-        LogEventDTO data;
-        while ((data = this.buffers.poll()) != null) {
-            String key = data.getDbName() + ":" + data.getTableName();
-            List<LogEventDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
-            eventList.add(data);
-
-            eventMap.putIfAbsent(key, eventList);
+        if (!acquireLock) {
+            return;
         }
 
         try {
-            for (Map.Entry<String, List<LogEventDTO>> entry: eventMap.entrySet()) {
-                String key = entry.getKey();
-                String[] split = key.split(":");
+            Map<String, List<LogEventDTO>> eventMap = new ConcurrentHashMap<>();
+            LogEventDTO data;
+            while ((data = this.buffers.poll()) != null) {
+                String key = data.getDbName() + ":" + data.getTableName();
+                List<LogEventDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
+                eventList.add(data);
 
-                String dbName = split[0];
-                String tableName = split[1];
-
-                List<TableColumnDTO> tableColumnInfos = dorisHelper.getTableColumnInfos(dbName, tableName);
-                if (CollectionUtils.isEmpty(tableColumnInfos)) {
-                    continue;
-                }
-
-                List<JSONObject> jsonDataList = entry.getValue().stream().map(LogEventDTO::getDataObject).collect(Collectors.toList());
-                List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
-
-                StrJoiner strJoiner = new StrJoiner(", ");
-                StrJoiner paramJoiner = new StrJoiner(", ");
-
-                StringBuilder sb = new StringBuilder();
-                sb.append("INSERT INTO ");
-                sb.append(tableName);
-                sb.append(" (");
-                columnNames.forEach(strJoiner::append);
-                sb.append(strJoiner.toString());
-                sb.append(") ");
-                sb.append("VALUES (");
-                columnNames.forEach(column -> paramJoiner.append("?"));
-                sb.append(paramJoiner.toString());
-                sb.append(")");
-
-                String insertSql = sb.toString();
-
-                dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
+                eventMap.putIfAbsent(key, eventList);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            try {
+                for (Map.Entry<String, List<LogEventDTO>> entry: eventMap.entrySet()) {
+                    String key = entry.getKey();
+                    String[] split = key.split(":");
+
+                    String dbName = split[0];
+                    String tableName = split[1];
+
+                    List<TableColumnDTO> tableColumnInfos = dorisHelper.getTableColumnInfos(dbName, tableName);
+                    if (CollectionUtils.isEmpty(tableColumnInfos)) {
+                        continue;
+                    }
+
+                    List<JSONObject> jsonDataList = entry.getValue().stream().map(LogEventDTO::getDataObject).collect(Collectors.toList());
+                    List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
+
+                    StrJoiner strJoiner = new StrJoiner(", ");
+                    StrJoiner paramJoiner = new StrJoiner(", ");
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("INSERT INTO ");
+                    sb.append(tableName);
+                    sb.append(" (");
+                    columnNames.forEach(strJoiner::append);
+                    sb.append(strJoiner.toString());
+                    sb.append(") ");
+                    sb.append("VALUES (");
+                    columnNames.forEach(column -> paramJoiner.append("?"));
+                    sb.append(paramJoiner.toString());
+                    sb.append(")");
+
+                    String insertSql = sb.toString();
+
+                    dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }finally {
+            lock.unlock();
         }
     }
 }

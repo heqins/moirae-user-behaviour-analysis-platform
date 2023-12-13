@@ -4,32 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新事件统计接口">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/MySqlDataSourceConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/properties/MysqlProrperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/controller/reportData/ReportDataTest.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 完善事件统计接口（封装结果）">
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/KafkaProperty.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/ReportDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/ReportDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventAttributeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventAttributeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/MetaEventDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysRoleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysRoleDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/SysUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/AnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/AnalysisHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventAnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventAnalysisHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventCountHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventCountHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/AppMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/mysql/AppMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventAttributeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/mysql/MetaEventAttributeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/MetaEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/mysql/MetaEventMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/mysql/SysRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/mapper/mysql/SysUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventCountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventCountDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/mapper/MetaEventAttributeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/mapper/MetaEventAttributeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/controller/analysis/EventAnalysisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/ResponseStatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/FailEventsHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,14 +306,7 @@
       <workItem from="1701134464645" duration="51838000" />
       <workItem from="1701845254886" duration="263000" />
       <workItem from="1701845683883" duration="8746000" />
-      <workItem from="1702447014580" duration="12692000" />
-    </task>
-    <task id="LOCAL-00023" summary="feat: 更新字段检查顺序">
-      <created>1692813629571</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1692813629571</updated>
+      <workItem from="1702447014580" duration="15987000" />
     </task>
     <task id="LOCAL-00024" summary="feat: 更新表字段添加">
       <created>1692977223854</created>
@@ -663,7 +644,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702455471021</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="feat: 完善事件统计接口（封装结果）">
+      <created>1702468684423</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1702468684423</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -704,7 +692,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新查询值接口" />
     <MESSAGE value="feat: 更新Sink处理meta_event,attribute" />
     <MESSAGE value="feat: 初始化App时创建表" />
     <MESSAGE value="feat: 初始化事件分析入口" />
@@ -729,7 +716,8 @@
     <MESSAGE value="feat: 更新group by的sql语句结构" />
     <MESSAGE value="feat: 更新README" />
     <MESSAGE value="feat: 更新事件统计接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新事件统计接口" />
+    <MESSAGE value="feat: 完善事件统计接口（封装结果）" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善事件统计接口（封装结果）" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -740,9 +728,9 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventCountHandler.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

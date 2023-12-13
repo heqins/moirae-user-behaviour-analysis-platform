@@ -1,4 +1,4 @@
-package com.report.sink.handler;
+package com.report.sink.handler.event;
 
 public interface EventsHandler {
     void flush();

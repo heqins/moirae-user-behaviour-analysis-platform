@@ -1,6 +1,8 @@
-package com.report.sink.handler;
+package com.report.sink.handler.meta;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import com.report.sink.handler.SinkHandler;
+import com.report.sink.handler.event.EventsHandler;
 import com.report.sink.helper.MySqlHelper;
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
@@ -24,7 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @Component
-public class MetaEventHandler implements EventsHandler{
+public class MetaEventHandler implements EventsHandler {
     
     private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
