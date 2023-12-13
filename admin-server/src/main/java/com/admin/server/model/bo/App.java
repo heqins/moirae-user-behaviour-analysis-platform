@@ -30,6 +30,9 @@ public class App {
 
     private LocalDateTime updateTime;
 
+    /**
+     * 是否启用 0 - 否 1 - 是
+     */
     private Integer status;
 
     private Integer saveMonth;

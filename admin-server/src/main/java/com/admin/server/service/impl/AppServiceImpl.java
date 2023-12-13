@@ -11,7 +11,7 @@ import com.admin.server.model.bo.App;
 import com.api.common.constant.SinkConstants;
 import com.api.common.enums.ResponseStatusEnum;
 import com.api.common.error.ResponseException;
-import com.api.common.model.param.admin.CreateAppParam;
+import com.api.common.model.param.admin.app.CreateAppParam;
 import com.api.common.model.vo.PageVo;
 import com.api.common.model.vo.admin.AppPageVo;
 import com.api.common.model.vo.admin.AppVo;
@@ -47,21 +47,28 @@ public class AppServiceImpl implements IAppService {
             return;
         }
 
-        if (!StpUtil.isLogin()) {
-            throw new ResponseException(ResponseStatusEnum.UNAUTHORIZED);
-        }
-
         String user = StpUtil.getLoginIdAsString();
         App app = AppUtil.transferFromCreateAppParam(createAppParam);
 
-        // todo:
         if (Objects.isNull(app)) {
-            return;
+            throw new IllegalStateException("createApp app is null");
         }
 
         String generateAppId = KeyUtil.generateAppId();
+        String appKey = getAppKey();
 
+        app.setAppKey(appKey);
+        app.setCreateUser(user);
         app.setAppId(generateAppId);
+
+        Long id = appDao.createApp(app);
+        logger.info("createApp id={}", id);
+
+        String tableName = SinkConstants.generateTableName(generateAppId);
+        dorisHelper.createApp("user_behaviour_analysis", tableName);
+    }
+
+    private String getAppKey() {
         String appKey = null;
         try {
             appKey = KeyUtil.generateAppKey();
@@ -73,24 +80,17 @@ public class AppServiceImpl implements IAppService {
             throw new IllegalStateException("createApp appKey is null");
         }
 
-        app.setAppKey(appKey);
-        app.setCreateUser(user);
-
-        Long id = appDao.createApp(app);
-        logger.info("createApp id={}", id);
-
-        String tableName = SinkConstants.generateTableName(generateAppId);
-        dorisHelper.createApp("user_behaviour_analysis", tableName);
+        return appKey;
     }
 
     @Override
-    public PageVo<AppPageVo> getAvailableApps(Integer pageNum, Integer pageSize) {
+    public PageVo<AppPageVo> getAvailableApps(Integer pageNum, Integer pageSize, String appName, Integer appIsOnline) {
         if (!StpUtil.isLogin()) {
             throw new ResponseException(ResponseStatusEnum.UNAUTHORIZED);
         }
 
         String userId = (String) StpUtil.getLoginId();
-        IPage<App> pageResult = appDao.selectPageByUser(userId, pageNum, pageSize);
+        IPage<App> pageResult = appDao.selectPageByUser(userId, pageNum, pageSize, appName, appIsOnline);
 
         AppPageVo appPageVo = new AppPageVo();
         if (CollectionUtils.isEmpty(pageResult.getRecords())) {
@@ -111,5 +111,15 @@ public class AppServiceImpl implements IAppService {
         }
 
         return appDao.selectByAppId(appId);
+    }
+
+    @Override
+    public void resetKey(String appId) {
+        if (StringUtils.isEmpty(appId)) {
+            throw new IllegalArgumentException("appId is null");
+        }
+
+        String appKey = getAppKey();
+        appDao.resetKey(appId, appKey);
     }
 }

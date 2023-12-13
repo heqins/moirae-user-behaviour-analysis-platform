@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 
@@ -17,8 +18,8 @@ public class DorisHelper {
 
     private final Logger logger = LoggerFactory.getLogger(DorisHelper.class);
 
-    @Resource
-    private DorisProrperties dorisProrperties;
+    @Resource(name = "dorisDataSource")
+    private DataSource dataSource;
 
     public void alterTableColumn(String dbName, String tableName, String columnName, String type) {
         String changeColumnTypeSql = "ALTER TABLE %s.%s MODIFY COLUMN %s %s";
@@ -26,7 +27,7 @@ public class DorisHelper {
 
         try {
             // 创建数据库连接
-            Connection connection = DriverManager.getConnection(dorisProrperties.getUrl(), dorisProrperties.getUsername(), dorisProrperties.getPassword());
+            Connection connection = dataSource.getConnection();
 
             // 创建 Statement 对象
             Statement statement = connection.createStatement();
@@ -52,7 +53,7 @@ public class DorisHelper {
 
         try {
             // 创建数据库连接
-            Connection connection = DriverManager.getConnection(dorisProrperties.getUrl(), dorisProrperties.getUsername(), dorisProrperties.getPassword());
+            Connection connection = dataSource.getConnection();
 
             // 创建 Statement 对象
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -73,7 +74,6 @@ public class DorisHelper {
             // 关闭 Statement 和连接
             preparedStatement.close();
             connection.close();
-
         } catch (SQLException e) {
             logger.error("selectColumnValues execute query sql error", e);
         }
@@ -104,7 +104,7 @@ public class DorisHelper {
 
         try {
             // 创建数据库连接
-            Connection connection = DriverManager.getConnection(dorisProrperties.getUrl(), dorisProrperties.getUsername(), dorisProrperties.getPassword());
+            Connection connection = dataSource.getConnection();
 
             // 创建 Statement 对象
             Statement statement = connection.createStatement();
@@ -121,7 +121,7 @@ public class DorisHelper {
     }
 
     public List<Map<String, Object>> selectEventAnalysis(Pair<String, List<String>> pair) {
-        try (Connection connection = DriverManager.getConnection(dorisProrperties.getUrl(), dorisProrperties.getUsername(), dorisProrperties.getPassword())) {
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(pair.getKey());
 
             for (int i = 0; i < pair.getValue().size(); i++) {

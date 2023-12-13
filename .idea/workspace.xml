@@ -4,21 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新group by的sql语句结构">
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/PanelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/ReportTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/panel/SaveReportTableParam.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新README">
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/DorisDataSourceConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventCountHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventCountDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/app/ResetKeyParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/reportData/GetEventCountParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/EventAnalysisResultDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/controller/ReportDataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/dao/AppDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/AnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/AnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/BeanProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/BeanProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/analysis/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/EventAnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/bo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/AppUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/domain/AppUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/IAppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/service/impl/AppServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/test/java/com/admin/server/analysis/EventAnalysisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisAggregationParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisAggregationParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/AnalysisParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/enums/AnalysisCommandEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/CreateAppParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/param/admin/app/CreateAppParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/util/JdbcUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flume-nginx/conf/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/flume-nginx/conf/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/model/bo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/model/bo/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,11 +161,11 @@
       <recent name="com.admin.server.helper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.admin.server.model.bo" />
+      <recent name="com.admin.server.config" />
+      <recent name="com.api.common.model.param.admin.reportData" />
+      <recent name="com.admin.server.model.dto" />
       <recent name="com.admin.server.controller" />
-      <recent name="com.api.common.model.param.admin" />
-      <recent name="com.api.common.enums" />
-      <recent name="com.admin.server.handler" />
+      <recent name="com.api.common.model.param.admin.app" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -158,13 +173,13 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EventAnalysisTest.testGenID">
-    <configuration name="ReportLogRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.ReportLogRunner" />
-      <module name="flink-job" />
+  <component name="RunManager" selected="Application.DorisTask">
+    <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
+      <module name="init-datasource" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flink.job.task.runner.*" />
+          <option name="PATTERN" value="com.init.datasource.task.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -258,11 +273,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DorisTask" />
         <item itemvalue="JUnit.EventAnalysisTest.testGenID" />
         <item itemvalue="JUnit.EventAnalysisTest.doAnalysis" />
         <item itemvalue="Python.ReportLocustFile" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
-        <item itemvalue="Application.ReportLogRunner" />
       </list>
     </recent_temporary>
   </component>
@@ -307,14 +322,7 @@
       <workItem from="1701134464645" duration="51838000" />
       <workItem from="1701845254886" duration="263000" />
       <workItem from="1701845683883" duration="8746000" />
-      <workItem from="1702447014580" duration="1775000" />
-    </task>
-    <task id="LOCAL-00021" summary="feat: 更新数据库连接池">
-      <created>1692680487062</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1692680487062</updated>
+      <workItem from="1702447014580" duration="7490000" />
     </task>
     <task id="LOCAL-00022" summary="feat: 更新字段检查">
       <created>1692804818148</created>
@@ -652,7 +660,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701753532240</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="feat: 更新README">
+      <created>1702448891842</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1702448891843</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -693,7 +708,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新alterColumn判断" />
     <MESSAGE value="feat: 更新表结构" />
     <MESSAGE value="feat: 更新查询值接口" />
     <MESSAGE value="feat: 更新Sink处理meta_event,attribute" />
@@ -718,7 +732,8 @@
     <MESSAGE value="feat: 更新事件分析返回结果封装" />
     <MESSAGE value="feat: 更新事件分析返回结构体" />
     <MESSAGE value="feat: 更新group by的sql语句结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新group by的sql语句结构" />
+    <MESSAGE value="feat: 更新README" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

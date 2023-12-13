@@ -1,10 +1,9 @@
 package com.report.sink.model.bo;
 
-import com.api.common.model.param.admin.CreateAppParam;
+import com.api.common.model.param.admin.app.CreateAppParam;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;

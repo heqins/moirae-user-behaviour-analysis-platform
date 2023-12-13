@@ -4,7 +4,7 @@ public enum AnalysisCommandEnum {
 
     EVENT_COMMAND("eventHandler"),
 
-    FUNNEL_COMMAND(""),
+    EVENT_COUNT_COMMAND("eventCountHandler"),
 
     ;
 

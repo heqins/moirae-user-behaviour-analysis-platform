@@ -234,12 +234,11 @@ public class DorisHelper {
                     statement.executeBatch();
                 }
 
+                insertConnection.commit();
             }catch (SQLException e) {
                 insertConnection.rollback();
                 log.error("DorisHelper tableInsertData insert execute error", e);
             }
-
-            insertConnection.commit();
         }catch (SQLException e) {
             log.error("DorisHelper tableInsertData insert commit error", e);
         }

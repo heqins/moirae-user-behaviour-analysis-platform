@@ -1,4 +1,4 @@
-package com.api.common.model.param.admin;
+package com.api.common.model.param.admin.app;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

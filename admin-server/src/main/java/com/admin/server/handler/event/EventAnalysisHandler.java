@@ -1,10 +1,12 @@
-package com.admin.server.handler.analysis;
+package com.admin.server.handler.event;
 
 import cn.hutool.json.JSONUtil;
 import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.dto.EventAnalysisResultDto;
+import com.admin.server.model.dto.EventCountDto;
 import com.admin.server.utils.SqlUtil;
 import com.api.common.model.param.admin.AnalysisParam;
+import com.api.common.model.param.admin.reportData.GetEventCountParam;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -14,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,9 @@ import java.util.Map;
  * @author heqin
  */
 @Component
-public class EventHandler implements AnalysisHandler{
+public class EventAnalysisHandler implements AnalysisHandler{
 
-    private final Logger logger = LoggerFactory.getLogger(EventHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(EventAnalysisHandler.class);
 
     @Resource
     private DorisHelper dorisHelper;
@@ -39,6 +40,11 @@ public class EventHandler implements AnalysisHandler{
         EventAnalysisResultDto resultDto = constructResult(maps);
 
         return resultDto;
+    }
+
+    @Override
+    public EventCountDto getEventCount(GetEventCountParam param) {
+        return null;
     }
 
     private EventAnalysisResultDto constructResult(List<Map<String, Object>> dataMaps) {

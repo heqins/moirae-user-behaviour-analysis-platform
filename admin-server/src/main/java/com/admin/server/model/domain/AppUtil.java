@@ -3,7 +3,7 @@ package com.admin.server.model.domain;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.admin.server.model.bo.App;
-import com.api.common.model.param.admin.CreateAppParam;
+import com.api.common.model.param.admin.app.CreateAppParam;
 import com.api.common.model.vo.admin.AppVo;
 import com.api.common.util.DateTimeUtil;
 import org.springframework.beans.BeanUtils;

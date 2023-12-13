@@ -23,3 +23,4 @@ PROPERTIES(
     "dynamic_partition.buckets" = "32",
     "replication_num" = "1"
 );
+
