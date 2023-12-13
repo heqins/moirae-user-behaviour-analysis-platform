@@ -38,4 +38,15 @@ public class ReportListener {
 
         acknowledgment.acknowledge();
     }
+
+    @KafkaListener(topics = "${kafka.topics.fail}", containerFactory = "batchManualFactory")
+    public void onFailEventMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+        try {
+
+        }catch (Exception e) {
+            logger.error("fail-event error", e);
+        }
+
+        acknowledgment.acknowledge();
+    }
 }

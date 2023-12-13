@@ -27,8 +27,12 @@ public class TableColumnDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         TableColumnDTO that = (TableColumnDTO) o;
         return columnName.equals(that.columnName) && tableName.equals(that.tableName);
     }

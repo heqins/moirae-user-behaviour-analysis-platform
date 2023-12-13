@@ -40,7 +40,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
     private ConcurrentLinkedQueue<LogEventDTO> buffers;
 
-    private final int capacity = 1000;
+    private final int capacity = 500;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -202,6 +202,10 @@ public class EventLogDetailHandler implements EventsHandler{
     }
 
     private void insertTableData(JSONObject jsonObject, String dbName, String tableName) {
+        if (this.buffers.size() >= this.capacity) {
+            this.flush();
+        }
+
         if (jsonObject != null) {
             LogEventDTO eventDTO = new LogEventDTO();
             eventDTO.setDataObject(jsonObject);
@@ -209,10 +213,6 @@ public class EventLogDetailHandler implements EventsHandler{
             eventDTO.setTableName(tableName);
 
             this.buffers.add(eventDTO);
-        }
-
-        if (this.buffers.size() >= this.capacity) {
-            this.flush();
         }
     }
 
@@ -236,12 +236,14 @@ public class EventLogDetailHandler implements EventsHandler{
         try {
             Map<String, List<LogEventDTO>> eventMap = new ConcurrentHashMap<>();
             LogEventDTO data;
-            while ((data = this.buffers.poll()) != null) {
+            int count = 0;
+            while ((data = this.buffers.poll()) != null && count <= this.capacity) {
                 String key = data.getDbName() + ":" + data.getTableName();
                 List<LogEventDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
                 eventList.add(data);
 
                 eventMap.putIfAbsent(key, eventList);
+                count++;
             }
 
             try {
@@ -280,10 +282,42 @@ public class EventLogDetailHandler implements EventsHandler{
                     dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.error("EventLogDetailHandler flush error", e);
+
+                failEventsHandler.sendToKafka(JSONUtil.toJsonStr(eventMap));
+                eventMap.clear();
             }
         }finally {
             lock.unlock();
         }
+    }
+
+    public static void main(String[] args) {
+        List<String> res = new ArrayList<>();
+        res.add("test");
+        res.add("str");
+
+        String json = JSONUtil.toJsonStr(res);
+
+        List<String> list = JSONUtil.toList(json, String.class);
+        System.out.println("test");
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("开始 " + Thread.currentThread().getName());
+                try {
+                    Thread.sleep(10000L);
+                }catch (Exception e) {
+
+                }
+                System.out.println("结束 " + Thread.currentThread().getName());
+            };
+        };
+
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+
+        // 1表示时间单位的数值 TimeUnit.SECONDS  延时单位为秒
+        service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
     }
 }

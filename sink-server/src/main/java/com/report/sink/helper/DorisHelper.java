@@ -185,62 +185,71 @@ public class DorisHelper {
             return;
         }
 
-        try (Connection insertConnection = dataSource.getConnection()) {
+        Connection insertConnection;
+        try {
+            insertConnection = dataSource.getConnection();
+        }catch (SQLException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+
+        try {
             insertConnection.setAutoCommit(false);
-            try (PreparedStatement statement = insertConnection.prepareStatement(sql)) {
-                for (JSONObject jsonObject: jsonDataList) {
-                    if (columnDTOList.size() < jsonObject.size()) {
-                        log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
-                        return;
-                    }
-
-                    for (int i = 0; i < columnDTOList.size(); i++) {
-                        String columnName = columnDTOList.get(i).getColumnName();
-                        String columnType = columnDTOList.get(i).getColumnType();
-
-                        Object value = jsonObject.get(columnName);
-                        if (value == null) {
-                            if (!columnDTOList.get(i).getNullable()) {
-                                return;
-                            }
-
-                            switch (columnType) {
-                                case "java.lang.String":
-                                    value = "";
-                                    break;
-                                case "java.lang.Integer":
-                                    value = 0;
-                                    break;
-                                case "java.lang.Float":
-                                    value = 0.0f;
-                                    break;
-                                case "java.lang.Double":
-                                    value = 0.0d;
-                                    break;
-                                case "java.lang.Long":
-                                    value = 0L;
-                                    break;
-                                case "java.util.Date":
-                                    value = new Date();
-                                    break;
-                                default:
-                            }
-                        }
-
-                        statement.setObject(i + 1, value);
-                    }
-
-                    statement.addBatch();
-                    statement.executeBatch();
+            PreparedStatement statement = insertConnection.prepareStatement(sql);
+            for (JSONObject jsonObject: jsonDataList) {
+                if (columnDTOList.size() < jsonObject.size()) {
+                    log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
+                    return;
                 }
 
-                insertConnection.commit();
-            }catch (SQLException e) {
-                insertConnection.rollback();
-                log.error("DorisHelper tableInsertData insert execute error", e);
+                for (int i = 0; i < columnDTOList.size(); i++) {
+                    String columnName = columnDTOList.get(i).getColumnName();
+                    String columnType = columnDTOList.get(i).getColumnType();
+
+                    Object value = jsonObject.get(columnName);
+                    if (value == null) {
+                        if (!columnDTOList.get(i).getNullable()) {
+                            return;
+                        }
+
+                        switch (columnType) {
+                            case "java.lang.String":
+                                value = "";
+                                break;
+                            case "java.lang.Integer":
+                                value = 0;
+                                break;
+                            case "java.lang.Float":
+                                value = 0.0f;
+                                break;
+                            case "java.lang.Double":
+                                value = 0.0d;
+                                break;
+                            case "java.lang.Long":
+                                value = 0L;
+                                break;
+                            case "java.util.Date":
+                                value = new Date();
+                                break;
+                            default:
+                        }
+                    }
+
+                    statement.setObject(i + 1, value);
+                }
+
+                statement.addBatch();
+                statement.executeBatch();
             }
+
+            insertConnection.commit();
         }catch (SQLException e) {
-            log.error("DorisHelper tableInsertData insert commit error", e);
+            try {
+                insertConnection.rollback();
+            }catch (SQLException e1) {
+            }
+
+            log.error("DorisHelper tableInsertData insert execute error", e);
+            throw new IllegalStateException("插入失败");
         }
     }
 

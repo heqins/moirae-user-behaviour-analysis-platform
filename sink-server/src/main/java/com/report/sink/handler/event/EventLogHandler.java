@@ -2,6 +2,7 @@ package com.report.sink.handler.event;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.handler.SinkHandler;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
@@ -36,7 +38,7 @@ public class EventLogHandler implements EventsHandler{
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final Integer bufferSize = 2000;
+    private final Integer bufferSize = 500;
 
     private final Integer jsonLengthLimit = 1024;
 
@@ -45,6 +47,9 @@ public class EventLogHandler implements EventsHandler{
     private DataSource dataSource;
 
     private final ReentrantLock lock = new ReentrantLock();
+
+    @Resource
+    private FailEventsHandler failEventsHandler;
 
     public EventLogHandler(@Qualifier(value = "dorisDataSource")DataSource dataSource) {
         this.dataSource = dataSource;
@@ -97,13 +102,13 @@ public class EventLogHandler implements EventsHandler{
     }
 
     public void addEvent(EventLogDTO eventLog) {
+        if (this.buffers.size() >= this.bufferSize) {
+            this.flush();
+        }
+
         if (eventLog != null) {
             this.buffers.offer(eventLog);
         }
-
-//        if (this.buffers.size() >= this.bufferSize) {
-//            this.flush();
-//        }
     }
 
     @Override
@@ -112,26 +117,37 @@ public class EventLogHandler implements EventsHandler{
             return;
         }
 
-//        boolean acquireLock = false;
-//        try {
-//            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
-//        }catch (InterruptedException e) {
-//            logger.error("EventLogHandler tryLock error", e);
-//        }
-//
-//        if (!acquireLock) {
-//            return;
-//        }
-
-        List<EventLogDTO> batch = new CopyOnWriteArrayList<>();
-        EventLogDTO data;
-        while ((data = this.buffers.poll()) != null) {
-            batch.add(data);
+        boolean acquireLock = false;
+        try {
+            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
+        }catch (InterruptedException e) {
+            logger.error("EventLogHandler tryLock error", e);
         }
 
-        if (!batch.isEmpty()) {
-            try {
-                try (Connection connection = dataSource.getConnection()) {
+        if (!acquireLock) {
+            return;
+        }
+
+        try {
+            List<EventLogDTO> batch = new CopyOnWriteArrayList<>();
+            EventLogDTO data;
+            int count = 0;
+            while ((data = this.buffers.poll()) != null && count <= this.bufferSize) {
+                batch.add(data);
+                count++;
+            }
+
+            if (!batch.isEmpty()) {
+                Connection connection;
+                try {
+                    connection = dataSource.getConnection();
+                }catch (SQLException e) {
+                    failEventsHandler.sendToKafka(JSONUtil.toJsonStr(batch));
+                    batch.clear();
+                    return;
+                }
+
+                try {
                     connection.setAutoCommit(false);
 
                     try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
@@ -153,24 +169,19 @@ public class EventLogHandler implements EventsHandler{
                         }
 
                         preparedStatement.executeBatch();
-                    } catch (SQLException e) {
-                        connection.rollback();
-                        logger.error("DorisEventLogHandler insertSql execute error", e);
+                        connection.commit();
                     }
-
-                    connection.commit();
                 } catch (SQLException e) {
-                    logger.error("DorisEventLogHandler connection error", e);
+                    logger.error("DorisEventLogHandler insertSql execute error", e);
+                    try {
+                        connection.rollback();
+                    } catch (SQLException e1) {
+                        logger.error("DorisEventLogHandler rollback error", e1);
+                    }
                 }
-                // finally {
-//                this.buffers.clear();
-//            }
-            } catch (Exception e) {
-                logger.error("DorisEventLogHandler lock error", e);
             }
-//        finally {
-//            lock.unlock();
-//        }
+        } finally {
+            lock.unlock();
         }
     }
 }

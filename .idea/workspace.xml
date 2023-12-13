@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 完善事件统计接口（封装结果）">
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/config/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/properties/KafkaProperty.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加sinkServer的kafka发送失败消息">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/EventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/FailEventsHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/test/java/com/report/sink/handler/DorisEventHandlerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/TableColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/TableColumnDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +150,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ReportDataTest.doAnalysis">
+  <component name="RunManager" selected="Application.EventLogDetailHandler (1)">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
@@ -171,18 +164,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EventAnalysisTest.doAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="admin-server" />
+    <configuration name="EventLogDetailHandler (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.event.EventLogDetailHandler" />
+      <module name="sink-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.admin.server.analysis.*" />
+          <option name="PATTERN" value="com.report.sink.handler.event.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.admin.server.analysis" />
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.analysis.EventAnalysisTest" />
-      <option name="METHOD_NAME" value="doAnalysis" />
-      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EventLogDetailHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.event.EventLogDetailHandler" />
+      <module name="sink-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.report.sink.handler.event.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -219,28 +222,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportLocustFile" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="stress-test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/stress-test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stress-test/ReportLocustFile.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="AdminMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="admin-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.admin.server.AdminMain" />
@@ -257,11 +238,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.EventLogDetailHandler (1)" />
+        <item itemvalue="Application.EventLogDetailHandler" />
         <item itemvalue="JUnit.ReportDataTest.doAnalysis" />
         <item itemvalue="Application.DorisTask" />
         <item itemvalue="JUnit.EventAnalysisTest.testGenID" />
-        <item itemvalue="JUnit.EventAnalysisTest.doAnalysis" />
-        <item itemvalue="Python.ReportLocustFile" />
       </list>
     </recent_temporary>
   </component>
@@ -306,14 +287,7 @@
       <workItem from="1701134464645" duration="51838000" />
       <workItem from="1701845254886" duration="263000" />
       <workItem from="1701845683883" duration="8746000" />
-      <workItem from="1702447014580" duration="15987000" />
-    </task>
-    <task id="LOCAL-00024" summary="feat: 更新表字段添加">
-      <created>1692977223854</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1692977223854</updated>
+      <workItem from="1702447014580" duration="20420000" />
     </task>
     <task id="LOCAL-00025" summary="feat: 更新表字段接口优化">
       <created>1693061600847</created>
@@ -651,7 +625,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702468684423</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="feat: 增加sinkServer的kafka发送失败消息">
+      <created>1702471744521</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1702471744522</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +673,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 更新Sink处理meta_event,attribute" />
     <MESSAGE value="feat: 初始化App时创建表" />
     <MESSAGE value="feat: 初始化事件分析入口" />
     <MESSAGE value="feat: 增加任务" />
@@ -717,7 +697,8 @@
     <MESSAGE value="feat: 更新README" />
     <MESSAGE value="feat: 更新事件统计接口" />
     <MESSAGE value="feat: 完善事件统计接口（封装结果）" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善事件统计接口（封装结果）" />
+    <MESSAGE value="feat: 增加sinkServer的kafka发送失败消息" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加sinkServer的kafka发送失败消息" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
