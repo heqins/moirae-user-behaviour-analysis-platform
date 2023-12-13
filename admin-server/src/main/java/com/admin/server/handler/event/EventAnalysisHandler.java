@@ -43,7 +43,7 @@ public class EventAnalysisHandler implements AnalysisHandler{
     }
 
     @Override
-    public EventCountDto getEventCount(GetEventCountParam param) {
+    public List<EventCountDto> getEventCount(GetEventCountParam param) {
         return null;
     }
 

@@ -64,8 +64,6 @@ public class JdbcUtil {
 
             System.out.println("执行sql语句成功！");
         }catch (Exception e) {
-            connection.rollback();
-
             if (statement != null) {
                 try {
                     statement.close();

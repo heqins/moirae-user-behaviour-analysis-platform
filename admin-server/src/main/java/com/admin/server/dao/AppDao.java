@@ -1,6 +1,6 @@
 package com.admin.server.dao;
 
-import com.admin.server.mapper.AppMapper;
+import com.admin.server.mapper.mysql.AppMapper;
 import com.admin.server.model.bo.App;
 import com.api.common.enums.AppStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

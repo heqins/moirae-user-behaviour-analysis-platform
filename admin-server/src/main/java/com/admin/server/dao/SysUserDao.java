@@ -1,6 +1,6 @@
 package com.admin.server.dao;
 
-import com.admin.server.mapper.SysUserMapper;
+import com.admin.server.mapper.mysql.SysUserMapper;
 import com.admin.server.model.bo.SysUser;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

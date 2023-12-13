@@ -1,6 +1,6 @@
 package com.admin.server.dao;
 
-import com.admin.server.mapper.SysRoleMapper;
+import com.admin.server.mapper.mysql.SysRoleMapper;
 import com.admin.server.model.bo.SysRole;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Component;

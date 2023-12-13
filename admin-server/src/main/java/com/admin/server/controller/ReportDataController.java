@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author heqin
@@ -29,8 +30,8 @@ public class ReportDataController {
     private AnalysisFacade analysisFacade;
 
     @Operation(description = "获取事件统计结果")
-    @PostMapping("/getEventCount")
-    public CommonResponse<EventCountDto> getEventCount(@RequestBody @Valid GetEventCountParam param) {
+    @PostMapping("/eventCount")
+    public CommonResponse<List<EventCountDto>> getEventCount(@RequestBody @Valid GetEventCountParam param) {
         return CommonResponse.ofSuccess(analysisFacade.getEventCount(param));
     }
 }

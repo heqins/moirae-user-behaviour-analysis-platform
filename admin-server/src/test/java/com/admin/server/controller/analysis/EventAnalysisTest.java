@@ -1,4 +1,4 @@
-package com.admin.server.analysis;
+package com.admin.server.controller.analysis;
 
 
 import com.admin.server.facade.AnalysisFacade;

@@ -4,7 +4,6 @@ public enum ResponseStatusEnum {
 
     SUCCESS(200, "成功"),
 
-
     UNAUTHORIZED(401, "认证失败"),
 
     FORBIDDEN(403, "禁止访问"),

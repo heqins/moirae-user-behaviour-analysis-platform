@@ -10,6 +10,36 @@ public class EventCountDto {
 
     private Long fail;
 
+    public Long getTotal() {
+        return total;
+    }
 
-    private String displayName;
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public Long getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Long success) {
+        this.success = success;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public Long getFail() {
+        return fail;
+    }
+
+    public void setFail(Long fail) {
+        this.fail = fail;
+    }
+
 }

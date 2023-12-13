@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author heqin
@@ -36,13 +37,13 @@ public class AnalysisFacade {
         return eventResult;
     }
 
-    public EventCountDto getEventCount(GetEventCountParam param) {
+    public List<EventCountDto> getEventCount(GetEventCountParam param) {
         AnalysisHandler eventHandler = beanProcessor.getByCommand(AnalysisCommandEnum.EVENT_COUNT_COMMAND.getValue());
         if (eventHandler == null) {
             throw new IllegalStateException("事件类型不存在");
         }
 
-        EventCountDto eventResult = eventHandler.getEventCount(param);
+        List<EventCountDto> eventResult = eventHandler.getEventCount(param);
 
         return eventResult;
     }

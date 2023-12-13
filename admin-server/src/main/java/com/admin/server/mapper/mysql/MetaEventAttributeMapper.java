@@ -1,4 +1,4 @@
-package com.admin.server.mapper;
+package com.admin.server.mapper.mysql;
 
 import com.admin.server.model.bo.MetaEventAttribute;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

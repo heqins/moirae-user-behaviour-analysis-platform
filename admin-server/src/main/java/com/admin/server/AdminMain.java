@@ -12,7 +12,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.admin.server.mapper"})
 public class AdminMain {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminMain.class);

@@ -1,6 +1,6 @@
 package com.admin.server.dao;
 
-import com.admin.server.mapper.MetaEventMapper;
+import com.admin.server.mapper.mysql.MetaEventMapper;
 import com.admin.server.model.bo.MetaEvent;
 import com.api.common.enums.MetaEventStatusEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
