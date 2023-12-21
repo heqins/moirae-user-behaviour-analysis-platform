@@ -61,9 +61,13 @@ public class Parameters {
 
   public static final Param<String> LOG_DATA_INVALID_TOPIC = Param.string("report-log-invalid-data-topic", "report-log-invalid-data");
 
+  public static final Param<String> OFFLINE_LOG_TOPIC = Param.string("offline-log-topic", "offline_log_dev");
+
   public static final Param<String> REPORT_LOG_DATA_GROUP_ID = Param.string("report-log-data-flink-group-id", "reportLogDataDev");
 
   public static final Param<String> LOG_ETL_MAIN__GROUP_ID = Param.string("log-etl-main-group-id", "logEtlMainDev");
+
+  public static final Param<String> OFFLINE_LOG_GROUP_ID = Param.string("offline-log-dev", "offlineLogDev");
 
   // Socket
   public static final Param<Integer> SOCKET_PORT = Param.integer("pubsub-rules-export", 9999);
@@ -105,7 +109,9 @@ public class Parameters {
           LOG_SINK_TOPIC,
           LOG_ETL_MAIN__GROUP_ID,
           REPORT_LOG_DATA_TOPIC,
-          REPORT_LOG_DATA_GROUP_ID);
+          REPORT_LOG_DATA_GROUP_ID,
+          OFFLINE_LOG_TOPIC,
+          OFFLINE_LOG_GROUP_ID);
 
   public static final List<Param<Integer>> INT_PARAMS =
       Arrays.asList(
