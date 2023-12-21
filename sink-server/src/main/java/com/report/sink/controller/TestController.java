@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +30,15 @@ public class TestController {
         String key = "my-key";
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.set("event_name", "登录");
+
+        jsonObject.set("event_name", "登出");
         jsonObject.set("event_type", "正式");
+        jsonObject.set("event_date", (LocalDate) LocalDate.now());
         jsonObject.set("event_time", System.currentTimeMillis());
         jsonObject.set("app_id", "2crdwf5q");
         jsonObject.set("app_version", "3.15.0");
         jsonObject.set("app_beta_flag4", 3.14);
-        jsonObject.set("unique_id", MD5.create().digestHex("fdfqwdassd"));
+        jsonObject.set("unique_id", MD5.create().digestHex("zxcvwqeqwe"));
 
         String value = JSONUtil.toJsonStr(jsonObject);
         ConsumerRecord<String, String> record = new ConsumerRecord<>(topic, partition, offset, key, value);

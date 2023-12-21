@@ -1,6 +1,5 @@
 package com.report.sink;
 
-import org.apache.hadoop.hive.metastore.tools.HiveSchemaHelper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ public class SinkMain {
         String path = env.getProperty("server.servlet.context-path");
         path = path == null ? "" : path;
         logger.info("\n----------------------------------------------------------\n\t" +
-                "数据上报服务已启动! Access URLs:\n\t" +
+                "数据持久化服务已启动! Access URLs:\n\t" +
                 "本地访问地址: \thttp://localhost:" + port + path + "/\n\t" +
                 "Swagger文档: \thttp://" + ip + ":" + port + path + "/swagger-ui.html\n" +
                 "----------------------------------------------------------");

@@ -4,7 +4,6 @@ import cn.hutool.json.JSONObject;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,6 +175,7 @@ public class DorisHelper {
         }
 
         List<String> fields = new ArrayList<>(jsonFields);
+
         localCacheService.removeColumnCache(dbName, tableName, fields);
         redisCacheService.removeColumnCache(dbName, tableName, fields);
     }
@@ -251,11 +251,5 @@ public class DorisHelper {
             log.error("DorisHelper tableInsertData insert execute error", e);
             throw new IllegalStateException("插入失败");
         }
-    }
-
-    public static void main(String[] args) {
-        byte t = 127;
-        System.out.println(t == 1);
-        System.out.println(Date.class.getCanonicalName());
     }
 }

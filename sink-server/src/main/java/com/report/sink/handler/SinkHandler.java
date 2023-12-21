@@ -75,7 +75,7 @@ public class SinkHandler {
             }
 
             if (!jsonObject.containsKey("app_id")) {
-                logger.warn("SinkHandler jsonObject not found appId:{}", JSONUtil.toJsonStr(jsonObject));
+                logger.warn("SinkHandler jsonObject not contains appId data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
@@ -83,17 +83,18 @@ public class SinkHandler {
             AppDTO appDTO = appService.getAppInfo(appId);
 
             if (appDTO == null || !Objects.equals(appDTO.getStatus(), AppStatusEnum.ENABLE.getStatus())) {
-                logger.warn("SinkHandler appId not found:{}", JSONUtil.toJsonStr(jsonObject));
+                logger.warn("SinkHandler appId not found data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
             String eventName = jsonObject.getStr("event_name");
             if (eventName == null) {
-                logger.warn("SinkHandler jsonObject not found eventName:{}", JSONUtil.toJsonStr(jsonObject));
+                logger.warn("SinkHandler jsonObject not found data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
             if (!checkIfEventEnabled(appId, eventName)) {
+                logger.warn("SinkHandler event not enabled data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 

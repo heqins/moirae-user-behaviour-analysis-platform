@@ -78,7 +78,7 @@ public class EventLogDetailHandler implements EventsHandler{
             throw new SinkErrorException(EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "app_id为空");
         }
 
-        JSONObject jsonObject = JSONUtil.toBean(eventLogDTO.getDataJson(), JSONObject.class);
+        JSONObject jsonObject = eventLogDTO.getJsonObject();
         List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(eventLogDTO.getDbName(), eventLogDTO.getTableName());
 
         Set<String> jsonFields = eventLogDTO.getFields();
@@ -190,7 +190,7 @@ public class EventLogDetailHandler implements EventsHandler{
             this.flush();
         }
 
-        if (eventLogDTO != null && eventLogDTO.getDataJson() != null) {
+        if (eventLogDTO != null && eventLogDTO.getJsonObject() != null) {
             this.buffers.add(eventLogDTO);
         }
     }
@@ -238,7 +238,7 @@ public class EventLogDetailHandler implements EventsHandler{
                         continue;
                     }
 
-                    List<JSONObject> jsonDataList = entry.getValue().stream().map(event -> JSONUtil.toBean(event.getDataJson(), JSONObject.class)).collect(Collectors.toList());
+                    List<JSONObject> jsonDataList = entry.getValue().stream().map(EventLogDTO::getJsonObject).collect(Collectors.toList());
                     List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
 
                     StrJoiner strJoiner = new StrJoiner(", ");

@@ -81,8 +81,8 @@ public class EventLogHandler implements EventsHandler{
         eventLog.setEventType(jsonObject.getStr("event_type"));
         eventLog.setStatus(status);
 
-        String dataJson = JSONUtil.toJsonStr(jsonObject);
-        eventLog.setDataJson(dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit)));
+        // dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit))
+        eventLog.setJsonObject(jsonObject);
         eventLog.setFields(jsonObject.keySet());
         eventLog.setAppId(jsonObject.getStr("app_id"));
         eventLog.setEventTime(jsonObject.getLong("event_time"));
@@ -158,10 +158,13 @@ public class EventLogHandler implements EventsHandler{
                             preparedStatement.setString(8, eventLog.getErrorHandling());
                             preparedStatement.setInt(9, eventLog.getStatus());
 
-                            if (eventLog.getDataJson() != null) {
-                                String json = eventLog.getDataJson().substring(0, Math.min(eventLog.getDataJson().length(), 1000));
+                            if (eventLog.getJsonObject() != null) {
+                                String dataJson = JSONUtil.toJsonStr(eventLog.getJsonObject());
+                                String json = dataJson.substring(0, Math.min(dataJson.length(), 1000));
+
                                 preparedStatement.setString(5, json);
                             }
+
                             preparedStatement.addBatch();
                         }
 

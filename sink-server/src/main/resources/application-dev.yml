@@ -91,4 +91,4 @@ management:
 
 kafka:
   topics:
-    offline-log: offline_log_dev
+    online-log: online_log_dev

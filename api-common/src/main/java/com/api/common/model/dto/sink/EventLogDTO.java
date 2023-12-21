@@ -1,5 +1,7 @@
 package com.api.common.model.dto.sink;
 
+import cn.hutool.json.JSONObject;
+
 import java.util.Set;
 
 public class EventLogDTO {
@@ -14,7 +16,7 @@ public class EventLogDTO {
 
     private Long eventTime;
 
-    private String dataJson;
+    private JSONObject jsonObject;
 
     private String errorReason;
 
@@ -26,13 +28,13 @@ public class EventLogDTO {
 
     private Set<String> fields;
 
-    public EventLogDTO(String appId, String eventName, Long eventTime, String dataJson,
+    public EventLogDTO(String appId, String eventName, Long eventTime, JSONObject jsonObject,
                        String errorReason, String errorHandling, String eventType, Integer status,
                        Set<String> fields, String dbName, String tableName) {
         this.appId = appId;
         this.eventName = eventName;
         this.eventTime = eventTime;
-        this.dataJson = dataJson;
+        this.jsonObject = jsonObject;
         this.errorReason = errorReason;
         this.errorHandling = errorHandling;
         this.eventType = eventType;
@@ -69,12 +71,12 @@ public class EventLogDTO {
         this.eventTime = createTime;
     }
 
-    public String getDataJson() {
-        return dataJson;
+    public JSONObject getJsonObject() {
+        return jsonObject;
     }
 
-    public void setDataJson(String dataJson) {
-        this.dataJson = dataJson;
+    public void setJsonObject(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
     }
 
     public String getErrorReason() {
@@ -139,7 +141,7 @@ public class EventLogDTO {
                 "appId='" + appId + '\'' +
                 ", eventName='" + eventName + '\'' +
                 ", eventTime=" + eventTime +
-                ", dataJson='" + dataJson + '\'' +
+                ", jsonObject='" + jsonObject + '\'' +
                 ", errorReason='" + errorReason + '\'' +
                 ", errorHandling='" + errorHandling + '\'' +
                 ", eventType='" + eventType + '\'' +

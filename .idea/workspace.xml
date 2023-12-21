@@ -4,23 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 新增入库失败事件的异常处理(转发到kafka)">
-      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/error/SinkErrorException.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 更新metaEventHandler的flush">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/EventLogDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/EventLogDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flink-job/src/main/resources/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/enums/EventFailReasonEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/enums/EventFailReasonEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
@@ -167,7 +163,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AdminMain">
+  <component name="RunManager" selected="Spring Boot.SinkMain">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
@@ -207,22 +203,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EventAnalysisTest.testGenID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="admin-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.admin.server.analysis.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.admin.server.analysis" />
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.analysis.EventAnalysisTest" />
-      <option name="METHOD_NAME" value="testGenID" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ReportDataTest.doAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="admin-server" />
       <extension name="coverage">
@@ -234,6 +214,22 @@
       <option name="PACKAGE_NAME" value="com.admin.server.controller.reportData" />
       <option name="MAIN_CLASS_NAME" value="com.admin.server.controller.reportData.ReportDataTest" />
       <option name="METHOD_NAME" value="doAnalysis" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SinkListenerTest.testListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sink-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.report.sink.listener.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.report.sink.listener" />
+      <option name="MAIN_CLASS_NAME" value="com.report.sink.listener.SinkListenerTest" />
+      <option name="METHOD_NAME" value="testListener" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -255,11 +251,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.EventLogDetailHandler (1)" />
         <item itemvalue="Application.EventLogDetailHandler" />
         <item itemvalue="JUnit.ReportDataTest.doAnalysis" />
         <item itemvalue="Application.DorisTask" />
-        <item itemvalue="JUnit.EventAnalysisTest.testGenID" />
       </list>
     </recent_temporary>
   </component>
@@ -311,21 +307,7 @@
       <workItem from="1702633285719" duration="2685000" />
       <workItem from="1702907739901" duration="8000" />
       <workItem from="1702912085954" duration="1130000" />
-      <workItem from="1703143750330" duration="5106000" />
-    </task>
-    <task id="LOCAL-00026" summary="feat: 实现doris监听插入数据库">
-      <created>1693148097370</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1693148097370</updated>
-    </task>
-    <task id="LOCAL-00027" summary="feat: 实现doris监听插入数据库">
-      <created>1693149605861</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1693149605861</updated>
+      <workItem from="1703143750330" duration="8256000" />
     </task>
     <task id="LOCAL-00028" summary="feat: 更新查询app表信息">
       <created>1693150508910</created>
@@ -656,7 +638,21 @@
       <option name="project" value="LOCAL" />
       <updated>1702476720412</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="feat: 统一sink处理过程中的数据模型">
+      <created>1703150228526</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1703150228527</updated>
+    </task>
+    <task id="LOCAL-00076" summary="feat: 更新metaEventHandler的flush">
+      <created>1703150885500</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1703150885500</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -697,8 +693,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 初始化事件分析入口" />
-    <MESSAGE value="feat: 增加任务" />
     <MESSAGE value="feat: 标记已完成任务" />
     <MESSAGE value="feat: 增加压测任务类" />
     <MESSAGE value="feat: 更新prometheus" />
@@ -722,7 +716,9 @@
     <MESSAGE value="feat: 完善事件统计接口（封装结果）" />
     <MESSAGE value="feat: 增加sinkServer的kafka发送失败消息" />
     <MESSAGE value="feat: 新增入库失败事件的异常处理(转发到kafka)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 新增入库失败事件的异常处理(转发到kafka)" />
+    <MESSAGE value="feat: 统一sink处理过程中的数据模型" />
+    <MESSAGE value="feat: 更新metaEventHandler的flush" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新metaEventHandler的flush" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -736,6 +732,16 @@
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/facade/AnalysisFacade.java</url>
           <line>47</line>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

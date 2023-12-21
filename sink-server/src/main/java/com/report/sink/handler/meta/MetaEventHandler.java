@@ -88,6 +88,10 @@ public class MetaEventHandler implements EventsHandler {
             return;
         }
 
+        if (metaEventAttributeBuffers.size() >= this.capacity) {
+            flush();
+        }
+
         metaEventAttributeBuffers.add(metaAttributeEvent);
     }
 
@@ -97,7 +101,7 @@ public class MetaEventHandler implements EventsHandler {
 
     @Override
     public void flush() {
-        if (this.metaEventsBuffers.size() == 0 || this.metaEventAttributeBuffers.size() == 0) {
+        if (this.metaEventsBuffers.size() == 0 && this.metaEventAttributeBuffers.size() == 0) {
             return;
         }
 

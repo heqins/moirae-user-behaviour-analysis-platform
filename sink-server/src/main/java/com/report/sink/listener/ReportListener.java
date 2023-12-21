@@ -26,25 +26,14 @@ public class ReportListener {
     @Resource
     private SinkHandler sinkHandler;
 
-    @KafkaListener(topics = "log-sink", containerFactory = "batchManualFactory")
-    public void onReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+    @KafkaListener(topics = "${kafka.topics.online-log}", containerFactory = "batchManualFactory")
+    public void onlineReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
         try {
             sinkHandler.run(records);
 
             kafkaConsumerCounter.increment(records.size());
         }catch (Exception e) {
-            logger.error("report-main error", e);
-        }
-
-        acknowledgment.acknowledge();
-    }
-
-    @KafkaListener(topics = "${kafka.topics.offline-log}", containerFactory = "batchManualFactory")
-    public void onFailEventMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
-        try {
-
-        }catch (Exception e) {
-            logger.error("fail-event error", e);
+            logger.error("onlineReportMessage error", e);
         }
 
         acknowledgment.acknowledge();

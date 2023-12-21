@@ -75,19 +75,5 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-
-        <!-- Hive JDBC 驱动 -->
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-jdbc</artifactId>
-            <version>3.1.2</version> <!-- 使用你当前环境的版本 -->
-        </dependency>
-
-        <!-- Avro 序列化/反序列化器 -->
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-serde</artifactId>
-            <version>3.1.2</version> <!-- 使用你当前环境的版本 -->
-        </dependency>
     </dependencies>
 </project>
