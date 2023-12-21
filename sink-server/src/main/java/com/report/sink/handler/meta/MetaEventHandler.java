@@ -7,6 +7,7 @@ import com.report.sink.helper.MySqlHelper;
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
+import org.jboss.netty.util.internal.ExecutorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,13 +19,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
+/**
+ * @author heqin
+ */
 @Component
 public class MetaEventHandler implements EventsHandler {
     
@@ -32,26 +33,27 @@ public class MetaEventHandler implements EventsHandler {
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    private List<MetaEvent> metaEventsBuffers;
+    private ConcurrentLinkedQueue<MetaEvent> metaEventsBuffers;
 
-    private List<MetaEventAttribute> metaEventAttributeBuffers;
+    private ConcurrentLinkedQueue<MetaEventAttribute> metaEventAttributeBuffers;
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final int capacity = 1000;
+    private final int capacity = 100;
+
+    private final Long flushIntervalMillSeconds = 1000L;
 
     @PostConstruct
     public void init() {
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
-                .setNamePrefix("report-data-doris")
-                .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
+                .setNamePrefix("meta-event-handler-thread-pool")
+                .setUncaughtExceptionHandler((value, ex) -> {logger.error("meta event handler value:{} error {}", value.getName(), ex.getMessage());})
                 .build();
-
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
 
-        metaEventsBuffers = new ArrayList<>(capacity);
-        metaEventAttributeBuffers = new ArrayList<>(capacity);
+        metaEventsBuffers = new ConcurrentLinkedQueue<>();
+        metaEventAttributeBuffers = new ConcurrentLinkedQueue<>();
 
         runSchedule();
     }
@@ -67,10 +69,11 @@ public class MetaEventHandler implements EventsHandler {
             return;
         }
 
-        metaEventsBuffers.add(metaEvent);
-        if (metaEventsBuffers.size() >= 1000) {
+        if (metaEventsBuffers.size() >= this.capacity) {
             flush();
         }
+
+        metaEventsBuffers.add(metaEvent);
     }
 
     private Set<String> getEnabledMetaEvents(List<MetaEvent> metaEvents) {
@@ -90,7 +93,7 @@ public class MetaEventHandler implements EventsHandler {
     }
 
     public void runSchedule() {
-        scheduledExecutorService.scheduleAtFixedRate(this::flush, 10, 50, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, flushIntervalMillSeconds, TimeUnit.MILLISECONDS);
     }
 
     @Override

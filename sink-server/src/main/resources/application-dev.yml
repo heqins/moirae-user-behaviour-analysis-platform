@@ -91,4 +91,4 @@ management:
 
 kafka:
   topics:
-    fail: fail_events_dev
+    offline-log: offline_log_dev

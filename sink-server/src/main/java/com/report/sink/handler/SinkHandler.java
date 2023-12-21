@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.api.common.constant.SinkConstants;
 import com.api.common.enums.AppStatusEnum;
 import com.api.common.enums.MetaEventStatusEnum;
+import com.api.common.error.SinkErrorException;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
@@ -33,12 +35,6 @@ import java.util.Objects;
 public class SinkHandler {
 
     private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
-    
-    @Resource
-    private EventLogHandler eventLogHandler;
-
-    @Resource
-    private EventLogDetailHandler eventLogDetailHandler;
 
     @Resource
     private DataSourceProperty dataSourceProperty;
@@ -47,17 +43,28 @@ public class SinkHandler {
     private IAppService appService;
 
     @Resource
+    private EventLogHandler eventLogHandler;
+
+    @Resource
+    private EventLogDetailHandler eventLogDetailHandler;
+
+    @Resource
     private MetaEventHandler metaEventHandler;
 
     @Resource
     private IMetaEventService metaEventService;
 
+    @PostConstruct
+    public void init() {
+        if (dataSourceProperty == null || dataSourceProperty.getDoris() == null) {
+            throw new IllegalArgumentException("SinkHandler Doris Config is null!");
+        }
+    }
+
     public void run(List<ConsumerRecord<String, String>> logRecords) {
         if (CollectionUtils.isEmpty(logRecords)) {
             return;
         }
-
-        DataSourceProperty.DorisConfig dorisConfig = dataSourceProperty.getDoris();
 
         for (ConsumerRecord<String, String> record: logRecords) {
             JSONObject jsonObject = parseJson(record.value());
@@ -91,13 +98,22 @@ public class SinkHandler {
 
             String tableName = SinkConstants.generateTableName(appId);
 
-            EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject), EventStatusEnum.SUCCESS.getStatus(), null, null);
+            EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, EventStatusEnum.SUCCESS.getStatus(), null, null);
+            eventLog.setDbName(dataSourceProperty.getDoris().getDbName());
+            eventLog.setTableName(tableName);
+
+            try {
+                MetaEvent metaEvent = getMetaEvent(appId, eventName);
+                metaEventHandler.addMetaEvent(metaEvent);
+
+                eventLogDetailHandler.addEvent(eventLog);
+            }catch (SinkErrorException se) {
+
+            }catch (Exception e) {
+
+            }
+
             eventLogHandler.addEvent(eventLog);
-
-            MetaEvent metaEvent = getMetaEvent(appId, eventName);
-            metaEventHandler.addMetaEvent(metaEvent);
-
-            eventLogDetailHandler.addEvent(jsonObject, dorisConfig != null ? dorisConfig.getDbName() : "", tableName);
         }
     }
 

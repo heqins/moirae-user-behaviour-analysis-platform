@@ -39,7 +39,7 @@ public class ReportListener {
         acknowledgment.acknowledge();
     }
 
-    @KafkaListener(topics = "${kafka.topics.fail}", containerFactory = "batchManualFactory")
+    @KafkaListener(topics = "${kafka.topics.offline-log}", containerFactory = "batchManualFactory")
     public void onFailEventMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
         try {
 

@@ -6,14 +6,14 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
-import com.api.common.model.dto.sink.LogEventDTO;
+import com.api.common.error.SinkErrorException;
+import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
-import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
-import com.report.sink.handler.meta.MetaEventHandler;
 import com.report.sink.handler.SinkHandler;
+import com.report.sink.handler.meta.MetaEventHandler;
 import com.report.sink.helper.DorisHelper;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
@@ -38,9 +38,9 @@ public class EventLogDetailHandler implements EventsHandler{
     
     private final Logger logger = LoggerFactory.getLogger(SinkHandler.class);
 
-    private ConcurrentLinkedQueue<LogEventDTO> buffers;
+    private ConcurrentLinkedQueue<EventLogDTO> buffers;
 
-    private final int capacity = 500;
+    private final int capacity = 100;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -50,8 +50,8 @@ public class EventLogDetailHandler implements EventsHandler{
     public void init() {
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
-                .setNamePrefix("report-data-doris")
-                .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
+                .setNamePrefix("event-log-detail-handler-thread-pool")
+                .setUncaughtExceptionHandler((value, ex) -> {logger.error("event log detail handler value:{} error {}", value.getName(), ex.getMessage());})
                 .build();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(threadFactory);
@@ -72,22 +72,20 @@ public class EventLogDetailHandler implements EventsHandler{
     @Resource(name = "redisCacheService")
     private ICacheService redisCache;
 
-    @Resource
-    private FailEventsHandler failEventsHandler;
-
     public void runSchedule() {
         scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 1000, TimeUnit.MILLISECONDS);
     }
 
-    private void  alterTableColumn(JSONObject jsonObject, String dbName, String tableName) {
-        String appId = jsonObject.getStr("app_id");
+    private void  alterTableColumn(EventLogDTO eventLogDTO) {
+        String appId = eventLogDTO.getAppId();
         if (StringUtils.isBlank(appId)) {
-            throw new IllegalArgumentException("no appId");
+            throw new SinkErrorException("app_id为空");
         }
 
-        List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(dbName, tableName);
+        JSONObject jsonObject = JSONUtil.toBean(eventLogDTO.getDataJson(), JSONObject.class);
+        List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(eventLogDTO.getDbName(), eventLogDTO.getTableName());
 
-        Set<String> jsonFields = jsonObject.keySet();
+        Set<String> jsonFields = eventLogDTO.getFields();
         Set<String> existFields = new HashSet<>();
 
         if (!CollectionUtils.isEmpty(columns)) {
@@ -106,11 +104,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
                 // 比较表字段类型是否一致
                 if (!objFieldType.equals(columnDTO.getColumnType())) {
-                    EventLogDTO failLog = eventLogHandler.transferFromJson(jsonObject, JSONUtil.toJsonStr(jsonObject),
-                            EventStatusEnum.FAIL.getStatus(), EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
-                    eventLogHandler.addEvent(failLog);
-
-                    throw new IllegalStateException("字段类型不一致 name:" + columnDTO.getColumnName());
+                    throw new SinkErrorException(EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "保留数据");
                 }
             }
 
@@ -120,7 +114,7 @@ public class EventLogDetailHandler implements EventsHandler{
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
-            dorisHelper.addTableColumn(dbName, tableName, jsonObject, newFieldKeys);
+            dorisHelper.addTableColumn(eventLogDTO.getDbName(), eventLogDTO.getTableName(), jsonObject, newFieldKeys);
 
             newFieldKeys.forEach(fieldKey -> {
                 MetaEventAttribute metaEventAttribute = getMetaEventAttributeFromJsonObj(jsonObject, fieldKey);
@@ -168,27 +162,21 @@ public class EventLogDetailHandler implements EventsHandler{
 
         return res;
     }
-    public void addEvent(JSONObject jsonObject, String dbName, String tableName) {
-        if (jsonObject == null) {
+    public void addEvent(EventLogDTO eventLogDTO) {
+        if (eventLogDTO == null) {
             return;
         }
 
-        if (!checkAttributeStatusValid(jsonObject)) {
-            return;
+        if (!checkAttributeStatusValid(eventLogDTO)) {
+            throw new SinkErrorException(EventFailReasonEnum.RULE_CONTROL_ERROR.gerReason(), "保留数据");
         }
 
-        try {
-            alterTableColumn(jsonObject, dbName, tableName);
-        }catch (IllegalArgumentException | IllegalStateException ia) {
-            logger.error("reportEventsToDorisHandler addEvent error", ia);
-            return;
-        }
-
-        insertTableData(jsonObject, dbName, tableName);
+        alterTableColumn(eventLogDTO);
+        insertTableData(eventLogDTO);
     }
 
-    private boolean checkAttributeStatusValid(JSONObject jsonObject) {
-        Set<String> attributeSets = jsonObject.keySet();
+    private boolean checkAttributeStatusValid(EventLogDTO eventLogDTO) {
+        Set<String> attributeSets = eventLogDTO.getFields();
         if (CollectionUtils.isEmpty(attributeSets)) {
             return false;
         }
@@ -201,18 +189,13 @@ public class EventLogDetailHandler implements EventsHandler{
         return attributeCache.stream().allMatch(value -> value.getStatus().equals(1));
     }
 
-    private void insertTableData(JSONObject jsonObject, String dbName, String tableName) {
+    private void insertTableData(EventLogDTO eventLogDTO) {
         if (this.buffers.size() >= this.capacity) {
             this.flush();
         }
 
-        if (jsonObject != null) {
-            LogEventDTO eventDTO = new LogEventDTO();
-            eventDTO.setDataObject(jsonObject);
-            eventDTO.setDbName(dbName);
-            eventDTO.setTableName(tableName);
-
-            this.buffers.add(eventDTO);
+        if (eventLogDTO != null && eventLogDTO.getDataJson() != null) {
+            this.buffers.add(eventLogDTO);
         }
     }
 
@@ -224,8 +207,8 @@ public class EventLogDetailHandler implements EventsHandler{
 
         boolean acquireLock = false;
         try {
-            acquireLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
-        }catch (InterruptedException e) {
+            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
             logger.error("reportEventsToDorisHandler flush lock error", e);
         }
 
@@ -234,12 +217,12 @@ public class EventLogDetailHandler implements EventsHandler{
         }
 
         try {
-            Map<String, List<LogEventDTO>> eventMap = new ConcurrentHashMap<>();
-            LogEventDTO data;
+            Map<String, List<EventLogDTO>> eventMap = new ConcurrentHashMap<>();
+            EventLogDTO data;
             int count = 0;
             while ((data = this.buffers.poll()) != null && count <= this.capacity) {
                 String key = data.getDbName() + ":" + data.getTableName();
-                List<LogEventDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
+                List<EventLogDTO> eventList = eventMap.getOrDefault(key, new CopyOnWriteArrayList<>());
                 eventList.add(data);
 
                 eventMap.putIfAbsent(key, eventList);
@@ -247,7 +230,7 @@ public class EventLogDetailHandler implements EventsHandler{
             }
 
             try {
-                for (Map.Entry<String, List<LogEventDTO>> entry: eventMap.entrySet()) {
+                for (Map.Entry<String, List<EventLogDTO>> entry : eventMap.entrySet()) {
                     String key = entry.getKey();
                     String[] split = key.split(":");
 
@@ -259,7 +242,7 @@ public class EventLogDetailHandler implements EventsHandler{
                         continue;
                     }
 
-                    List<JSONObject> jsonDataList = entry.getValue().stream().map(LogEventDTO::getDataObject).collect(Collectors.toList());
+                    List<JSONObject> jsonDataList = entry.getValue().stream().map(event -> JSONUtil.toBean(event.getDataJson(), JSONObject.class)).collect(Collectors.toList());
                     List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
 
                     StrJoiner strJoiner = new StrJoiner(", ");
@@ -283,41 +266,10 @@ public class EventLogDetailHandler implements EventsHandler{
                 }
             } catch (Exception e) {
                 logger.error("EventLogDetailHandler flush error", e);
-
-                failEventsHandler.sendToKafka(JSONUtil.toJsonStr(eventMap));
                 eventMap.clear();
             }
-        }finally {
+        } finally {
             lock.unlock();
         }
-    }
-
-    public static void main(String[] args) {
-        List<String> res = new ArrayList<>();
-        res.add("test");
-        res.add("str");
-
-        String json = JSONUtil.toJsonStr(res);
-
-        List<String> list = JSONUtil.toList(json, String.class);
-        System.out.println("test");
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("开始 " + Thread.currentThread().getName());
-                try {
-                    Thread.sleep(10000L);
-                }catch (Exception e) {
-
-                }
-                System.out.println("结束 " + Thread.currentThread().getName());
-            };
-        };
-
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-
-        // 1表示时间单位的数值 TimeUnit.SECONDS  延时单位为秒
-        service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
     }
 }

@@ -10,6 +10,9 @@ import org.springframework.core.env.Environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author heqin
+ */
 @SpringBootApplication
 public class AdminMain {
 
@@ -24,7 +27,7 @@ public class AdminMain {
         String path = env.getProperty("server.servlet.context-path");
         path = path == null ? "" : path;
         logger.info("\n----------------------------------------------------------\n\t" +
-                "数据上报服务已启动! Access URLs:\n\t" +
+                "后台管理服务已启动! Access URLs:\n\t" +
                 "本地访问地址: \thttp://localhost:" + port + path + "/\n\t" +
                 "Swagger文档: \thttp://" + ip + ":" + port + path + "/swagger-ui.html\n" +
                 "----------------------------------------------------------");    }

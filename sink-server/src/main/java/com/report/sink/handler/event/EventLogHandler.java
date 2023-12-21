@@ -38,18 +38,15 @@ public class EventLogHandler implements EventsHandler{
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final Integer bufferSize = 500;
+    private final Integer bufferSize = 100;
 
     private final Integer jsonLengthLimit = 1024;
 
-    private Long flushIntervalMillSeconds = 1000L;
+    private final Long flushIntervalMillSeconds = 1000L;
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     private final ReentrantLock lock = new ReentrantLock();
-
-    @Resource
-    private FailEventsHandler failEventsHandler;
 
     public EventLogHandler(@Qualifier(value = "dorisDataSource")DataSource dataSource) {
         this.dataSource = dataSource;
@@ -69,7 +66,7 @@ public class EventLogHandler implements EventsHandler{
         run();
     }
 
-    public EventLogDTO transferFromJson(JSONObject jsonObject, String dataJson, Integer status, String errorReason, String errorHandling) {
+    public EventLogDTO transferFromJson(JSONObject jsonObject, Integer status, String errorReason, String errorHandling) {
         if (jsonObject == null) {
             logger.error("EventLogHandler");
             return null;
@@ -83,9 +80,10 @@ public class EventLogHandler implements EventsHandler{
         EventLogDTO eventLog = new EventLogDTO();
         eventLog.setEventType(jsonObject.getStr("event_type"));
         eventLog.setStatus(status);
-        if (dataJson != null) {
-            eventLog.setDataJson(dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit)));
-        }
+
+        String dataJson = JSONUtil.toJsonStr(jsonObject);
+        eventLog.setDataJson(dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit)));
+        eventLog.setFields(jsonObject.keySet());
         eventLog.setAppId(jsonObject.getStr("app_id"));
         eventLog.setEventTime(jsonObject.getLong("event_time"));
         eventLog.setEventName(jsonObject.getStr("event_name"));
@@ -142,7 +140,6 @@ public class EventLogHandler implements EventsHandler{
                 try {
                     connection = dataSource.getConnection();
                 }catch (SQLException e) {
-                    failEventsHandler.sendToKafka(JSONUtil.toJsonStr(batch));
                     batch.clear();
                     return;
                 }

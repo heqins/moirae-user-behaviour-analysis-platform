@@ -1,10 +1,16 @@
 package com.api.common.model.dto.sink;
 
+import java.util.Set;
+
 public class EventLogDTO {
 
     private String appId;
 
     private String eventName;
+
+    private String dbName;
+
+    private String tableName;
 
     private Long eventTime;
 
@@ -18,7 +24,11 @@ public class EventLogDTO {
 
     private Integer status;
 
-    public EventLogDTO(String appId, String eventName, Long eventTime, String dataJson, String errorReason, String errorHandling, String eventType, Integer status) {
+    private Set<String> fields;
+
+    public EventLogDTO(String appId, String eventName, Long eventTime, String dataJson,
+                       String errorReason, String errorHandling, String eventType, Integer status,
+                       Set<String> fields, String dbName, String tableName) {
         this.appId = appId;
         this.eventName = eventName;
         this.eventTime = eventTime;
@@ -27,6 +37,9 @@ public class EventLogDTO {
         this.errorHandling = errorHandling;
         this.eventType = eventType;
         this.status = status;
+        this.fields = fields;
+        this.tableName = tableName;
+        this.dbName = dbName;
     }
 
     public EventLogDTO() {
@@ -94,6 +107,30 @@ public class EventLogDTO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<String> getFields() {
+        return fields;
+    }
+
+    public void setFields(Set<String> fields) {
+        this.fields = fields;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     @Override

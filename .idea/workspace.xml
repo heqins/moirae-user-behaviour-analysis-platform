@@ -4,13 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加sinkServer的kafka发送失败消息">
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 新增入库失败事件的异常处理(转发到kafka)">
+      <change afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/error/SinkErrorException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/TableColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/TableColumnDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/AdminMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/config/SaTokenConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/EventLogDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-common/src/main/java/com/api/common/model/dto/sink/EventLogDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/init-datasource/src/main/resources/init/doris_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/SinkMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/enums/EventFailReasonEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/enums/EventFailReasonEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/FailEventsHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/meta/MetaEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/MySqlHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/listener/ReportListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +126,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;917492cd6eff15b225a41c36a5af4f92&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;hive&quot;
+    ]
   }
 }</component>
   <component name="ReactorSettings">
@@ -150,7 +167,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.EventLogDetailHandler (1)">
+  <component name="RunManager" selected="Spring Boot.AdminMain">
     <configuration name="DorisTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.init.datasource.task.DorisTask" />
       <module name="init-datasource" />
@@ -287,14 +304,14 @@
       <workItem from="1701134464645" duration="51838000" />
       <workItem from="1701845254886" duration="263000" />
       <workItem from="1701845683883" duration="8746000" />
-      <workItem from="1702447014580" duration="20420000" />
-    </task>
-    <task id="LOCAL-00025" summary="feat: 更新表字段接口优化">
-      <created>1693061600847</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1693061600847</updated>
+      <workItem from="1702447014580" duration="23259000" />
+      <workItem from="1702539545440" duration="5000" />
+      <workItem from="1702539560739" duration="2804000" />
+      <workItem from="1702598677029" duration="27000" />
+      <workItem from="1702633285719" duration="2685000" />
+      <workItem from="1702907739901" duration="8000" />
+      <workItem from="1702912085954" duration="1130000" />
+      <workItem from="1703143750330" duration="5106000" />
     </task>
     <task id="LOCAL-00026" summary="feat: 实现doris监听插入数据库">
       <created>1693148097370</created>
@@ -632,7 +649,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702471744522</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="feat: 新增入库失败事件的异常处理(转发到kafka)">
+      <created>1702476720411</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1702476720412</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,7 +697,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 初始化App时创建表" />
     <MESSAGE value="feat: 初始化事件分析入口" />
     <MESSAGE value="feat: 增加任务" />
     <MESSAGE value="feat: 标记已完成任务" />
@@ -698,7 +721,8 @@
     <MESSAGE value="feat: 更新事件统计接口" />
     <MESSAGE value="feat: 完善事件统计接口（封装结果）" />
     <MESSAGE value="feat: 增加sinkServer的kafka发送失败消息" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加sinkServer的kafka发送失败消息" />
+    <MESSAGE value="feat: 新增入库失败事件的异常处理(转发到kafka)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 新增入库失败事件的异常处理(转发到kafka)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

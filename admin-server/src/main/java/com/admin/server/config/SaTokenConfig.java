@@ -31,7 +31,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
         // 注册 Sa-Token 拦截器，校验规则为 StpUtil.checkLogin() 登录校验。
         registry.addInterceptor(new SaInterceptor(handle -> {
                     // 拦截登录
-                    SaRouter.match("/api/admin/**", "/api/admin/v1/user/do**", h -> StpUtil.checkLogin());
+                    SaRouter.match("/api/admin/**", "/api/admin/v1/app/*", h -> StpUtil.checkLogin());
 
                     SaRouter.match("/api/admin/meta-data/**", h -> StpUtil.hasPermission("meta-data"));
 

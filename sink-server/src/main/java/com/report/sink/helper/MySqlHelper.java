@@ -34,7 +34,6 @@ public class MySqlHelper {
 
                 connection.commit();
             }catch (Exception e) {
-                System.out.println("test");
             }
         }
     }
@@ -53,14 +52,12 @@ public class MySqlHelper {
                     statement.setString(5, event.getDataType());
 
                     boolean execute = statement.execute();
-                    System.out.println("test");
                 }catch (SQLException e) {
                     connection.rollback();
                 }
 
                 connection.commit();
             }catch (Exception e) {
-                System.out.println("test");
             }
         }
     }
