@@ -11,7 +11,6 @@ import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.enums.EventFailReasonEnum;
-import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.handler.SinkHandler;
 import com.report.sink.handler.meta.MetaEventHandler;
 import com.report.sink.helper.DorisHelper;
@@ -61,9 +60,6 @@ public class EventLogDetailHandler implements EventsHandler{
     }
 
     @Resource
-    private EventLogHandler eventLogHandler;
-
-    @Resource
     private DorisHelper dorisHelper;
 
     @Resource
@@ -79,7 +75,7 @@ public class EventLogDetailHandler implements EventsHandler{
     private void  alterTableColumn(EventLogDTO eventLogDTO) {
         String appId = eventLogDTO.getAppId();
         if (StringUtils.isBlank(appId)) {
-            throw new SinkErrorException("app_id为空");
+            throw new SinkErrorException(EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "app_id为空");
         }
 
         JSONObject jsonObject = JSONUtil.toBean(eventLogDTO.getDataJson(), JSONObject.class);
@@ -168,7 +164,7 @@ public class EventLogDetailHandler implements EventsHandler{
         }
 
         if (!checkAttributeStatusValid(eventLogDTO)) {
-            throw new SinkErrorException(EventFailReasonEnum.RULE_CONTROL_ERROR.gerReason(), "保留数据");
+            throw new SinkErrorException(EventFailReasonEnum.RULE_CONTROL_ERROR.gerReason(), "字段管控");
         }
 
         alterTableColumn(eventLogDTO);

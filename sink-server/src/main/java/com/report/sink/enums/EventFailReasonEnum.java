@@ -17,6 +17,8 @@ public enum EventFailReasonEnum {
 
     KEY_FIELDS_MISSING("关键字段缺失"),
 
+    UNKNOWN_ERROR("未知异常"),
+
     ;
 
     private final String reason;

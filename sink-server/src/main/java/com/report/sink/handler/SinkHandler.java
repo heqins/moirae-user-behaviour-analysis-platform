@@ -8,6 +8,7 @@ import com.api.common.enums.MetaEventStatusEnum;
 import com.api.common.error.SinkErrorException;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.EventLogDTO;
+import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.handler.event.EventLogDetailHandler;
 import com.report.sink.handler.event.EventLogHandler;
@@ -108,9 +109,13 @@ public class SinkHandler {
 
                 eventLogDetailHandler.addEvent(eventLog);
             }catch (SinkErrorException se) {
-
+                eventLog.setErrorHandling(se.getErrorHandling());
+                eventLog.setErrorReason(se.getErrorMessage());
+                eventLog.setStatus(EventStatusEnum.FAIL.getStatus());
             }catch (Exception e) {
-
+                eventLog.setErrorReason(EventFailReasonEnum.UNKNOWN_ERROR.gerReason());
+                eventLog.setErrorHandling(e.getMessage());
+                eventLog.setStatus(EventStatusEnum.FAIL.getStatus());
             }
 
             eventLogHandler.addEvent(eventLog);

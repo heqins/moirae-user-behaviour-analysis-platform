@@ -7,7 +7,6 @@ import com.report.sink.helper.MySqlHelper;
 import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
-import org.jboss.netty.util.internal.ExecutorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -15,8 +14,8 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.*;
@@ -98,21 +97,49 @@ public class MetaEventHandler implements EventsHandler {
 
     @Override
     public void flush() {
-//        lock.lock();
-//        try {
-//            if (!CollectionUtils.isEmpty(metaEventsBuffers)) {
-//                mySqlHelper.insertMetaEvent(metaEventsBuffers);
-//
-//                metaEventsBuffers.clear();
-//            }
-//
-//            if (!CollectionUtils.isEmpty(metaEventAttributeBuffers)) {
-//                mySqlHelper.insertMetaAttributeEvent(metaEventAttributeBuffers);
-//
-//                metaEventAttributeBuffers.clear();
-//            }
-//        }finally {
-//            lock.unlock();
-//        }
+        if (this.metaEventsBuffers.size() == 0 || this.metaEventAttributeBuffers.size() == 0) {
+            return;
+        }
+
+        boolean acquireLock = false;
+        try {
+            acquireLock = lock.tryLock(300, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            logger.error("MetaEventHandler flush lock error", e);
+        }
+
+        if (!acquireLock) {
+            return;
+        }
+
+        try {
+            if (!CollectionUtils.isEmpty(metaEventsBuffers)) {
+                List<MetaEvent> metaEvents = new LinkedList<>();
+                MetaEvent data;
+                int count = 0;
+
+                while ((data = this.metaEventsBuffers.poll()) != null && count <= this.capacity) {
+                    metaEvents.add(data);
+                    count++;
+                }
+
+                mySqlHelper.insertMetaEvent(metaEvents);
+            }
+
+            if (!CollectionUtils.isEmpty(metaEventAttributeBuffers)) {
+                List<MetaEventAttribute> attributes = new LinkedList<>();
+                MetaEventAttribute data;
+                int count = 0;
+
+                while ((data = this.metaEventAttributeBuffers.poll()) != null && count <= this.capacity) {
+                    attributes.add(data);
+                    count++;
+                }
+
+                mySqlHelper.insertMetaAttributeEvent(attributes);
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 }
