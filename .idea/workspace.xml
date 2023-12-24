@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat:初始化data-provider的kafka类">
-      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/util/JsonUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat:处理data-provider的kafka类数据模型">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data-provider/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/data-provider/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,14 +295,7 @@
       <workItem from="1702912085954" duration="1130000" />
       <workItem from="1703143750330" duration="13034000" />
       <workItem from="1703416754961" duration="3578000" />
-      <workItem from="1703420356040" duration="8247000" />
-    </task>
-    <task id="LOCAL-00033" summary="feat: 增加adminServer元数据查询接口">
-      <created>1693970987301</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1693970987301</updated>
+      <workItem from="1703420356040" duration="8962000" />
     </task>
     <task id="LOCAL-00034" summary="feat: 增加adminServer应用创建接口">
       <created>1693989019425</created>
@@ -649,7 +633,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703420309638</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="feat:处理data-provider的kafka类数据模型">
+      <created>1703429930335</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1703429930336</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -691,7 +682,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: 处理and逻辑" />
     <MESSAGE value="feat: 更新项目参考感谢" />
     <MESSAGE value="feat: 完善事件查询逻辑" />
     <MESSAGE value="feat: 完善事件查询逻辑，注释多余部分" />
@@ -716,7 +706,8 @@
     <MESSAGE value="feat: 预替换stress-test为data-provider模块" />
     <MESSAGE value="feat:初始化data-provider的kafka数据" />
     <MESSAGE value="feat:初始化data-provider的kafka类" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:初始化data-provider的kafka类" />
+    <MESSAGE value="feat:处理data-provider的kafka类数据模型" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:处理data-provider的kafka类数据模型" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -745,16 +736,6 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
           <line>266</line>
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java</url>
-          <line>113</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

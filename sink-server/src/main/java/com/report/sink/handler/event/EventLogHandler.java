@@ -50,7 +50,7 @@ public class EventLogHandler implements EventsHandler{
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    public EventLogHandler(@Qualifier(value = "dorisDataSource")DataSource dataSource) {
+    public EventLogHandler(@Qualifier(value = "dorisDataSource") DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -149,6 +149,7 @@ public class EventLogHandler implements EventsHandler{
                     connection = dataSource.getConnection();
                 }catch (SQLException e) {
                     batch.clear();
+                    logger.error("EventLogHandler getConnection error", e);
                     return;
                 }
 
@@ -185,6 +186,12 @@ public class EventLogHandler implements EventsHandler{
                         connection.rollback();
                     } catch (SQLException e1) {
                         logger.error("DorisEventLogHandler rollback error", e1);
+                    }
+                }finally {
+                    try {
+                        connection.close();
+                    }catch (SQLException e) {
+                        logger.error("DorisEventLogHandler close error", e);
                     }
                 }
             }

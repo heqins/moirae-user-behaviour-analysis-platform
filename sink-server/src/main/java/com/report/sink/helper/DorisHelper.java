@@ -256,6 +256,12 @@ public class DorisHelper {
 
             log.error("DorisHelper tableInsertData insert execute error", e);
             throw new IllegalStateException("插入失败");
+        }finally {
+            try {
+                insertConnection.close();
+            }catch (SQLException e) {
+                log.error("DorisHelper tableInsertData insert close error", e);
+            }
         }
     }
 }
