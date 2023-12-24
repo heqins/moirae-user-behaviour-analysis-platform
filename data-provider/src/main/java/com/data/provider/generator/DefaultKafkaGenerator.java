@@ -1,5 +1,12 @@
 package com.data.provider.generator;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -8,8 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 public class DefaultKafkaGenerator {
 
-    private static final String KAFKA_BROKER = "your_kafka_broker_address";
-    private static final String KAFKA_TOPIC = "your_kafka_topic";
+    private static final String KAFKA_BROKER = "localhost:9092";
+    private static final String KAFKA_TOPIC = "log-etl-main";
+
+    private static final Integer RECORDS = 100000;
+
+    private static final String APP_ID = "2crdwf5q";
+
+    private static final Random random = new Random();
 
     public static void main(String[] args) {
         // Set Kafka producer properties
@@ -21,7 +34,7 @@ public class DefaultKafkaGenerator {
         // Create Kafka producer
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Generate and send random data
-            generateAndSendData(producer, KAFKA_TOPIC, 1000);
+            generateAndSendData(producer, KAFKA_TOPIC, RECORDS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,11 +42,10 @@ public class DefaultKafkaGenerator {
 
     private static void generateAndSendData(Producer<String, String> producer, String topic, int numRecords) {
         ObjectMapper objectMapper = new ObjectMapper();
-        Random random = new Random();
 
         for (int i = 0; i < numRecords; i++) {
             // Generate random data
-            DataObject dataObject = generateRandomData(random);
+            DataObject dataObject = generateRandomData();
 
             // Convert to JSON
             String jsonData = convertToJson(objectMapper, dataObject);
@@ -41,78 +53,57 @@ public class DefaultKafkaGenerator {
             // Send data to Kafka
             producer.send(new ProducerRecord<>(topic, jsonData));
 
-            // Sleep for a short time to simulate a delay between records
-            try {
-                TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println("Sent data 个数:" + (i + 1));
         }
     }
 
-    private static DataObject generateRandomData(Random random) {
+    private static DataObject generateRandomData() {
         DataObject dataObject = new DataObject();
-        dataObject.setCommon(generateCommonData(random));
-        dataObject.setActions(generateActions(random));
-        dataObject.setDisplays(generateDisplays(random));
-        dataObject.setPage(generatePageData(random));
-        dataObject.setErr(generateErrorData(random));
+        dataObject.setCommon(generateCommonData());
+        dataObject.setAction(generateActions());
+        dataObject.setErrorData(generateErrorData());
         dataObject.setTs(System.currentTimeMillis());
         return dataObject;
     }
 
-    private static CommonData generateCommonData(Random random) {
+    private static CommonData generateCommonData() {
         CommonData commonData = new CommonData();
-        commonData.setAr(randomString(6));
-        commonData.setBa(randomString(10));
-        commonData.setCh(randomString(8));
-        commonData.setIsNew(random.nextBoolean() ? "1" : "0");
-        commonData.setMd(randomString(12));
-        commonData.setMid(randomString(16));
-        commonData.setOs(randomString(10));
-        commonData.setUid(String.valueOf(random.nextInt(1000)));
-        commonData.setVc(randomString(8));
+
+        int major = random.nextInt(10);   // Assuming major version can be between 0 and 9
+        int minor = random.nextInt(10);  // Assuming minor version can be between 0 and 99
+        int patch = random.nextInt(10);  // Assuming patch version can be between 0 and 99
+
+        String version =  major + "." + minor + "." + patch;
+
+        commonData.setAppId(APP_ID);
+
+        List<String> fruits = new ArrayList<>();
+        fruits.add("ios");
+        fruits.add("android");
+        fruits.add("win");
+
+        String randomFruit = fruits.get(random.nextInt(3));
+
+        commonData.setAppVersion(version);
+        commonData.setEventName(randomString(8));
+        commonData.setOs(randomFruit);
+        commonData.setUniqueId(randomString(12));
+
         return commonData;
     }
 
-    private static List<ActionData> generateActions(Random random) {
-        List<ActionData> actions = new ArrayList<>();
+    private static ActionData generateActions() {
         ActionData actionData = new ActionData();
         actionData.setActionId(randomString(10));
         actionData.setItem(String.valueOf(random.nextInt(1000)));
         actionData.setItemType(randomString(8));
-        actionData.setTs(System.currentTimeMillis());
-        actions.add(actionData);
-        return actions;
+        return actionData;
     }
 
-    private static List<DisplayData> generateDisplays(Random random) {
-        List<DisplayData> displays = new ArrayList<>();
-        DisplayData displayData = new DisplayData();
-        displayData.setDisplayType(randomString(8));
-        displayData.setItem(String.valueOf(random.nextInt(1000)));
-        displayData.setItemType(randomString(8));
-        displayData.setOrder(random.nextInt(10));
-        displayData.setPosId(random.nextInt(5));
-        displays.add(displayData);
-        return displays;
-    }
-
-    private static PageData generatePageData(Random random) {
-        PageData pageData = new PageData();
-        pageData.setDuringTime(random.nextInt(10000));
-        pageData.setItem(String.valueOf(random.nextInt(1000)));
-        pageData.setItemType(randomString(8));
-        pageData.setLastPageId(randomString(10));
-        pageData.setPageId(randomString(12));
-        pageData.setSourceType(randomString(10));
-        return pageData;
-    }
-
-    private static ErrorData generateErrorData(Random random) {
+    private static ErrorData generateErrorData() {
         ErrorData errorData = new ErrorData();
-        errorData.setErrorCode(randomString(6));
-        errorData.setMsg(randomString(20));
+        errorData.setErrorCode("200");
+        errorData.setMsg("正常");
         return errorData;
     }
 
@@ -134,63 +125,159 @@ public class DefaultKafkaGenerator {
         return sb.toString();
     }
 
-    class DisplayData {
-        private String displayType;
-        private String item;
-        private String itemType;
-        private int order;
-        private int posId;
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    static class ErrorData {
+        public String getErrorCode() {
+            return error_code;
+        }
 
-        // getters and setters
-    }
+        public void setErrorCode(String errorCode) {
+            this.error_code = errorCode;
+        }
 
-    class PageData {
-        private int duringTime;
-        private String item;
-        private String itemType;
-        private String lastPageId;
-        private String pageId;
-        private String sourceType;
+        private String error_code;
 
-        // getters and setters
-    }
+        public String getMsg() {
+            return msg;
+        }
 
-    class ErrorData {
-        private String errorCode;
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
         private String msg;
 
         // getters and setters
     }
 
-    class ActionData {
-        private String actionId;
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    static class ActionData {
+        private String action_id;
         private String item;
-        private String itemType;
-        private long ts;
+
+        public String getActionId() {
+            return action_id;
+        }
+
+        public void setActionId(String actionId) {
+            this.action_id = actionId;
+        }
+
+        public String getItem() {
+            return item;
+        }
+
+        public void setItem(String item) {
+            this.item = item;
+        }
+
+        public String getItemType() {
+            return item_type;
+        }
+
+        public void setItemType(String itemType) {
+            this.item_type = itemType;
+        }
+
+        private String item_type;
 
         // getters and setters
     }
 
-    class CommonData {
-        private String ar;
-        private String ba;
-        private String ch;
-        private String isNew;
-        private String md;
-        private String mid;
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    static class CommonData {
+        private String event_name;
+
         private String os;
-        private String uid;
-        private String vc;
+
+        private String unique_id;
+        private String app_id;
+
+        public String getEventName() {
+            return event_name;
+        }
+
+        public void setEventName(String eventName) {
+            this.event_name = eventName;
+        }
+
+        public String getOs() {
+            return os;
+        }
+
+        public void setOs(String os) {
+            this.os = os;
+        }
+
+        public String getUniqueId() {
+            return unique_id;
+        }
+
+        public void setUniqueId(String uniqueId) {
+            this.unique_id = uniqueId;
+        }
+
+        public String getAppId() {
+            return app_id;
+        }
+
+        public void setAppId(String appId) {
+            this.app_id = appId;
+        }
+
+        public String getAppVersion() {
+            return app_version;
+        }
+
+        public void setAppVersion(String appVersion) {
+            this.app_version = appVersion;
+        }
+
+        private String app_version;
 
         // getters and setters
     }
 
-    class DataObject {
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    static class DataObject {
         private CommonData common;
-        private List<ActionData> actions;
-        private List<DisplayData> displays;
-        private PageData page;
-        private ErrorData err;
+
+        private ActionData action;
+
+        public ErrorData getErrorData() {
+            return errorData;
+        }
+
+        public void setErrorData(ErrorData errorData) {
+            this.errorData = errorData;
+        }
+
+        private ErrorData errorData;
+
+        public CommonData getCommon() {
+            return common;
+        }
+
+        public void setCommon(CommonData common) {
+            this.common = common;
+        }
+
+        public ActionData getAction() {
+            return action;
+        }
+
+        public void setAction(ActionData action) {
+            this.action = action;
+        }
+
+        public long getTs() {
+            return ts;
+        }
+
+        public void setTs(long ts) {
+            this.ts = ts;
+        }
+
         private long ts;
 
         // getters and setters

@@ -6,6 +6,22 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>data-provider</name>
 
+    <parent>
+        <groupId>com.hq</groupId>
+        <artifactId>user-behaviour-analysis-platform</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <dependencies>
+        <dependency>
+            <groupId>com.hq</groupId>
+            <artifactId>api-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
     </dependencies>
 </project>

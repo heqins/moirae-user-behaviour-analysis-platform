@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
+import com.report.sink.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -143,7 +144,12 @@ public class DorisHelper {
                 continue;
             }
 
-            String className = jsonObject.get(jsonField).getClass().getCanonicalName();
+            Object obj = JsonUtil.getNestedFieldValueRecursive(jsonObject, jsonField);
+            if (obj == null) {
+                throw new IllegalStateException("DorisHelper changeTableSchema column obj is null");
+            }
+
+            String className = obj.getClass().getCanonicalName();
             String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {

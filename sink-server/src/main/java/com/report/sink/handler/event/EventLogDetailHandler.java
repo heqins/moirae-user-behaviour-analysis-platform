@@ -2,20 +2,25 @@ package com.report.sink.handler.event;
 
 import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.error.SinkErrorException;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.handler.SinkHandler;
 import com.report.sink.handler.meta.MetaEventHandler;
 import com.report.sink.helper.DorisHelper;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
+import com.report.sink.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +95,8 @@ public class EventLogDetailHandler implements EventsHandler{
                     continue;
                 }
 
-                if (!jsonObject.containsKey(columnDTO.getColumnName())) {
+                boolean checkFieldExist = JsonUtil.checkIfJsonFieldExist(jsonObject, columnDTO.getColumnName());
+                if (!checkFieldExist) {
                     continue;
                 }
 
@@ -128,7 +134,7 @@ public class EventLogDetailHandler implements EventsHandler{
             return null;
         }
 
-        Object fieldObj = jsonObject.get(fieldKey);
+        Object fieldObj = JsonUtil.getNestedFieldValueRecursive(jsonObject, fieldKey);
         String className = fieldObj.getClass().getCanonicalName();
         String dataType = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
         if (dataType == null) {
@@ -267,5 +273,13 @@ public class EventLogDetailHandler implements EventsHandler{
         } finally {
             lock.unlock();
         }
+    }
+
+    public static void main(String[] args) {
+        String jsonString = "{\"common\":{\"eventName\":\"PpsK4fRP\",\"os\":\"win\",\"uniqueId\":\"Relxgv4tDBlF\",\"appId\":\"2crdwf5q\",\"appVersion\":\"9.8.1\"},\"action\":{\"actionId\":\"CKLHt0a72g\",\"item\":\"582\",\"itemType\":\"DPrafvrx\"},\"errorData\":{\"errorCode\":\"200\",\"msg\":\"正常\"},\"ts\":1703425918105}";
+        JSONObject jsonObject = JSONUtil.parseObj(jsonString);
+
+        Set<String> fieldNames = JsonUtil.getAllFieldNames(jsonObject);
+        System.out.println("test");
     }
 }

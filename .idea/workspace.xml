@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 预替换stress-test为data-provider模块">
-      <change afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/KafkaDataGenerator.java" afterDir="false" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat:初始化data-provider的kafka类">
+      <change afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/util/JsonUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/RetentionAnalysisResultDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/RetentionAnalysisResultDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-provider/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/data-provider/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/helper/DorisHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sink-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,40 +96,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ToolWindowBuild.ShowToolbar": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "jdk.selected.JAVA_MODULE": "temurin-11",
-    "last_opened_file_path": "/Users/heqin/workspace/java/moirae-user-behaviour-analysis-platform",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.12227076",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "http.proxy",
-    "spring.configuration.checksum": "917492cd6eff15b225a41c36a5af4f92",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ToolWindowBuild.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-11&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/heqin/workspace/java/moirae-user-behaviour-analysis-platform&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.12227076&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;http.proxy&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;917492cd6eff15b225a41c36a5af4f92&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "hive"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;hive&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -157,13 +164,13 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EventAnalysisTest.doRententionAnalysis">
-    <configuration name="EventLogDetailHandler (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.event.EventLogDetailHandler" />
-      <module name="sink-server" />
+  <component name="RunManager" selected="Spring Boot.SinkMain">
+    <configuration name="DefaultKafkaGenerator (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.provider.generator.DefaultKafkaGenerator" />
+      <module name="data-provider" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.event.*" />
+          <option name="PATTERN" value="com.data.provider.generator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -171,12 +178,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EventLogDetailHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.event.EventLogDetailHandler" />
-      <module name="sink-server" />
+    <configuration name="DefaultKafkaGenerator (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.provider.generator.DefaultKafkaGenerator" />
+      <module name="data-provider" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.report.sink.handler.event.*" />
+          <option name="PATTERN" value="com.data.provider.generator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -184,47 +191,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OfflineLogToHiveOdsTask" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.OfflineLogToHiveOdsTask" />
+    <configuration name="DefaultKafkaGenerator (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.provider.generator.DefaultKafkaGenerator" />
+      <module name="data-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.data.provider.generator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DefaultKafkaGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.provider.generator.DefaultKafkaGenerator" />
+      <module name="data-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.data.provider.generator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EtlTaskRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flink.job.task.runner.EtlTaskRunner" />
       <module name="flink-job" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flink.job.task.*" />
+          <option name="PATTERN" value="com.flink.job.task.runner.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EventAnalysisTest.doRententionAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="admin-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.admin.server.controller.analysis.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.admin.server.controller.analysis" />
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.controller.analysis.EventAnalysisTest" />
-      <option name="METHOD_NAME" value="doRententionAnalysis" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SinkListenerTest.testListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sink-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.report.sink.listener.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.report.sink.listener" />
-      <option name="MAIN_CLASS_NAME" value="com.report.sink.listener.SinkListenerTest" />
-      <option name="METHOD_NAME" value="testListener" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -245,11 +246,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.EventAnalysisTest.doRententionAnalysis" />
-        <item itemvalue="Application.OfflineLogToHiveOdsTask" />
-        <item itemvalue="JUnit.SinkListenerTest.testListener" />
-        <item itemvalue="Application.EventLogDetailHandler (1)" />
-        <item itemvalue="Application.EventLogDetailHandler" />
+        <item itemvalue="Application.DefaultKafkaGenerator (3)" />
+        <item itemvalue="Application.DefaultKafkaGenerator" />
+        <item itemvalue="Application.DefaultKafkaGenerator (2)" />
+        <item itemvalue="Application.EtlTaskRunner" />
+        <item itemvalue="Application.DefaultKafkaGenerator (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -302,14 +303,8 @@
       <workItem from="1702907739901" duration="8000" />
       <workItem from="1702912085954" duration="1130000" />
       <workItem from="1703143750330" duration="13034000" />
-      <workItem from="1703416754961" duration="3453000" />
-    </task>
-    <task id="LOCAL-00032" summary="feat: 更新加锁逻辑">
-      <created>1693963436477</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1693963436477</updated>
+      <workItem from="1703416754961" duration="3578000" />
+      <workItem from="1703420356040" duration="8247000" />
     </task>
     <task id="LOCAL-00033" summary="feat: 增加adminServer元数据查询接口">
       <created>1693970987301</created>
@@ -647,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703417306904</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="feat:初始化data-provider的kafka类">
+      <created>1703420309638</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1703420309638</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,8 +691,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: 优化大批量下插入速度" />
-    <MESSAGE value="feat: 增加处理where条件" />
     <MESSAGE value="feat: 处理and逻辑" />
     <MESSAGE value="feat: 更新项目参考感谢" />
     <MESSAGE value="feat: 完善事件查询逻辑" />
@@ -714,7 +714,9 @@
     <MESSAGE value="feat: 迁移SinkServer里的离线数据任务到Flink Job" />
     <MESSAGE value="feat: 增加留存分析处理" />
     <MESSAGE value="feat: 预替换stress-test为data-provider模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 预替换stress-test为data-provider模块" />
+    <MESSAGE value="feat:初始化data-provider的kafka数据" />
+    <MESSAGE value="feat:初始化data-provider的kafka类" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:初始化data-provider的kafka类" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -730,16 +732,6 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
-          <line>111</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
           <line>143</line>
           <option name="timeStamp" value="47" />
@@ -748,6 +740,21 @@
           <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java</url>
           <line>114</line>
           <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
+          <line>266</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/SinkHandler.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

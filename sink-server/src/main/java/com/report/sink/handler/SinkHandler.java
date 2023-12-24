@@ -17,6 +17,8 @@ import com.report.sink.model.bo.MetaEvent;
 import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.IMetaEventService;
+import com.report.sink.util.JsonUtil;
+import io.swagger.v3.core.util.Json;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -74,12 +76,13 @@ public class SinkHandler {
                 continue;
             }
 
-            if (!jsonObject.containsKey("app_id")) {
+            boolean isAppIdExist = JsonUtil.checkIfJsonFieldExist(jsonObject, "app_id");
+            if (!isAppIdExist) {
                 logger.warn("SinkHandler jsonObject not contains appId data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
-            String appId = jsonObject.getStr("app_id");
+            String appId = (String) JsonUtil.getNestedFieldValueRecursive(jsonObject, "app_id");
             AppDTO appDTO = appService.getAppInfo(appId);
 
             if (appDTO == null || !Objects.equals(appDTO.getStatus(), AppStatusEnum.ENABLE.getStatus())) {
@@ -87,12 +90,13 @@ public class SinkHandler {
                 continue;
             }
 
-            String eventName = jsonObject.getStr("event_name");
-            if (eventName == null) {
+            Object eventNameObj = JsonUtil.getNestedFieldValueRecursive(jsonObject, "event_name");
+            if (eventNameObj == null) {
                 logger.warn("SinkHandler jsonObject not found data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
             }
 
+            String eventName = (String) eventNameObj;
             if (!checkIfEventEnabled(appId, eventName)) {
                 logger.warn("SinkHandler event not enabled data:{}", JSONUtil.toJsonStr(jsonObject));
                 continue;
@@ -103,6 +107,8 @@ public class SinkHandler {
             EventLogDTO eventLog = eventLogHandler.transferFromJson(jsonObject, EventStatusEnum.SUCCESS.getStatus(), null, null);
             eventLog.setDbName(dataSourceProperty.getDoris().getDbName());
             eventLog.setTableName(tableName);
+            eventLog.setEventName(eventName);
+            eventLog.setAppId(appId);
 
             try {
                 MetaEvent metaEvent = getMetaEvent(appId, eventName);

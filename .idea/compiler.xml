@@ -28,11 +28,12 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="admin-server" options="" />
+      <module name="admin-server" options="-parameters" />
       <module name="api-common" options="" />
-      <module name="flink-job" options="" />
-      <module name="init-datasource" options="" />
-      <module name="sink-server" options="" />
+      <module name="data-provider" options="-parameters" />
+      <module name="flink-job" options="-parameters" />
+      <module name="init-datasource" options="-parameters" />
+      <module name="sink-server" options="-parameters" />
       <module name="user-behaviour-analysis-platform" options="" />
     </option>
   </component>

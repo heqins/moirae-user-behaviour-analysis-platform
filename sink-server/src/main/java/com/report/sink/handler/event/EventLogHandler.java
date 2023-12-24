@@ -6,6 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.report.sink.enums.EventStatusEnum;
 import com.report.sink.handler.SinkHandler;
+import com.report.sink.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -73,22 +75,28 @@ public class EventLogHandler implements EventsHandler{
         }
 
         if (status == null || !EventStatusEnum.isStatusValid(status)) {
-            logger.error("EventLogHandler");
+            logger.warn("EventLogHandler");
             return null;
         }
 
         EventLogDTO eventLog = new EventLogDTO();
-        eventLog.setEventType(jsonObject.getStr("event_type"));
+        eventLog.setEventType("正式");
         eventLog.setStatus(status);
 
         // dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit))
         eventLog.setJsonObject(jsonObject);
-        eventLog.setFields(jsonObject.keySet());
-        eventLog.setAppId(jsonObject.getStr("app_id"));
-        eventLog.setEventTime(jsonObject.getLong("event_time"));
-        eventLog.setEventName(jsonObject.getStr("event_name"));
+        Object tsObj = JsonUtil.getNestedFieldValueRecursive(jsonObject, "ts");
+        if (tsObj == null) {
+            logger.warn("EventLogHandler");
+            return null;
+        }
+
+        eventLog.setEventTime((Long) tsObj);
         eventLog.setErrorHandling(errorHandling);
         eventLog.setErrorReason(errorReason);
+
+        Set<String> fieldNames = JsonUtil.getAllFieldNames(jsonObject);
+        eventLog.setFields(fieldNames);
 
         return eventLog;
     }
