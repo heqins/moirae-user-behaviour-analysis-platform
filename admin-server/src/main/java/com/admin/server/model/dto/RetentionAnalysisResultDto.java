@@ -3,19 +3,12 @@ package com.admin.server.model.dto;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author heqin
+ */
 public class RetentionAnalysisResultDto {
 
-    private long total;
-
     private List<DataGroupDto> dataGroups;
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
 
     public List<DataGroupDto> getDataGroups() {
         return dataGroups;
@@ -25,30 +18,36 @@ public class RetentionAnalysisResultDto {
         this.dataGroups = dataGroups;
     }
 
-    @Override
-    public String toString() {
-        return "EventAnalysisResultDto{" +
-                "total=" + total +
-                ", dataGroups=" + dataGroups +
-                '}';
-    }
-
     public static class DataGroupDto {
-        private Map<String, Object> item;
 
-        public Map<String, Object> getItem() {
-            return item;
+        private String date;
+
+        private List<Long> nums;
+
+        private List<List<String>> uids;
+
+        public String getDate() {
+            return date;
         }
 
-        public void setItem(Map<String, Object> item) {
-            this.item = item;
+        public void setDate(String date) {
+            this.date = date;
         }
 
-        @Override
-        public String toString() {
-            return "DataGroupDto{" +
-                    "item=" + item +
-                    '}';
+        public List<Long> getNums() {
+            return nums;
+        }
+
+        public void setNums(List<Long> nums) {
+            this.nums = nums;
+        }
+
+        public List<List<String>> getUids() {
+            return uids;
+        }
+
+        public void setUids(List<List<String>> uids) {
+            this.uids = uids;
         }
     }
 }

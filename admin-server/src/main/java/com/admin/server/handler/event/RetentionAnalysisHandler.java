@@ -68,12 +68,51 @@ public class RetentionAnalysisHandler implements AnalysisHandler{
         }
 
         String finalSql = String.join(" union all ", sqlList);
+        finalSql = "SELECT\n" +
+                "\t\t\t'2023-12-24' AS dates,\n" +
+                "\t\t\tARRAY(sum(r[1]),sum(r[2])) as value,\n" +
+                "\t\t\tARRAY_UNION(collect_set(if(r[1]=1,unique_id,null)),collect_set(if(r[2]=1,unique_id,null))) as ui\n" +
+                "\t\t\tFROM\n" +
+                "\t\t\t(\n" +
+                "\t\t\t\tSELECT\n" +
+                "\t\t\t\t unique_id,\n" +
+                "\t\t\t retention(event_name ='登出' and event_date = '2023-12-24' ,event_name ='登出' and event_date = '2023-12-24') AS r\n" +
+                "\t\t\tFROM event_log_detail_2crdwf5q\n" +
+                "\t\t\twhere event_date >= '2023-12-21 00:00:00' and event_date <= '2023-12-27 00:00:00' and  event_name in ('登出','登出')   and (1=1) and ( 1 = 1 )\n" +
+                "\n" +
+                "\t\t\tGROUP BY unique_id\n" +
+                "\t\t) as external limit 1000";
+        sqlArgList = new ArrayList<>();
         return Pair.of(finalSql, sqlArgList);
     }
 
     private RetentionAnalysisResultDto constructResult(List<Map<String, Object>> maps) {
+        /**
+         *
+         */
+        RetentionAnalysisResultDto resultDto = new RetentionAnalysisResultDto();
+        List<RetentionAnalysisResultDto.DataGroupDto> dataGroupDtos = new ArrayList<>();
 
-        return null;
+        for (int i = 0; i < maps.size(); i++) {
+            RetentionAnalysisResultDto.DataGroupDto dataGroupDto = new RetentionAnalysisResultDto.DataGroupDto();
+            Map<String, Object> map = maps.get(i);
+
+            String currentDate = (String) map.get("dates");
+            dataGroupDto.setDate(currentDate);
+
+            String numStr = (String) map.get("value");
+            String[] parts = numStr.substring(1, numStr.length() - 1).split(",");
+            List<Long> numList = new ArrayList<>(parts.length);
+            for (int j = 0; j < parts.length; j++) {
+                numList.add(Long.parseLong(parts[j].trim()));
+            }
+            dataGroupDto.setNums(numList);
+
+            dataGroupDtos.add(dataGroupDto);
+        }
+
+        resultDto.setDataGroups(dataGroupDtos);
+        return resultDto;
     }
 
     private List<String> generateDateRange(List<String> dateRangeParam) {

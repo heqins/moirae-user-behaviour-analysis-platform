@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 增加留存分析处理" />
+    <list default="true" id="5933f241-2562-4785-ac50-34f4229d0992" name="Changes" comment="feat: 预替换stress-test为data-provider模块">
+      <change afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/DefaultKafkaGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data-provider/src/main/java/com/data/provider/generator/KafkaDataGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/RetentionAnalysisResultDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/model/dto/RetentionAnalysisResultDto.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +157,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.OfflineLogToHiveOdsTask">
+  <component name="RunManager" selected="JUnit.EventAnalysisTest.doRententionAnalysis">
     <configuration name="EventLogDetailHandler (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.report.sink.handler.event.EventLogDetailHandler" />
       <module name="sink-server" />
@@ -191,17 +197,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReportDataTest.doAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EventAnalysisTest.doRententionAnalysis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="admin-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.admin.server.controller.reportData.*" />
+          <option name="PATTERN" value="com.admin.server.controller.analysis.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.admin.server.controller.reportData" />
-      <option name="MAIN_CLASS_NAME" value="com.admin.server.controller.reportData.ReportDataTest" />
-      <option name="METHOD_NAME" value="doAnalysis" />
+      <option name="PACKAGE_NAME" value="com.admin.server.controller.analysis" />
+      <option name="MAIN_CLASS_NAME" value="com.admin.server.controller.analysis.EventAnalysisTest" />
+      <option name="METHOD_NAME" value="doRententionAnalysis" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -239,11 +245,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EventAnalysisTest.doRententionAnalysis" />
         <item itemvalue="Application.OfflineLogToHiveOdsTask" />
         <item itemvalue="JUnit.SinkListenerTest.testListener" />
         <item itemvalue="Application.EventLogDetailHandler (1)" />
         <item itemvalue="Application.EventLogDetailHandler" />
-        <item itemvalue="JUnit.ReportDataTest.doAnalysis" />
       </list>
     </recent_temporary>
   </component>
@@ -296,14 +302,7 @@
       <workItem from="1702907739901" duration="8000" />
       <workItem from="1702912085954" duration="1130000" />
       <workItem from="1703143750330" duration="13034000" />
-      <workItem from="1703416754961" duration="495000" />
-    </task>
-    <task id="LOCAL-00031" summary="feat: 初始化元数据管理">
-      <created>1693906330977</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1693906330977</updated>
+      <workItem from="1703416754961" duration="3453000" />
     </task>
     <task id="LOCAL-00032" summary="feat: 更新加锁逻辑">
       <created>1693963436477</created>
@@ -641,7 +640,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703417191310</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="feat: 预替换stress-test为data-provider模块">
+      <created>1703417306904</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1703417306904</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -683,7 +689,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: 更新prometheus" />
     <MESSAGE value="feat: 优化大批量下插入速度" />
     <MESSAGE value="feat: 增加处理where条件" />
     <MESSAGE value="feat: 处理and逻辑" />
@@ -708,7 +713,8 @@
     <MESSAGE value="feat: 更新metaEventHandler的flush" />
     <MESSAGE value="feat: 迁移SinkServer里的离线数据任务到Flink Job" />
     <MESSAGE value="feat: 增加留存分析处理" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加留存分析处理" />
+    <MESSAGE value="feat: 预替换stress-test为data-provider模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 预替换stress-test为data-provider模块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -732,6 +738,16 @@
           <url>file://$PROJECT_DIR$/sink-server/src/main/java/com/report/sink/handler/event/EventLogDetailHandler.java</url>
           <line>102</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/helper/DorisHelper.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin-server/src/main/java/com/admin/server/handler/event/RetentionAnalysisHandler.java</url>
+          <line>114</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
