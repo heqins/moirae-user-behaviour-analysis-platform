@@ -4,8 +4,8 @@ import com.admin.server.helper.DorisHelper;
 import com.admin.server.model.bo.App;
 import com.admin.server.model.dto.EventAnalysisResultDto;
 import com.admin.server.model.dto.EventCountDto;
+import com.admin.server.model.dto.RetentionAnalysisResultDto;
 import com.admin.server.service.IAppService;
-import com.admin.server.service.IMetaEventService;
 import com.api.common.model.param.admin.AnalysisParam;
 import com.api.common.model.param.admin.reportData.GetEventCountParam;
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,7 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -79,6 +82,11 @@ public class EventCountHandler implements AnalysisHandler{
         }
 
         return result;
+    }
+
+    @Override
+    public RetentionAnalysisResultDto executeRetentionAnalysis(AnalysisParam param) {
+        return null;
     }
 
     private void fillCountMap(Map<String, Map<String, Long>> countMap, List<Map<String, Object>> mapList, String type) {

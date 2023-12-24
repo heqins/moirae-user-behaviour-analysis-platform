@@ -69,6 +69,10 @@ public class Parameters {
 
   public static final Param<String> OFFLINE_LOG_GROUP_ID = Param.string("offline-log-dev", "offlineLogDev");
 
+  public static final Param<String> OFFLINE_LOG_MOBILE_RECOMMEND_LOG_CSV_PATH_TEST = Param.string("offline-log-dev", "");
+
+  public static final Param<String> OFFLINE_LOG_MOBILE_RECOMMEND_LOG_TEST = Param.string("offline-log-dev", "offlineLogDev");
+
   // Socket
   public static final Param<Integer> SOCKET_PORT = Param.integer("pubsub-rules-export", 9999);
 

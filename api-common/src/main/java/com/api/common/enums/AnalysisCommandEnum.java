@@ -6,6 +6,8 @@ public enum AnalysisCommandEnum {
 
     EVENT_COUNT_COMMAND("eventCountHandler"),
 
+    EVENT_RETENTION_COMMAND("retentionAnalysisHandler"),
+
     ;
 
     private String value;

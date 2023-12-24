@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class SqlUtil {
         return Pair.of(DATE_RANGE_SQL, sqlArgs);
     }
 
-    public static Pair<String, List<String>> getAggregation(int index, AnalysisParam analysisParam, List<String> sqlArgs, String sql) {
+    public static Pair<String, List<String>> getEventAggregation(int index, AnalysisParam analysisParam, List<String> sqlArgs, String sql) {
         AnalysisAggregationParam agg = analysisParam.getAggregations().get(index);
         Pair<String, List<String>> eventSqlArgsPair = getEventAggSql(agg);
 
@@ -209,5 +210,70 @@ public class SqlUtil {
         }
 
         return Pair.of("", "");
+    }
+
+    public static Pair<String, List<String>> getRetentionSqlByDate(String date, AnalysisParam param) {
+        List<String> allArgsList = new ArrayList<>();
+        StringBuilder retentionSql = new StringBuilder();
+
+        List<String> sumArrList = new ArrayList<>();
+        List<String> uiArrList = new ArrayList<>();
+
+        LocalDate startDate = LocalDate.parse(date);
+
+        for (int i = 0; i < param.getWindowTime(); i++) {
+            LocalDate now = startDate.plusDays(1);
+
+            sumArrList.add(String.format("SUM(r[%s]", i+3));
+            uiArrList.add(String.format("COLLECT_SET(IF(r[%s]=1, unique_id, NULL))", i+3));
+
+            retentionSql.append(" event_name ='").append(param.getAggregations().get(1).getEventName()).append("'").append(" and event_date = '").append(now.toString()).append("'");
+
+            if (i < param.getWindowTime() - 1) {
+                retentionSql.append(",");
+            }
+
+            // if len(this.req.ZhibiaoArr[1].Relation.Filts) > 0 {
+            //			retentionSql = retentionSql + " and "
+            //			sql, args, _, err = utils.GetWhereSql(this.req.ZhibiaoArr[1].Relation)
+            //
+            //			if err != nil {
+            //				logs.Logger.Error("err", zap.Error(err))
+            //				return
+            //			}
+            //
+            //			allArgs = append(allArgs, args...)
+            //			retentionSql = retentionSql + sql
+            //		}
+        }
+
+        String eventWhereSql = "(event_name in (?, ?))";
+
+        Pair<String, List<String>> whereFilterPair = getWhereSql(param.getWhereFilter());
+        String whereSql = "(1=1)";
+
+        allArgsList.add(param.getAggregations().get(0).getEventName());
+        allArgsList.add(param.getAggregations().get(1).getEventName());
+
+        if (whereFilterPair != null) {
+            whereSql = whereFilterPair.getKey();
+            allArgsList.addAll(whereFilterPair.getValue());
+        }
+
+        // userFilter
+        String userFilterSql = "(1=1)";
+
+        String sql = "SELECT '" + date  + "' AS dates, " +
+                "ARRAY(SUM(r[1]), SUM(r[2])) as value, " +
+                "ARRAY_UNION(COLLECT_SET(if(r[1]=1, unique_id, null)), " +
+                "COLLECT_SET(if(r[2]=1, unique_id, null))) as ui " +
+                "FROM (" +
+                "SELECT unique_id, " +
+                "RETENTION(" + retentionSql + ") AS r " +
+                "FROM event_log_detail_" + param.getAppId() + " " +
+                "WHERE  " + eventWhereSql + " and " + whereSql + " and " + userFilterSql +
+                "GROUP BY unique_id) as external LIMIT 1000";
+
+        return Pair.of(sql, allArgsList);
     }
 }

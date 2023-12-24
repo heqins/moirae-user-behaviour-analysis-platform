@@ -15,6 +15,7 @@
         <module>flink-job</module>
         <module>admin-server</module>
         <module>init-datasource</module>
+        <module>data-provider</module>
     </modules>
 
     <parent>

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Schema(description = "事件查询参数")
+@Schema(description = "分析参数")
 public class AnalysisParam {
 
     @Schema(description = "应用id", required = true)
@@ -20,16 +20,19 @@ public class AnalysisParam {
     @Schema(description = "窗口类型", example = "按天")
     private String windowFormat;
 
+    @Schema(description = "窗口时间", example = "2")
+    private Integer windowTime;
+
     @Schema(description = "分析时间范围 第一个为起始，第二个为结束")
     private List<String> dateRange;
 
     @Schema(description = "分组字段")
     private List<String> groupBy;
 
-    @Schema(description = "事件属性过滤条件")
+    @Schema(description = "属性过滤条件")
     private AnalysisWhereFilterParam whereFilter;
 
-    @Schema(description = "事件分析聚合维度")
+    @Schema(description = "分析聚合维度")
     private List<AnalysisAggregationParam> aggregations;
 
 }

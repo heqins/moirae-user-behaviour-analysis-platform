@@ -148,11 +148,4 @@ public class DorisHelper {
 
         return new ArrayList<>();
     }
-
-    public static void main(String[] args) {
-        DorisHelper dorisHelper = new DorisHelper();
-        List<DbColumnValueDto> dbColumnValueDtos = dorisHelper.selectColumnValues("user_behaviour_analysis", "event_log", "");
-
-        System.out.println("test");
-    }
 }

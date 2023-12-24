@@ -33,7 +33,6 @@ public class TestController {
 
         jsonObject.set("event_name", "登出");
         jsonObject.set("event_type", "正式");
-        jsonObject.set("event_date", (LocalDate) LocalDate.now());
         jsonObject.set("event_time", System.currentTimeMillis());
         jsonObject.set("app_id", "2crdwf5q");
         jsonObject.set("app_version", "3.15.0");
