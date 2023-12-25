@@ -9,7 +9,7 @@ public enum AttributeDataTypeEnum {
 
     TINYINT("TINYINT", "java.lang.Byte", "小整型"),
 
-    LARGEINT("LARGEINT", "java.lang.Long", "长整型"),
+    LARGEINT("BIGINT(20)", "java.lang.Long", "长整型"),
 
     DATE("DATE", "java.util.Date", "日期"),
 
@@ -68,7 +68,7 @@ public enum AttributeDataTypeEnum {
                 type = "INT";
                 break;
             case "java.lang.Long":
-                type = "LARGEINT";
+                type = "BIGINT(20)";
                 break;
             case "java.lang.Byte":
                 type = "TINYINT";

@@ -2,6 +2,7 @@ package com.api.common.model.dto.sink;
 
 import cn.hutool.json.JSONObject;
 
+import java.util.Map;
 import java.util.Set;
 
 public class EventLogDTO {
@@ -25,12 +26,11 @@ public class EventLogDTO {
     private String eventType;
 
     private Integer status;
-
-    private Set<String> fields;
+    private Map<String, Object> fieldValueMap;
 
     public EventLogDTO(String appId, String eventName, Long eventTime, JSONObject jsonObject,
-                       String errorReason, String errorHandling, String eventType, Integer status,
-                       Set<String> fields, String dbName, String tableName) {
+                       String errorReason, String errorHandling, String eventType,
+                       Integer status, String dbName, String tableName) {
         this.appId = appId;
         this.eventName = eventName;
         this.eventTime = eventTime;
@@ -39,7 +39,6 @@ public class EventLogDTO {
         this.errorHandling = errorHandling;
         this.eventType = eventType;
         this.status = status;
-        this.fields = fields;
         this.tableName = tableName;
         this.dbName = dbName;
     }
@@ -110,15 +109,6 @@ public class EventLogDTO {
     public void setStatus(Integer status) {
         this.status = status;
     }
-
-    public Set<String> getFields() {
-        return fields;
-    }
-
-    public void setFields(Set<String> fields) {
-        this.fields = fields;
-    }
-
     public String getDbName() {
         return dbName;
     }
@@ -133,6 +123,14 @@ public class EventLogDTO {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public Map<String, Object> getFieldValueMap() {
+        return fieldValueMap;
+    }
+
+    public void setFieldValueMap(Map<String, Object> fieldValueMap) {
+        this.fieldValueMap = fieldValueMap;
     }
 
     @Override

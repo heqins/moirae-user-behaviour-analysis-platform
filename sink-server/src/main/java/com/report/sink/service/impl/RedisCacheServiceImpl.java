@@ -55,15 +55,9 @@ public class RedisCacheServiceImpl implements ICacheService {
     }
 
     @Override
-    public void removeColumnCache(String dbName, String tableName, List<String> fields) {
-        if (CollectionUtils.isEmpty(fields)) {
-            return;
-        }
-
+    public void removeColumnCache(String dbName, String tableName) {
         String cacheKey = RedisCacheConstants.getDorisColumnCacheKey(dbName, tableName);
-        fields.forEach(field -> {
-            redisHelper.deleteHashKey(cacheKey, field);
-        });
+        redisHelper.deleteKey(cacheKey);
     }
 
     @Override

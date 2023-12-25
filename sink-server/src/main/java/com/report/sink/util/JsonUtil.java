@@ -3,7 +3,9 @@ package com.report.sink.util;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class JsonUtil {
@@ -32,6 +34,33 @@ public class JsonUtil {
                 for (Object item : jsonArray) {
                     if (item instanceof JSONObject) {
                         traverse((JSONObject) item, fieldNames);
+                    }
+                }
+            }
+        }
+    }
+
+    public static Map<String, Object> getAllFieldsWithValues(JSONObject jsonObject) {
+        Map<String, Object> fieldsWithValues = new HashMap<>();
+        traverse(jsonObject, fieldsWithValues);
+        return fieldsWithValues;
+    }
+
+    private static void traverse(JSONObject jsonObject, Map<String, Object> fieldsWithValues) {
+        for (String key : jsonObject.keySet()) {
+            Object value = jsonObject.get(key);
+
+            // 将字段名和对应的值添加到 Map 中
+            fieldsWithValues.put(key, value);
+
+            // 判断当前字段是否是 JSONObject 或 JSONArray
+            if (value instanceof JSONObject) {
+                traverse((JSONObject) value, fieldsWithValues);
+            } else if (value instanceof JSONArray) {
+                JSONArray jsonArray = (JSONArray) value;
+                for (Object item : jsonArray) {
+                    if (item instanceof JSONObject) {
+                        traverse((JSONObject) item, fieldsWithValues);
                     }
                 }
             }

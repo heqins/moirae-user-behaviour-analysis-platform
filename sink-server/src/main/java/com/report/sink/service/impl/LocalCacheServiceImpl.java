@@ -32,8 +32,7 @@ public class LocalCacheServiceImpl implements ICacheService {
     }
 
     @Override
-    public void removeColumnCache(String dbName, String tableName, List<String> fields) {
-
+    public void removeColumnCache(String dbName, String tableName) {
     }
 
     @Override

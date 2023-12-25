@@ -1,6 +1,6 @@
 package com.data.provider.generator;
 
-public interface KafkaDataGenerator {
+public interface DataGenerator {
 
     void generateData();
 

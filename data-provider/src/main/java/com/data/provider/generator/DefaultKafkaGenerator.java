@@ -13,18 +13,19 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class DefaultKafkaGenerator {
+public class DefaultKafkaGenerator implements DataGenerator{
 
     private static final String KAFKA_BROKER = "localhost:9092";
     private static final String KAFKA_TOPIC = "log-etl-main";
 
-    private static final Integer RECORDS = 100000;
+    private static final Integer RECORDS = 1000 * 1000 * 100;
 
     private static final String APP_ID = "2crdwf5q";
 
     private static final Random random = new Random();
 
-    public static void main(String[] args) {
+    @Override
+    public void generateData() {
         // Set Kafka producer properties
         Properties props = new Properties();
         props.put("bootstrap.servers", KAFKA_BROKER);
@@ -85,7 +86,9 @@ public class DefaultKafkaGenerator {
         String randomFruit = fruits.get(random.nextInt(3));
 
         commonData.setAppVersion(version);
-        commonData.setEventName(randomString(8));
+
+        List<String> events = List.of("login", "click", "logout", "add_to_shopcart", "purchase");
+        commonData.setEventName(events.get(random.nextInt(events.size())));
         commonData.setOs(randomFruit);
         commonData.setUniqueId(randomString(12));
 

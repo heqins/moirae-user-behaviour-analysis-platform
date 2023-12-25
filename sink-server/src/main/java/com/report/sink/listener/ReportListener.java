@@ -1,5 +1,6 @@
 package com.report.sink.listener;
 
+import cn.hutool.core.date.StopWatch;
 import com.report.sink.handler.SinkHandler;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
@@ -26,8 +27,11 @@ public class ReportListener {
     @Resource
     private SinkHandler sinkHandler;
 
+    private final StopWatch stopWatch = new StopWatch();
+
     @KafkaListener(topics = "${kafka.topics.online-log}", containerFactory = "batchManualFactory")
     public void onlineReportMessage(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+        stopWatch.start();
         try {
             sinkHandler.run(records);
 
@@ -35,6 +39,8 @@ public class ReportListener {
         }catch (Exception e) {
             logger.error("onlineReportMessage error", e);
         }
+        stopWatch.stop();
+        logger.info("消费执行效率 个数:{} 处理时间:{}ms", records.size(), stopWatch.getLastTaskTimeMillis());
 
         acknowledgment.acknowledge();
     }

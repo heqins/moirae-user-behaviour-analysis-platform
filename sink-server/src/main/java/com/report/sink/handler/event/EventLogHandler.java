@@ -19,7 +19,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -44,7 +46,7 @@ public class EventLogHandler implements EventsHandler{
 
     private final Integer jsonLengthLimit = 1024;
 
-    private final Long flushIntervalMillSeconds = 1000L;
+    private final Long flushIntervalMillSeconds = 100L;
 
     private final DataSource dataSource;
 
@@ -58,7 +60,7 @@ public class EventLogHandler implements EventsHandler{
     public void init() {
         ThreadFactory threadFactory = ThreadFactoryBuilder
                 .create()
-                .setNamePrefix("report-data-doris")
+                .setNamePrefix("event-log-handler-thread-pool")
                 .setUncaughtExceptionHandler((value, ex) -> {logger.error("");})
                 .build();
 
@@ -82,10 +84,17 @@ public class EventLogHandler implements EventsHandler{
         EventLogDTO eventLog = new EventLogDTO();
         eventLog.setEventType("正式");
         eventLog.setStatus(status);
+        eventLog.setJsonObject(jsonObject);
 
         // dataJson.substring(0, Math.min(dataJson.length(), jsonLengthLimit))
-        eventLog.setJsonObject(jsonObject);
-        Object tsObj = JsonUtil.getNestedFieldValueRecursive(jsonObject, "ts");
+
+        Map<String, Object> fieldValueMap =JsonUtil.getAllFieldsWithValues(jsonObject);
+        if (fieldValueMap == null) {
+            return null;
+        }
+
+        eventLog.setFieldValueMap(fieldValueMap);
+        Object tsObj = fieldValueMap.getOrDefault("ts", 0L);
         if (tsObj == null) {
             logger.warn("EventLogHandler");
             return null;
@@ -94,10 +103,6 @@ public class EventLogHandler implements EventsHandler{
         eventLog.setEventTime((Long) tsObj);
         eventLog.setErrorHandling(errorHandling);
         eventLog.setErrorReason(errorReason);
-
-        Set<String> fieldNames = JsonUtil.getAllFieldNames(jsonObject);
-        eventLog.setFields(fieldNames);
-
         return eventLog;
     }
 
@@ -108,9 +113,9 @@ public class EventLogHandler implements EventsHandler{
     }
 
     public void addEvent(EventLogDTO eventLog) {
-        if (this.buffers.size() >= this.bufferSize) {
-            this.flush();
-        }
+//        if (this.buffers.size() >= this.bufferSize) {
+//            this.flush();
+//        }
 
         if (eventLog != null) {
             this.buffers.offer(eventLog);

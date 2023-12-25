@@ -2,18 +2,14 @@ package com.report.sink.handler.event;
 
 import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.error.SinkErrorException;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.report.sink.enums.EventFailReasonEnum;
 import com.report.sink.handler.SinkHandler;
 import com.report.sink.handler.meta.MetaEventHandler;
@@ -26,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -49,6 +46,8 @@ public class EventLogDetailHandler implements EventsHandler{
     private ScheduledExecutorService scheduledExecutorService;
 
     private final ReentrantLock lock = new ReentrantLock();
+
+    private StopWatch stopWatch = new StopWatch();
 
     @PostConstruct
     public void init() {
@@ -74,7 +73,7 @@ public class EventLogDetailHandler implements EventsHandler{
     private ICacheService redisCache;
 
     public void runSchedule() {
-        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 1000, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 100, TimeUnit.MILLISECONDS);
     }
 
     private void  alterTableColumn(EventLogDTO eventLogDTO) {
@@ -83,10 +82,9 @@ public class EventLogDetailHandler implements EventsHandler{
             throw new SinkErrorException(EventFailReasonEnum.KEY_FIELDS_MISSING.gerReason(), "app_id为空");
         }
 
-        JSONObject jsonObject = eventLogDTO.getJsonObject();
         List<TableColumnDTO> columns = dorisHelper.getTableColumnInfos(eventLogDTO.getDbName(), eventLogDTO.getTableName());
 
-        Set<String> jsonFields = eventLogDTO.getFields();
+        Set<String> jsonFields = eventLogDTO.getFieldValueMap().keySet();
         Set<String> existFields = new HashSet<>();
 
         if (!CollectionUtils.isEmpty(columns)) {
@@ -95,13 +93,16 @@ public class EventLogDetailHandler implements EventsHandler{
                     continue;
                 }
 
-                boolean checkFieldExist = JsonUtil.checkIfJsonFieldExist(jsonObject, columnDTO.getColumnName());
-                if (!checkFieldExist) {
+                if (!eventLogDTO.getFieldValueMap().containsKey(columnDTO.getColumnName())) {
                     continue;
                 }
 
                 String columnName = columnDTO.getColumnName();
-                Object objField = jsonObject.get(columnName);
+                Object objField = eventLogDTO.getFieldValueMap().get(columnName);
+                if (objField == null) {
+                    continue;
+                }
+
                 String objFieldType = objField.getClass().getCanonicalName();
 
                 // 比较表字段类型是否一致
@@ -116,10 +117,10 @@ public class EventLogDetailHandler implements EventsHandler{
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
-            dorisHelper.addTableColumn(eventLogDTO.getDbName(), eventLogDTO.getTableName(), jsonObject, newFieldKeys);
+            dorisHelper.addTableColumn(eventLogDTO, newFieldKeys);
 
             newFieldKeys.forEach(fieldKey -> {
-                MetaEventAttribute metaEventAttribute = getMetaEventAttributeFromJsonObj(jsonObject, fieldKey);
+                MetaEventAttribute metaEventAttribute = getMetaEventAttributeFromJsonObj(eventLogDTO, fieldKey);
                 if (metaEventAttribute == null) {
                     return;
                 }
@@ -129,12 +130,16 @@ public class EventLogDetailHandler implements EventsHandler{
         }
     }
 
-    private MetaEventAttribute getMetaEventAttributeFromJsonObj(JSONObject jsonObject, String fieldKey) {
-        if (jsonObject == null || StringUtils.isBlank(fieldKey)) {
+    private MetaEventAttribute getMetaEventAttributeFromJsonObj(EventLogDTO eventLogDTO, String fieldKey) {
+        if (eventLogDTO == null || StringUtils.isBlank(fieldKey)) {
             return null;
         }
 
-        Object fieldObj = JsonUtil.getNestedFieldValueRecursive(jsonObject, fieldKey);
+        Object fieldObj = eventLogDTO.getFieldValueMap().get(fieldKey);
+        if (fieldObj == null) {
+            return null;
+        }
+
         String className = fieldObj.getClass().getCanonicalName();
         String dataType = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
         if (dataType == null) {
@@ -142,8 +147,8 @@ public class EventLogDetailHandler implements EventsHandler{
         }
 
         MetaEventAttribute metaEventAttribute = new MetaEventAttribute();
-        String appId = jsonObject.getStr("app_id");
-        String eventName = jsonObject.getStr("event_name");
+        String appId = (String) eventLogDTO.getFieldValueMap().get("app_id");
+        String eventName = (String) eventLogDTO.getFieldValueMap().get("event_name");
 
         metaEventAttribute.setAppId(appId);
         metaEventAttribute.setEventName(eventName);
@@ -178,7 +183,7 @@ public class EventLogDetailHandler implements EventsHandler{
     }
 
     private boolean checkAttributeStatusValid(EventLogDTO eventLogDTO) {
-        Set<String> attributeSets = eventLogDTO.getFields();
+        Set<String> attributeSets = eventLogDTO.getFieldValueMap().keySet();
         if (CollectionUtils.isEmpty(attributeSets)) {
             return false;
         }
@@ -192,9 +197,9 @@ public class EventLogDetailHandler implements EventsHandler{
     }
 
     private void insertTableData(EventLogDTO eventLogDTO) {
-        if (this.buffers.size() >= this.capacity) {
-            this.flush();
-        }
+//        if (this.buffers.size() >= this.capacity) {
+//            this.flush();
+//        }
 
         if (eventLogDTO != null && eventLogDTO.getJsonObject() != null) {
             this.buffers.add(eventLogDTO);
@@ -244,8 +249,9 @@ public class EventLogDetailHandler implements EventsHandler{
                         continue;
                     }
 
-                    List<JSONObject> jsonDataList = entry.getValue().stream().map(EventLogDTO::getJsonObject).collect(Collectors.toList());
+                    List<Map<String, Object>> jsonDataList = entry.getValue().stream().map(EventLogDTO::getFieldValueMap).collect(Collectors.toList());
                     List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
+
 
                     StrJoiner strJoiner = new StrJoiner(", ");
                     StrJoiner paramJoiner = new StrJoiner(", ");
@@ -264,7 +270,13 @@ public class EventLogDetailHandler implements EventsHandler{
 
                     String insertSql = sb.toString();
 
+                    stopWatch.start();
+
                     dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
+
+                    stopWatch.stop();
+
+                    logger.info("name:{} 插入个数:{} 耗时:{}ms", Thread.currentThread().getName(), jsonDataList.size(), stopWatch.getLastTaskTimeMillis());
                 }
             } catch (Exception e) {
                 logger.error("EventLogDetailHandler flush error", e);

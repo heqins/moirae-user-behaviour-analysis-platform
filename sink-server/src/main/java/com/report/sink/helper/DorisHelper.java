@@ -1,10 +1,10 @@
 package com.report.sink.helper;
 
-import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.api.common.enums.AttributeDataTypeEnum;
+import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
-import com.report.sink.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,15 +136,11 @@ public class DorisHelper {
         return "";
     }
 
-    public void addTableColumn(String dbName, String tableName, JSONObject jsonObject, Set<String> jsonFields) {
+    public void addTableColumn(EventLogDTO eventLogDTO, Set<String> jsonFields) {
         List<String> alterQueries = new ArrayList<>(jsonFields.size());
         for (String jsonField: jsonFields) {
-            if (!jsonObject.containsKey(jsonField)) {
-                log.error("DorisHelper changeTableSchema column not include dbName:{} tableName:{} field:{}", dbName, tableName, jsonField);
-                continue;
-            }
-
-            Object obj = JsonUtil.getNestedFieldValueRecursive(jsonObject, jsonField);
+            // todo:
+            Object obj = eventLogDTO.getFieldValueMap().get(jsonField);
             if (obj == null) {
                 throw new IllegalStateException("DorisHelper changeTableSchema column obj is null");
             }
@@ -153,11 +149,11 @@ public class DorisHelper {
             String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {
-                log.error("DorisHelper type not found className:{}", className);
+//                log.warn("DorisHelper type not found className:{} field:{}", className, jsonField);
                 continue;
             }
 
-            String query = String.format(ALTER_ADD_COLUMN_SQL, dbName, tableName, jsonField, type);
+            String query = String.format(ALTER_ADD_COLUMN_SQL, eventLogDTO.getDbName(), eventLogDTO.getTableName(), jsonField, type);
             alterQueries.add(query);
         }
 
@@ -180,13 +176,11 @@ public class DorisHelper {
             }
         }
 
-        List<String> fields = new ArrayList<>(jsonFields);
-
-        localCacheService.removeColumnCache(dbName, tableName, fields);
-        redisCacheService.removeColumnCache(dbName, tableName, fields);
+        localCacheService.removeColumnCache(eventLogDTO.getDbName(), eventLogDTO.getTableName());
+        redisCacheService.removeColumnCache(eventLogDTO.getDbName(), eventLogDTO.getTableName());
     }
 
-    public void tableInsertData(String sql, List<TableColumnDTO> columnDTOList, List<JSONObject> jsonDataList) {
+    public void tableInsertData(String sql, List<TableColumnDTO> columnDTOList, List<Map<String, Object>> jsonDataList) {
         if (sql == null || jsonDataList == null) {
             return;
         }
@@ -201,7 +195,7 @@ public class DorisHelper {
         try {
             insertConnection.setAutoCommit(false);
             PreparedStatement statement = insertConnection.prepareStatement(sql);
-            for (JSONObject jsonObject: jsonDataList) {
+            for (Map<String, Object> jsonObject: jsonDataList) {
                 if (columnDTOList.size() < jsonObject.size()) {
                     log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
                     return;
@@ -214,10 +208,17 @@ public class DorisHelper {
                     Object value = jsonObject.get(columnName);
                     if (value == null) {
                         if (!columnDTOList.get(i).getNullable()) {
+                            log.warn("DorisHelper tableInsertData column is not nullable but yet null jsonObject:{}", JSONUtil.toJsonStr(jsonObject));
                             return;
                         }
 
                         switch (columnType) {
+                            case "java.lang.Byte":
+                                value = 0;
+                                break;
+                            case "java.lang.Short":
+                                value = 0;
+                                break;
                             case "java.lang.String":
                                 value = "";
                                 break;

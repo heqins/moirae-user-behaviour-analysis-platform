@@ -40,7 +40,7 @@ public class MetaEventHandler implements EventsHandler {
 
     private final int capacity = 100;
 
-    private final Long flushIntervalMillSeconds = 1000L;
+    private final Long flushIntervalMillSeconds = 100L;
 
     @PostConstruct
     public void init() {
@@ -88,9 +88,9 @@ public class MetaEventHandler implements EventsHandler {
             return;
         }
 
-        if (metaEventAttributeBuffers.size() >= this.capacity) {
-            flush();
-        }
+//        if (metaEventAttributeBuffers.size() >= this.capacity) {
+//            flush();
+//        }
 
         metaEventAttributeBuffers.add(metaAttributeEvent);
     }

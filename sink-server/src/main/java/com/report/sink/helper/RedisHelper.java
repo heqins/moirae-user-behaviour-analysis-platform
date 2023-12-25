@@ -44,7 +44,7 @@ public class RedisHelper {
             throw new IllegalArgumentException("key or hashKey is null");
         }
 
-        redisTemplate.opsForHash().put(key, hashValue, hashValue);
+        redisTemplate.opsForHash().put(key, hashKey, hashValue);
     }
 
     public void deleteHashKey(String key, String hashKey) {
@@ -56,5 +56,9 @@ public class RedisHelper {
     }
     public List<String> multiGet(List<String> keyList) {
         return redisTemplate.opsForValue().multiGet(keyList);
+    }
+
+    public void deleteKey(String key) {
+        redisTemplate.delete(key);
     }
 }
