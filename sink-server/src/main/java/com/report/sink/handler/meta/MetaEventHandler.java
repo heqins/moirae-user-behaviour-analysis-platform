@@ -38,7 +38,7 @@ public class MetaEventHandler implements EventsHandler {
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final int capacity = 100;
+    private final int capacity = 3000;
 
     private final Long flushIntervalMillSeconds = 100L;
 

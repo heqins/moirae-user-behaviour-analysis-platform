@@ -16,18 +16,18 @@ public class RedisCacheConstants {
     }
 
     public static String getMetaEventCacheKey(String appId, String eventName) {
-        return generateKey("metaEvent", appId, eventName);
+        return generateKey("meta-event", appId, eventName);
     }
 
     public static String getMetaEventAttributeCacheKey(String appId, String eventName, String attributeName) {
-        return generateKey("metaEventAttribute", appId, eventName, attributeName);
+        return generateKey("meta-event-attribute", appId, eventName, attributeName);
     }
 
     public static String getAppCacheKey(String appId) {
-        return generateKey("app", appId);
+        return generateKey("app-v2", appId);
     }
 
     public static String getDorisColumnCacheKey(String dbName, String tableName) {
-        return generateKey("dorisColumn", dbName, tableName);
+        return generateKey("doris-column", dbName, tableName);
     }
 }

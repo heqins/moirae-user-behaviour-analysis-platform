@@ -101,10 +101,8 @@ public class DorisHelper {
                 "    \"dynamic_partition.buckets\" = \"32\",\n" +
                 "    \"replication_num\" = \"1\"\n" +
                 ");", dbName, tableName);
-
-        try {
+        try (Connection connection = dataSource.getConnection()) {
             // 创建数据库连接
-            Connection connection = dataSource.getConnection();
 
             // 创建 Statement 对象
             Statement statement = connection.createStatement();
@@ -114,7 +112,6 @@ public class DorisHelper {
 
             // 关闭 Statement 和连接
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             throw new IllegalStateException("表创建异常:" + e.getMessage());
         }

@@ -1,11 +1,26 @@
 package com.report.sink.helper;
 
+import cn.hutool.core.codec.Base64;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.model.dto.sink.EventLogDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
 import com.report.sink.service.ICacheService;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.tomcat.jni.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,6 +28,10 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,6 +61,170 @@ public class DorisHelper {
     @Resource(name = "dorisDataSource")
     private DataSource dataSource;
 
+    /**
+     * 构建HTTP客户端
+     */
+    private final static HttpClientBuilder httpClientBuilder = HttpClients
+            .custom()
+            .setRedirectStrategy(new DefaultRedirectStrategy() {
+                @Override
+                protected boolean isRedirectable(String method) {
+                    // If the connection target is FE, you need to deal with 307 redirect。
+                    return true;
+                }
+            });
+
+    /**
+     * FE IP Address
+     */
+    private final static String HOST = "localhost";
+    /**
+     * FE port
+     */
+    private final static int PORT = 8030;
+    /**
+     * db name
+     */
+    private final static String DATABASE = "user_behaviour_analysis";
+    /**
+     * table name
+     */
+    private final static String TABLE = "event_log_detail_2crdwf5q";
+
+    /**
+     * user name
+     */
+    private final static String USER = "root";
+    /**
+     * user password
+     */
+    private final static String PASSWD = "";
+
+    /**
+     * The path of the local file to be imported
+     */
+    private final static String LOAD_FILE_NAME = "c:/es/1.csv";
+
+    /**
+     * http path of stream load task submission
+     */
+    private final static String loadUrl = String.format("http://%s:%s/api/%s/%s/_stream_load",
+            HOST, PORT, DATABASE, TABLE);
+
+    /**
+     * 文件数据导入
+     * @param file
+     * @throws Exception
+     */
+    public void load(File file) throws Exception {
+        try (CloseableHttpClient client = httpClientBuilder.build()) {
+            HttpPut put = new HttpPut(loadUrl);
+            put.removeHeaders(HttpHeaders.CONTENT_LENGTH);
+            put.removeHeaders(HttpHeaders.TRANSFER_ENCODING);
+            put.setHeader(HttpHeaders.EXPECT, "100-continue");
+            put.setHeader(HttpHeaders.AUTHORIZATION, basicAuthHeader(USER, PASSWD));
+
+            // You can set stream load related properties in the Header, here we set label and column_separator.
+            put.setHeader("label", UUID.randomUUID().toString());
+            put.setHeader("column_separator", ",");
+
+            // Set up the import file. Here you can also use StringEntity to transfer arbitrary data.
+            FileEntity entity = new FileEntity(file);
+            put.setEntity(entity);
+
+            try (CloseableHttpResponse response = client.execute(put)) {
+                String loadResult = "";
+                if (response.getEntity() != null) {
+                    loadResult = EntityUtils.toString(response.getEntity());
+                }
+
+                final int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode != 200) {
+                    throw new IOException(String.format("Stream load failed. status: %s load result: %s", statusCode, loadResult));
+                }
+                System.out.println("Get load result: " + loadResult);
+            }
+        }
+    }
+
+    /**
+     * 封装认证信息
+     * @param username
+     * @param password
+     * @return
+     */
+    private String basicAuthHeader(String username, String password) {
+        final String tobeEncode = username + ":" + password;
+        return "Basic " +  Base64.encode(tobeEncode.getBytes(StandardCharsets.UTF_8));
+    }
+
+    /**
+     * JSON格式的数据导入
+     * @param jsonData
+     * @throws Exception
+     */
+    public void loadJson(String jsonData) throws Exception {
+        try (CloseableHttpClient client = httpClientBuilder.build()) {
+            HttpPut put = new HttpPut(loadUrl);
+            put.removeHeaders(HttpHeaders.CONTENT_LENGTH);
+            put.removeHeaders(HttpHeaders.TRANSFER_ENCODING);
+            put.setHeader(HttpHeaders.EXPECT, "100-continue");
+            put.setHeader(HttpHeaders.AUTHORIZATION, basicAuthHeader(USER, PASSWD));
+
+            // You can set stream load related properties in the Header, here we set label and column_separator.
+            put.setHeader("label", UUID.randomUUID().toString());
+            put.setHeader("column_separator", ",");
+            put.setHeader("format", "json");
+
+            // Set up the import file. Here you can also use StringEntity to transfer arbitrary data.
+            StringEntity entity = new StringEntity(jsonData);
+            put.setEntity(entity);
+
+            try (CloseableHttpResponse response = client.execute(put)) {
+                String loadResult = "";
+                if (response.getEntity() != null) {
+                    loadResult = EntityUtils.toString(response.getEntity());
+                }
+
+                final int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode != 200) {
+                    throw new IOException(String.format("Stream load failed. status: %s load result: %s", statusCode, loadResult));
+                }
+                System.out.println("Get load result: " + loadResult);
+            }catch (Exception e) {
+                System.out.println("test");
+            }
+        }
+    }
+
+    public static void convertJsonToCsv(String jsonString, String outputCsvFile, int numRecords) {
+        try (FileWriter fileWriter = new FileWriter(outputCsvFile);
+             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT.withHeader("eventName", "os", "uniqueId", "appId", "appVersion", "actionId", "item", "itemType", "errorCode", "msg", "ts"))) {
+
+            for (int i = 0; i < numRecords; i++) {
+                JSONObject jsonObject = JSONUtil.parseObj(jsonString);
+                String eventName = jsonObject.getJSONObject("common").getStr("eventName");
+                String os = jsonObject.getJSONObject("common").getStr("os");
+                String uniqueId = jsonObject.getJSONObject("common").getStr("uniqueId");
+                String appId = jsonObject.getJSONObject("common").getStr("appId");
+                String appVersion = jsonObject.getJSONObject("common").getStr("appVersion");
+                String actionId = jsonObject.getJSONObject("action").getStr("actionId");
+                String item = jsonObject.getJSONObject("action").getStr("item");
+                String itemType = jsonObject.getJSONObject("action").getStr("itemType");
+                String errorCode = jsonObject.getJSONObject("errorData").getStr("errorCode");
+                String msg = jsonObject.getJSONObject("errorData").getStr("msg");
+                long ts = jsonObject.getLong("ts");
+
+                csvPrinter.printRecord(eventName, os, uniqueId, appId, appVersion, actionId, item, itemType, errorCode, msg, ts);
+            }
+
+            System.out.println("CSV file generated successfully!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<TableColumnDTO> getTableColumnInfos(String dbName, String tableName) {
         if (StringUtils.isBlank(dbName) || StringUtils.isBlank(tableName)) {
             return null;
@@ -59,6 +242,8 @@ public class DorisHelper {
 
         columns = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+
             try (PreparedStatement statement = connection.prepareStatement(COLUMN_QUERY_SQL)) {
                 statement.setString(1, dbName);
                 statement.setString(2, tableName);
@@ -84,6 +269,10 @@ public class DorisHelper {
                     columns.add(columnDTO);
                 }
             } catch (SQLException e) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                }
                 log.error("DorisHelper getTableColumnInfos sql error", e);
             }
         }catch (SQLException e) {
@@ -149,7 +338,7 @@ public class DorisHelper {
             String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {
-//                log.warn("DorisHelper type not found className:{} field:{}", className, jsonField);
+                log.warn("DorisHelper type not found className:{} field:{}", className, jsonField);
                 continue;
             }
 
@@ -166,13 +355,13 @@ public class DorisHelper {
                         statement.execute();
                     } catch (SQLException e) {
                         connection.rollback();
-                        log.error("DorisHelper changeTableSchema execute error", e);
+                        log.warn("DorisHelper changeTableSchema execute error msg:{}", e.getMessage());
                     }
                 }
 
                 connection.commit();
             }catch (SQLException e) {
-                log.error("DorisHelper changeTableSchema alter column commit error", e);
+                log.warn("DorisHelper changeTableSchema alter column commit error msg:{}", e.getMessage());
             }
         }
 

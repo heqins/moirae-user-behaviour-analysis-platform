@@ -91,6 +91,8 @@ public class RedisCacheServiceImpl implements ICacheService {
             return null;
         }
 
+        boolean typeJSON = JSONUtil.isTypeJSON(value);
+
         return JSONUtil.toBean(value, AppDTO.class);
     }
 

@@ -2,8 +2,6 @@ package com.report.sink.handler.event;
 
 import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.api.common.enums.AttributeDataTypeEnum;
 import com.api.common.enums.AttributeTypeEnum;
 import com.api.common.error.SinkErrorException;
@@ -16,13 +14,11 @@ import com.report.sink.handler.meta.MetaEventHandler;
 import com.report.sink.helper.DorisHelper;
 import com.report.sink.model.bo.MetaEventAttribute;
 import com.report.sink.service.ICacheService;
-import com.report.sink.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StopWatch;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -41,13 +37,11 @@ public class EventLogDetailHandler implements EventsHandler{
 
     private ConcurrentLinkedQueue<EventLogDTO> buffers;
 
-    private final int capacity = 100;
+    private final int capacity = 3000;
 
     private ScheduledExecutorService scheduledExecutorService;
 
     private final ReentrantLock lock = new ReentrantLock();
-
-    private StopWatch stopWatch = new StopWatch();
 
     @PostConstruct
     public void init() {
@@ -113,7 +107,6 @@ public class EventLogDetailHandler implements EventsHandler{
 
             existFields = columns.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toSet());
         }
-
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
@@ -270,13 +263,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
                     String insertSql = sb.toString();
 
-                    stopWatch.start();
-
                     dorisHelper.tableInsertData(insertSql, tableColumnInfos, jsonDataList);
-
-                    stopWatch.stop();
-
-                    logger.info("name:{} 插入个数:{} 耗时:{}ms", Thread.currentThread().getName(), jsonDataList.size(), stopWatch.getLastTaskTimeMillis());
                 }
             } catch (Exception e) {
                 logger.error("EventLogDetailHandler flush error", e);
@@ -287,11 +274,7 @@ public class EventLogDetailHandler implements EventsHandler{
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String jsonString = "{\"common\":{\"eventName\":\"PpsK4fRP\",\"os\":\"win\",\"uniqueId\":\"Relxgv4tDBlF\",\"appId\":\"2crdwf5q\",\"appVersion\":\"9.8.1\"},\"action\":{\"actionId\":\"CKLHt0a72g\",\"item\":\"582\",\"itemType\":\"DPrafvrx\"},\"errorData\":{\"errorCode\":\"200\",\"msg\":\"正常\"},\"ts\":1703425918105}";
-        JSONObject jsonObject = JSONUtil.parseObj(jsonString);
-
-        Set<String> fieldNames = JsonUtil.getAllFieldNames(jsonObject);
-        System.out.println("test");
     }
 }

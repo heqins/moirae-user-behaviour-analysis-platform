@@ -1,6 +1,5 @@
 package com.report.sink.handler;
 
-import cn.hutool.core.date.StopWatch;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.api.common.constant.SinkConstants;
@@ -19,7 +18,6 @@ import com.report.sink.properties.DataSourceProperty;
 import com.report.sink.service.IAppService;
 import com.report.sink.service.IMetaEventService;
 import com.report.sink.util.JsonUtil;
-import io.swagger.v3.core.util.Json;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;

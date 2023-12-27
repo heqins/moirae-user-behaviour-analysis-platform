@@ -42,7 +42,7 @@ public class EventLogHandler implements EventsHandler{
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final Integer bufferSize = 100;
+    private final Integer bufferSize = 3000;
 
     private final Integer jsonLengthLimit = 1024;
 

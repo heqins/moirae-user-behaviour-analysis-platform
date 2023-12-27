@@ -60,7 +60,7 @@ spring:
         session.timeout.ms: 15000
       group-id: dev-group
       auto-offset-reset: latest
-      max-poll-records: 100
+      max-poll-records: 500
     listener:
       ack-mode: manual_immediate
 
