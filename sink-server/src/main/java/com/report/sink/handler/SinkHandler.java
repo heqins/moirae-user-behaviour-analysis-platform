@@ -124,7 +124,7 @@ public class SinkHandler {
                 eventLog.setStatus(EventStatusEnum.FAIL.getStatus());
             }
 
-            eventLogHandler.addEvent(eventLog);
+            //eventLogHandler.addEvent(eventLog);
         }
     }
 

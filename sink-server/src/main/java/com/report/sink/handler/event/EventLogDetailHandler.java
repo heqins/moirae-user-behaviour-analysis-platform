@@ -37,7 +37,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
     private ConcurrentLinkedQueue<EventLogDTO> buffers;
 
-    private final int capacity = 3000;
+    private final int capacity = 1000;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -67,7 +67,7 @@ public class EventLogDetailHandler implements EventsHandler{
     private ICacheService redisCache;
 
     public void runSchedule() {
-        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 100, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(this::flush, 1000, 200, TimeUnit.MILLISECONDS);
     }
 
     private void  alterTableColumn(EventLogDTO eventLogDTO) {
@@ -107,6 +107,7 @@ public class EventLogDetailHandler implements EventsHandler{
 
             existFields = columns.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toSet());
         }
+
         // 比较上报数据和已有的字段，如果有新的字段需要更改表结构
         Set<String> newFieldKeys = getNewFieldKey(jsonFields, existFields);
         if (!CollectionUtils.isEmpty(newFieldKeys)) {
@@ -244,7 +245,6 @@ public class EventLogDetailHandler implements EventsHandler{
 
                     List<Map<String, Object>> jsonDataList = entry.getValue().stream().map(EventLogDTO::getFieldValueMap).collect(Collectors.toList());
                     List<String> columnNames = tableColumnInfos.stream().map(TableColumnDTO::getColumnName).collect(Collectors.toList());
-
 
                     StrJoiner strJoiner = new StrJoiner(", ");
                     StrJoiner paramJoiner = new StrJoiner(", ");

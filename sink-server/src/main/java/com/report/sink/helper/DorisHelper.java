@@ -280,6 +280,7 @@ public class DorisHelper {
         }
 
         localCacheService.setColumnCache(dbName, tableName, columns);
+
         redisCacheService.setColumnCache(dbName, tableName, columns);
 
         return columns;
@@ -338,7 +339,7 @@ public class DorisHelper {
             String type = AttributeDataTypeEnum.getDefaultDataTypeByClass(className);
 
             if (StringUtils.isBlank(type)) {
-                log.warn("DorisHelper type not found className:{} field:{}", className, jsonField);
+                //log.warn("DorisHelper type not found className:{} field:{}", className, jsonField);
                 continue;
             }
 
@@ -374,84 +375,68 @@ public class DorisHelper {
             return;
         }
 
-        Connection insertConnection;
-        try {
-            insertConnection = dataSource.getConnection();
-        }catch (SQLException e) {
-            throw new IllegalStateException(e.getMessage());
-        }
-
-        try {
+        try (Connection insertConnection = dataSource.getConnection()) {
             insertConnection.setAutoCommit(false);
-            PreparedStatement statement = insertConnection.prepareStatement(sql);
-            for (Map<String, Object> jsonObject: jsonDataList) {
-                if (columnDTOList.size() < jsonObject.size()) {
-                    log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
-                    return;
-                }
-
-                for (int i = 0; i < columnDTOList.size(); i++) {
-                    String columnName = columnDTOList.get(i).getColumnName();
-                    String columnType = columnDTOList.get(i).getColumnType();
-
-                    Object value = jsonObject.get(columnName);
-                    if (value == null) {
-                        if (!columnDTOList.get(i).getNullable()) {
-                            log.warn("DorisHelper tableInsertData column is not nullable but yet null jsonObject:{}", JSONUtil.toJsonStr(jsonObject));
-                            return;
-                        }
-
-                        switch (columnType) {
-                            case "java.lang.Byte":
-                                value = 0;
-                                break;
-                            case "java.lang.Short":
-                                value = 0;
-                                break;
-                            case "java.lang.String":
-                                value = "";
-                                break;
-                            case "java.lang.Integer":
-                                value = 0;
-                                break;
-                            case "java.lang.Float":
-                                value = 0.0f;
-                                break;
-                            case "java.lang.Double":
-                                value = 0.0d;
-                                break;
-                            case "java.lang.Long":
-                                value = 0L;
-                                break;
-                            case "java.util.Date":
-                                value = new Date();
-                                break;
-                            default:
-                        }
+            try (PreparedStatement statement = insertConnection.prepareStatement(sql)) {
+                for (Map<String, Object> jsonObject: jsonDataList) {
+                    if (columnDTOList.size() < jsonObject.size()) {
+                        log.error("DorisHelper tableInsertData columnDTOList size < jsonObject size");
+                        return;
                     }
 
-                    statement.setObject(i + 1, value);
+                    for (int i = 0; i < columnDTOList.size(); i++) {
+                        String columnName = columnDTOList.get(i).getColumnName();
+                        String columnType = columnDTOList.get(i).getColumnType();
+
+                        Object value = jsonObject.get(columnName);
+                        if (value == null) {
+                            if (!columnDTOList.get(i).getNullable()) {
+                                log.warn("DorisHelper tableInsertData column is not nullable but yet null jsonObject:{}", JSONUtil.toJsonStr(jsonObject));
+                                return;
+                            }
+
+                            switch (columnType) {
+                                case "java.lang.Byte":
+                                    value = 0;
+                                    break;
+                                case "java.lang.Short":
+                                    value = 0;
+                                    break;
+                                case "java.lang.String":
+                                    value = "";
+                                    break;
+                                case "java.lang.Integer":
+                                    value = 0;
+                                    break;
+                                case "java.lang.Float":
+                                    value = 0.0f;
+                                    break;
+                                case "java.lang.Double":
+                                    value = 0.0d;
+                                    break;
+                                case "java.lang.Long":
+                                    value = 0L;
+                                    break;
+                                case "java.util.Date":
+                                    value = new Date();
+                                    break;
+                                default:
+                            }
+                        }
+
+                        statement.setObject(i + 1, value);
+                    }
+
+                    statement.addBatch();
                 }
 
-                statement.addBatch();
                 statement.executeBatch();
+                statement.clearBatch();
+                insertConnection.commit();
             }
-
-            insertConnection.commit();
-        }catch (SQLException e) {
-            try {
-                insertConnection.rollback();
-            }catch (SQLException e1) {
-            }
-
+        } catch (SQLException e) {
             log.error("DorisHelper tableInsertData insert execute error", e);
             throw new IllegalStateException("插入失败");
-        }finally {
-            try {
-                insertConnection.close();
-            }catch (SQLException e) {
-                log.error("DorisHelper tableInsertData insert close error", e);
-            }
         }
     }
 }

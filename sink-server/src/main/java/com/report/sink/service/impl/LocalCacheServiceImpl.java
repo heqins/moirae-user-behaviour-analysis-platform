@@ -1,5 +1,6 @@
 package com.report.sink.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.api.common.model.dto.admin.AppDTO;
 import com.api.common.model.dto.sink.MetaEventAttributeDTO;
 import com.api.common.model.dto.sink.TableColumnDTO;
@@ -18,17 +19,25 @@ import java.util.List;
 public class LocalCacheServiceImpl implements ICacheService {
 
     @Resource(name = "columnLocalCache")
-    private Cache<String, List<TableColumnDTO>> columnLocalCache;
+    private Cache<String, String> columnLocalCache;
 
     @Override
     public List<TableColumnDTO> getColumnCache(String dbName, String tableName) {
         String columnLocalCacheKey = LocalCacheConstants.getColumnLocalCacheKey(dbName, tableName);
-        return columnLocalCache.getIfPresent(columnLocalCacheKey);
+        String valueStr = columnLocalCache.getIfPresent(columnLocalCacheKey);
+        if (valueStr == null) {
+            return null;
+        }
+
+        List<TableColumnDTO> values = JSONUtil.toList(valueStr, TableColumnDTO.class);
+        return values;
     }
 
     @Override
     public void setColumnCache(String dbName, String tableName, List<TableColumnDTO> columns) {
-
+        String columnLocalCacheKey = LocalCacheConstants.getColumnLocalCacheKey(dbName, tableName);
+        String jsonStr = JSONUtil.toJsonStr(columns);
+        columnLocalCache.put(columnLocalCacheKey, jsonStr);
     }
 
     @Override

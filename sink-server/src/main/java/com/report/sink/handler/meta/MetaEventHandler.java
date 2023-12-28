@@ -68,9 +68,9 @@ public class MetaEventHandler implements EventsHandler {
             return;
         }
 
-        if (metaEventsBuffers.size() >= this.capacity) {
-            flush();
-        }
+//        if (metaEventsBuffers.size() >= this.capacity) {
+//            flush();
+//        }
 
         metaEventsBuffers.add(metaEvent);
     }

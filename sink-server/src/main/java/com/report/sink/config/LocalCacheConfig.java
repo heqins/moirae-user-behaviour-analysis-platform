@@ -15,7 +15,7 @@ import java.util.List;
 public class LocalCacheConfig {
 
     @Bean(name = "columnLocalCache")
-    public Cache<String, List<TableColumnDTO>> columnlocalCache() {
+    public Cache<String, String> columnlocalCache() {
         return Caffeine.newBuilder().maximumSize(1000).build();
     }
 
